@@ -7,9 +7,112 @@
 
 		<script src="./GraphPlotter.js"></script>
 		<script src="./Example.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+				<!-- JQuery -->
+		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+		<!-- Popper.js -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.js"></script>
+
+		<!-- Bootstrap -->
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.js"></script>
+
 	</head>
 
 	<body>
-		
+		<div class="wrapper">
+
+		<!-- Sidebar -->
+		<nav id="sidebar">
+
+		    <div id="dismiss">
+		        <i class="fas fa-arrow-left"></i>
+		    </div>
+
+		    <div class="sidebar-header">
+		        <h3>Bootstrap Sidebar</h3>
+		    </div>
+
+		    <ul class="list-unstyled components">
+		        <p>Dummy Heading</p>
+		        <li class="active">
+		            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
+		            <ul class="collapse list-unstyled" id="homeSubmenu">
+		                <li>
+		                    <a href="#">Home 1</a>
+		                </li>
+		                <li>
+		                    <a href="#">Home 2</a>
+		                </li>
+		                <li>
+		                    <a href="#">Home 3</a>
+		                </li>
+		            </ul>
+		        </li>
+		        <li>
+		            <a href="#">About</a>
+		            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
+		            <ul class="collapse list-unstyled" id="pageSubmenu">
+		                <li>
+		                    <a href="#">Page 1</a>
+		                </li>
+		                <li>
+		                    <a href="#">Page 2</a>
+		                </li>
+		                <li>
+		                    <a href="#">Page 3</a>
+		                </li>
+		            </ul>
+		        </li>
+		        <li>
+		            <a href="#">Portfolio</a>
+		        </li>
+		        <li>
+		            <a href="#">Contact</a>
+		        </li>
+		    </ul>
+		</nav>
+
+		<!-- Page Content -->
+		<div id="content">
+
+		    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+		        <div class="container-fluid">
+
+		            <button type="button" id="sidebarCollapse" class="btn btn-info">
+		                <i class="fas fa-align-left"></i>
+		                <span>Toggle Sidebar</span>
+		            </button>
+		        </div>
+		    </nav>
+		</div>
+
+		<!-- Dark Overlay element -->
+		<div class="overlay"></div>
+
+		<script type="text/javascript">
+			$(document).ready(function () {
+				$("#sidebar").mCustomScrollbar({
+		    		theme: "minimal"
+				});
+
+				$('#dismiss, .overlay').on('click', function () {
+		    		// hide sidebar
+		    		$('#sidebar').removeClass('active');
+		    		// hide overlay
+		    		$('.overlay').removeClass('active');
+				});
+
+				$('#sidebarCollapse').on('click', function () {
+		    		// open sidebar
+		    		$('#sidebar').addClass('active');
+		    		// fade in the overlay
+		    		$('.overlay').addClass('active');
+		    		$('.collapse.in').toggleClass('in');
+		    		$('a[aria-expanded=true]').attr('aria-expanded', 'false');
+				});	
+			});
+		</script>
 	</body>
 </html>
