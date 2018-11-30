@@ -1,7 +1,7 @@
 // Original code was written in portuguese
 var bubbles = [];
-var x = 500;
-var y = 420;
+var x = 1300;
+var y = 500;
 
 function setup(){
     createCanvas(1400, 700);
@@ -156,10 +156,10 @@ function draw(){
         x = 1300;
     }
     if (y <= 400){
-        y = 500
+        y = 400
     }
-    if (y >= 600){
-        y = 500
+    if (y >= 560){
+        y = 560
     }
 
     //SpongeBOB
