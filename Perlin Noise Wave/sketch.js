@@ -8,8 +8,7 @@ ofs =0;
 ofs_v =1;
 
 function draw() {
-    background('white');
-    translate(0,-200);
+    background('black');
     ofs+=ofs_v;
 
     if((ofs==offset) || (ofs==0))
@@ -18,10 +17,8 @@ function draw() {
     }
 
     strokeWeight(6);
-    drawLine(212+ofs,'#DB028C','#FFAE34');
-    drawLine(215+ofs,'#FF6A7E','#FFFA6A');
+    drawLine(212+ofs,to = color('#DB028C'),from = color('#FFAE34'));
     strokeWeight(1);
-    drawLine(210+ofs,100,100);
 
 }
 
@@ -31,17 +28,16 @@ var offset = 300;
 
 
 function drawLine(y0,to,from){
-
     fill(255,4);
     beginShape();
     curveVertex(-50,y0);
+
     for (var i =0 ; i<width/step+3;i++){
         var noiseVal = noise(i*noiseScale*(y0*0.06), frameCount*noiseScale);
-        var lerpC = lerp(from,to,noiseVal);
-        stroke(lerpC);
+        stroke(lerpColor(from,to,noiseVal));
         curveVertex(i*step-10,y0+noiseVal*offset);
-
     }
+
     curveVertex(width+10, height+200);
     curveVertex(0, height+210);
     curveVertex(0, height+210);
