@@ -1,118 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	    <meta name="description" content="Example of Graph Plotting in p5.js">
+
 		<title>Graph Plotting Example</title>
+
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
 
 		<script src="./GraphPlotter.js"></script>
 		<script src="./Example.js"></script>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		
+	    <!-- Bootstrap core CSS -->
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-				<!-- JQuery -->
+	    <!-- JQuery (Defined in head so it can be used below) -->
 		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+
+	    <!-- Custom styles for this template -->
+	    <link href="Example.css" rel="stylesheet">
+	</head>
+
+	<body>
+	    <div id="wrapper">
+
+	        <!-- Sidebar -->
+	        <div id="sidebar-wrapper">
+	            <ul class="sidebar-nav">
+	                <li class="sidebar-brand">
+	                    <a href="#">
+	                        Start Bootstrap
+	                    </a>
+	                </li>
+	                <li>
+	                    <a href="#">Dashboard</a>
+	                </li>
+	                <li>
+	                    <a href="#">Shortcuts</a>
+	                </li>
+	                <li>
+	                    <a href="#">Overview</a>
+	                </li>
+	                <li>
+	                    <a href="#">Events</a>
+	                </li>
+	                <li>
+	                    <a href="#">About</a>
+	                </li>
+	                <li>
+	                    <a href="#">Services</a>
+	                </li>
+	                <li>
+	                    <a href="#">Contact</a>
+	                </li>
+	            </ul>
+	        </div>
+	        <!-- /#sidebar-wrapper -->
+
+	        <!-- Page Content -->
+	        <div id="page-content-wrapper">
+	            <div class="container-fluid">
+	                <h1>Simple Sidebar</h1>
+	                <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+	                <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+	                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
+	            </div>
+	        </div>
+	        <!-- /#page-content-wrapper -->
+
+	    </div>
+	    <!-- /#wrapper -->
+
+	    <!-- Bootstrap core JavaScript -->
+	    <script src="vendor/jquery/jquery.min.js"></script>
+	    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	    <!-- Menu Toggle Script -->
+	    <script>
+	    $("#menu-toggle").click(function(e) {
+	        e.preventDefault();
+	        $("#wrapper").toggleClass("toggled");
+	    });
+	    </script>
 
 		<!-- Popper.js -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.js"></script>
 
 		<!-- Bootstrap -->
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.js"></script>
-
-	</head>
-
-	<body>
-		<div class="wrapper">
-
-		<!-- Sidebar -->
-		<nav id="sidebar">
-
-		    <div id="dismiss">
-		        <i class="fas fa-arrow-left"></i>
-		    </div>
-
-		    <div class="sidebar-header">
-		        <h3>Bootstrap Sidebar</h3>
-		    </div>
-
-		    <ul class="list-unstyled components">
-		        <p>Dummy Heading</p>
-		        <li class="active">
-		            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
-		            <ul class="collapse list-unstyled" id="homeSubmenu">
-		                <li>
-		                    <a href="#">Home 1</a>
-		                </li>
-		                <li>
-		                    <a href="#">Home 2</a>
-		                </li>
-		                <li>
-		                    <a href="#">Home 3</a>
-		                </li>
-		            </ul>
-		        </li>
-		        <li>
-		            <a href="#">About</a>
-		            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
-		            <ul class="collapse list-unstyled" id="pageSubmenu">
-		                <li>
-		                    <a href="#">Page 1</a>
-		                </li>
-		                <li>
-		                    <a href="#">Page 2</a>
-		                </li>
-		                <li>
-		                    <a href="#">Page 3</a>
-		                </li>
-		            </ul>
-		        </li>
-		        <li>
-		            <a href="#">Portfolio</a>
-		        </li>
-		        <li>
-		            <a href="#">Contact</a>
-		        </li>
-		    </ul>
-		</nav>
-
-		<!-- Page Content -->
-		<div id="content">
-
-		    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-		        <div class="container-fluid">
-
-		            <button type="button" id="sidebarCollapse" class="btn btn-info">
-		                <i class="fas fa-align-left"></i>
-		                <span>Toggle Sidebar</span>
-		            </button>
-		        </div>
-		    </nav>
-		</div>
-
-		<!-- Dark Overlay element -->
-		<div class="overlay"></div>
-
-		<script type="text/javascript">
-			$(document).ready(function () {
-				$("#sidebar").mCustomScrollbar({
-		    		theme: "minimal"
-				});
-
-				$('#dismiss, .overlay').on('click', function () {
-		    		// hide sidebar
-		    		$('#sidebar').removeClass('active');
-		    		// hide overlay
-		    		$('.overlay').removeClass('active');
-				});
-
-				$('#sidebarCollapse').on('click', function () {
-		    		// open sidebar
-		    		$('#sidebar').addClass('active');
-		    		// fade in the overlay
-		    		$('.overlay').addClass('active');
-		    		$('.collapse.in').toggleClass('in');
-		    		$('a[aria-expanded=true]').attr('aria-expanded', 'false');
-				});	
-			});
-		</script>
 	</body>
 </html>
