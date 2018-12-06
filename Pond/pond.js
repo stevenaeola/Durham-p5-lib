@@ -42,4 +42,10 @@ class Pond {
             this.fade(i, colour, frames)
         }
     }
+    
+    avgSpeed(factor) {
+        for (var i = 0; i < this.fish.length; i++) {
+            this.fish[i].setSpeed(factor);
+        }
+    }
 }

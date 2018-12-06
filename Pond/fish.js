@@ -11,6 +11,8 @@ class Fish {
         this.colour = c;
         this.framesToFade = 1;
         this.subtractingFactor = 1;
+        
+        this.avgSpeed = 1;
     }
 
     draw() {
@@ -61,5 +63,9 @@ class Fish {
         this.colour = newColour;
         this.framesToFade = framesToFade;
         this.subtractingFactor = frameCount / framesToFade;
+    }
+    
+    setSpeed(factor) {
+        this.vel.mult(factor);
     }
 }
