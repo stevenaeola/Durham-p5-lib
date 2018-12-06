@@ -5,26 +5,34 @@ class Fish {
         this.vel = createVector(random(-1, 1), random(-1, 1));
         /* Adds some individuality to the fish wiggle */
         this.s = random(-90, 90);
-        this.d = random(0.1, 0.3);
+        //New sizeMult, old sizeMult, initial frames, frames until fade done
+        this.size = random(0.1, 0.3);
+        this.d = [1, 1, 0, 1];
+        //New colour, old colour, initial frames, frames until fade done
+        this.c = [c, c, 0, 1];
+        //New alpha, old alpha, initial frames, frames until fade done
+        this.a = [20, 20, 0, 1]
+        //New speedMult, old speedMult, initial frames, frames until fade done        
+        this.v = [1, 1, 0, 1];
+    
+        this.lerpValue = function(lerpObj) {
+            return lerp(lerpObj[1], lerpObj[0], min((frameCount - lerpObj[2]) / lerpObj[3], 1));
+        }
         
-        this.oldColour = c;
-        this.colour = c;
-        this.alpha = 20;
-        this.framesToFade = 1;
-        this.subtractingFactor = 1;
-        
-        this.avgSpeed = 1;
+        this.lerpColourObj = function(c) {
+            return lerpColor(c[1], c[0], (frameCount - c[2]) / c[3]);
+        }
     }
 
     draw() {
-        this.col = lerpColor(this.oldColour, this.colour, frameCount / this.framesToFade - this.subtractingFactor);
-        stroke(this.col);
-        fill(red(this.col), green(this.col), blue(this.col), this.alpha);
+        var col = this.lerpColourObj(this.c);
+        stroke(col);
+        fill(red(col), green(col), blue(col), this.lerpValue(this.a));
 
-        this.loc.add(this.vel);
+        this.loc.add(p5.Vector.mult(this.vel, this.lerpValue(this.v)));
         push();
         translate(this.loc.x, this.loc.y);
-        scale(this.d);
+        scale(this.size * this.lerpValue(this.d));
         /* Get the direction and add 90 degrees. */
         rotate(this.vel.heading()-radians(90));
         beginShape();
@@ -58,15 +66,19 @@ class Fish {
         if (this.loc.y > height+100) this.loc.y = -100;
     }
     
-    // Fades the fish from the current colour to a new one in the given number of frames
-    fade(newColour, framesToFade) {
-        this.oldColour = this.colour;
-        this.colour = newColour;
-        this.framesToFade = framesToFade;
-        this.subtractingFactor = frameCount / framesToFade;
+    fadeColour(colour, frames) {
+        this.c = [colour, this.c[0], frameCount, frames];
     }
     
-    setSpeed(factor) {
-        this.vel.mult(factor);
+    fadeAlpha(alpha, frames) {
+        this.a = [alpha, this.a[0], frameCount, frames];
+    }
+    
+    fadeSize(sizeMult, frames) {
+        this.d = [sizeMult, this.d[0], frameCount, frames];
+    }
+    
+    fadeSpeed(speedMult, frames) {
+        this.v = [speedMult, this.v[0], frameCount, frames];
     }
 }

@@ -33,31 +33,27 @@ class Pond {
         }          
     }
     
-    fade(index, colour, frames) {
-        this.fish[index].fade(colour, frames);
-    }
-    
-    fadeAll(colour, frames) {
+    fadeColour(colour, frames) {
         for (var i = 0; i < this.fish.length; i++) {
-            this.fade(i, colour, frames)
+            this.fish[i].fadeColour(colour, frames);
         }
     }
     
-    avgSpeed(factor) {
+    fadeAlpha(alpha, frames) {
         for (var i = 0; i < this.fish.length; i++) {
-            this.fish[i].setSpeed(factor);
+            this.fish[i].fadeAlpha(alpha, frames);
         }
     }
     
-    avgSize(factor) {
+    fadeSize(sizeMult, frames) {
         for (var i = 0; i < this.fish.length; i++) {
-            this.fish[i].d = this.fish[i].d * factor;
+            this.fish[i].fadeSize(sizeMult, frames);
         }
     }
     
-    alpha(val) {
+    fadeSpeed(speedMult, frames) {
         for (var i = 0; i < this.fish.length; i++) {
-                this.fish[i].alpha = val;
+            this.fish[i].fadeSpeed(speedMult, frames);
         }
     }
 }
