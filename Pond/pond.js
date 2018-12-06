@@ -48,4 +48,16 @@ class Pond {
             this.fish[i].setSpeed(factor);
         }
     }
+    
+    avgSize(factor) {
+        for (var i = 0; i < this.fish.length; i++) {
+            this.fish[i].d = this.fish[i].d * factor;
+        }
+    }
+    
+    alpha(val) {
+        for (var i = 0; i < this.fish.length; i++) {
+                this.fish[i].alpha = val;
+        }
+    }
 }

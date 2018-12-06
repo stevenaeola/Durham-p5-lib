@@ -9,6 +9,7 @@ class Fish {
         
         this.oldColour = c;
         this.colour = c;
+        this.alpha = 20;
         this.framesToFade = 1;
         this.subtractingFactor = 1;
         
@@ -18,7 +19,7 @@ class Fish {
     draw() {
         this.col = lerpColor(this.oldColour, this.colour, frameCount / this.framesToFade - this.subtractingFactor);
         stroke(this.col);
-        fill(red(this.col), green(this.col), blue(this.col), 20);
+        fill(red(this.col), green(this.col), blue(this.col), this.alpha);
 
         this.loc.add(this.vel);
         push();
