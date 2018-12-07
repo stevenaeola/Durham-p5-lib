@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en_GB">
+	<head>
+		<meta charset="utf-8" />
+		<title>Noise Turbulance</title>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		
+		<script src="noise.js"></script>
+		<script src="example.js"></script>
+	</head>
+	<body>
+		<table>
+			<tr>
+				<td><button type="button" id="clear">Clear</button></td>
+				<td><button type="button" id="reset">Reset values</button></td>
+			</tr>
+			<tr>
+				<td>Number of Particles per frame: <input type="number" min="0" max="10000000" step="1" value="10" id="numParticlesPerFrame"></input></td>
+				<td>Particle life span (in frames): <input type="number" min="0" max="10000000" step="1" value="90" id="particleLifeSpan"></input></td>
+				<td>Particle decay (velocity scalar per frame): <input type="number" min="0" max="1" step="0.01" value="0.75" id="particleDecay"></input></td>
+			</tr>
+			<tr>
+				<td>Particle size scalar: <input type="number" min="0.01" max="100" step="0.01" value="1" id="particleSizeScalar"></input></td>
+				<td>Particle velocity scalar: <input type="number" min="0.01" max="100" step="0.01" value="1" id="particleVelScalar"></input></td>
+				<td>Particle minimum size ratio: <input type="number" min="0" max="1" step="0.001" value="0.05" id="particleMinSizeRatio"></input></td>
+				<td>Particle maximum size ratio: <input type="number" min="0" max="1" step="0.001" value="0.05" id="particleMaxSizeRatio"></input></td>
+			</tr>
+		</table>
+		<table id="hueTable"></table>
+	</body>
+</html>
