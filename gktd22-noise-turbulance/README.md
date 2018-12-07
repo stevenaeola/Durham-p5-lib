@@ -60,3 +60,15 @@ It has functions for updating and drawing the particles.
 
 ## `constructor(hModes = [[100, 220], [0, 55], [20, 100], [110, 180], [150, 255]], numParticlesPerFrame = 10, pLifeSpan = 90, pDecay = 0.75, pSizeScalar = 1, pVelScalar = 0.25, pMinSizeRatio = 0.05, pMaxSizeRatio = 0.5)`
 
+* hModes: An array of length-2 arrays containing minimum and maximum hues. Must have at least one element. You can switch modes with `changeHue(index=-1)`.
+* numParticlesPerFrame: When creating particles (by holding down left click), this defines how many particle objects to create per frame.
+
+The following arguments are all passed to the constructor of `Particle`:
+
+* pLifeSpan: The life span of the particles we create in frames.
+* pDecay: The velocity decay of the particles we create.
+* pSizeScalar: The size scalar of the particles we create.
+* pVelScalar: The velocity scalar of the particles we create.
+* pMinSizeRatio: The minimum size ratio of the particles we create.
+* pMaxSizeRatio: The maximum size ratio of the particles we create.
+
