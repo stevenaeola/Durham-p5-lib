@@ -3,6 +3,24 @@
 The example page in `index.html` includes sliders and buttons that allow you to change the parameters given below live.
 `example.js` only uses getter and setter functions from `noise.js` for it's sliders and buttons.
 
+## Example code
+
+```javascript
+var helper = new NoiseTurbulanceHelper();
+
+function setup() {
+	helper.setup(500, 500);
+}
+
+function draw() {
+	helper.draw();
+}
+
+function keyPressed() {
+	helper.keyPressed();
+}
+```
+
 # noise.js
 
 ## Class Particle
