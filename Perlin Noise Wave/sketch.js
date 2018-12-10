@@ -1,51 +1,83 @@
-var line1;
-var ofs =0;
-var ofs_v =1;
-var step = 80;
-var noiseScale = 0.02;
 var offset = 300;
+var noiseX;
+var noiseY;
+var noiseF;
+var ofs = 0.0;
+
+var sliderx;
+var slidery;
 
 function setup(){
-    createCanvas(windowWidth,windowHeight);
-    fill(240);
-    noStroke();
-		line1 = new Line(212+ofs,to = color('#DB028C'),from = color('#FFAE34'));
+  createCanvas(windowWidth,windowHeight);
+  stroke(255, 150);
+  strokeWeight(1.5);
+  noFill();
+  noiseX = random(200);
+  noiseY = random(200);
+  noiseF = random(200);
+  
+  sliderx = createSlider(0, width, 100);
+  sliderx.position(10, 10);
+  sliderx.style('width', '80px');
+  
+  slidery = createSlider(0, height, 100);
+  slidery.position(10, 30);
+  slidery.style('width', '80px');
+  
+  slidercolour1 = createSlider(0, 255, 100);
+  slidercolour1.position(10, 50);
+  slidercolour1.style('width', '80px');
+  
+  slidercolour2 = createSlider(0, 255, 100);
+  slidercolour2.position(10, 70);
+  slidercolour2.style('width', '80px');
 }
 
 
 function draw() {
 	background('black');
-	ofs+=ofs_v;
-	if((ofs==offset) || (ofs==0)){ofs_v=0-ofs_v;}
-	strokeWeight(5);
-	line1.drawLine();
-
+  ofs += 0.015;
+  var waveH = map(sliderx.value(), 0, width, 100, 500);
+  for (var h = slidery.value(); h < height + 100; h += 4) {
+		line = new Line (slidery.value(), sliderx.value(), noiseX, noiseY, noiseF, ofs, h, waveH,slidercolour1.value(), slidercolour2.value());
+		line.drawLine();
+	}
 }
 
-//Class to create Lines
+
 class Line {
-	constructor (y0, to, from){
-		this.y0=y0;
-		this.to=to;
-		this.from=from;
+	constructor (ysliderval, xsliderval, noiseX, noiseY, noiseF, ofs, h, waveH, colour1, colour2){
+		this.ysliderval=ysliderval;
+		this.xsliderval=xsliderval;
+		this.noiseX= noiseX;
+		this.noiseY= noiseY;
+		this.noiseF= noiseF;
+		this.ofs = ofs;
+		this.h = h;
+		this.waveH = waveH;
+		this.colour1 = colour1;
+		this.colour2 = colour2;
 	}
-	
 	
 	drawLine(){
-    fill(255,4);
     beginShape();
-    curveVertex(-50,this.y0);
+		stroke(this.colour1, this.colour2, map(this.h, this.ysliderval, height, 0, 255));
+											
+		var x = 0;
+    var y = this.h + this.waveH * noise(this.noiseX, this.noiseY + this.h * 0.01, this.noiseF + this.ofs);
+    curveVertex(x, y);
 
-    for (var i =0 ; i<width/step+3;i++){
-        var noiseVal = noise(i*noiseScale*(this.y0*0.06), frameCount*noiseScale);
-        stroke(lerpColor(this.from,this.to,noiseVal));
-        curveVertex(i*step-10,this.y0+noiseVal*offset);
+		for (var w = 0; w <= width; w += 20) {
+      x = w;
+      y = this.h + this.waveH * noise(this.noiseX + w * 0.001, this.noiseY + this.h * 0.01, this.noiseF + this.ofs)
+      curveVertex(x, y);
     }
-
-    curveVertex(width+10, height+200);
-    curveVertex(0, height+210);
-    curveVertex(0, height+210);
+		
+		x = width;
+    y = this.h + this.waveH * noise(this.noiseX + width, this.noiseY + this.h * 0.01, this.noiseF + this.ofs);
+    curveVertex(x, y);
     endShape();
-	}
 	
+	}
+
 }
