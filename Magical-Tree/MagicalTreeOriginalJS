@@ -13,5 +13,116 @@ function setup(){
 	
 	createBackground();
 	tree = createGraphics(width, height);
-	leafs = 
 }
+
+
+function draw(){
+	image(bg, 0, 0);
+	createTree();
+	setHue();
+	drawLeafs(10, 250, 0, 1);
+	image(tree, 0, 0);
+	drawLeafs(0, 20, 10, 40);
+	ground();
+}
+
+
+function mousePressed() {
+	redraw();
+	
+	var i;
+	for (i = leafs.size(); i >= 0; i--) {
+		leafs.remove(0);
+	}
+}
+
+
+function createBackground() {
+	bg = createGraphics(width, height);
+	bg.beginDraw();
+	bg.noStroke();
+	var diam;
+	for (diam = 1.5*width; diam > 0.5*width; diam -=20) {
+		bg.fill(map(diam, 0.5*width, 1.5*width, 255, 210));
+		bg.ellipse(width/2, height/2, diam, diam);
+	}
+	bg.endDraw();
+}
+
+
+function setHue() {
+	var rdn0;
+	var rdn1;
+	rdn0 = random(255);
+	rdn1 = random(255)
+	minHue = min(rdn0, rdn1)
+	maxHue = max(rdn0, rdn1)
+}
+
+
+function createTree() {
+	tree.beginDraw();
+	tree.noStroke();
+	tree.background(0, 0);
+	var i;
+	for (i = 0; i < 3; i++) {
+		tree.fill(map(i, 0, 2, 60, 20));
+		branch(width/2, height, 70, -HALF_PI, 150, 0);
+	}
+	tree.endDraw();
+	
+}
+
+
+function branch(x, y, bSize, theta, bLength, post) {
+	n = n + 0.01;
+	var diam;
+	diam = lerp(bsize, 0.7*bsize, pos/bLength);
+	diam = diam * map(noise(n), 0, 1, 0.4, 1.6);
+	
+	tree.ellipse(x, y, diam, diam);
+	if (bsize > 0.6) {
+		x = x + cos(theta + random(-PI/10, PI/10));
+		y = y + sin(theta + random(-PI/10, PI/10));
+		branch(x, y, bSize, theta, bLength, pos+1);
+	}
+	else {
+		leafs.push(x ,y);
+		var drawleftBranch;
+		var drawrightBranch;
+		drawleftBranch = (random(1) > 0.1);
+		drawrightBranch = (random(1) > 0.1);
+		if (drawleftBranch) {branch(x, y, random(0.5, 0.7)*bSize, theta - random(PI/15, PI/5), random(0.6, 0.8)*bLength, 0);}
+		if (drawrightBranch) {branch(x, y, random(0.5, 0.7)*bSize, theta + random(PI/15, PI/5), random(0.6, 0.8)*bLength, 0);}
+		if (!drawrightBranch && !drawleftBranch) {
+		}
+	}
+}
+
+function drawLeaves(minDiam, maxDiam, minAlpha, maxAlpha) {
+	var i;
+	for (i = 0; i < leafs.size(); i++) {
+		var h;
+		var s;
+		var b;
+		var a;
+		h = map(i, 0, leafs.size(), minHue, maxHue);
+		s = 255;
+		b = 255;
+		a = random(minAlpha, maxAlpha)
+	}
+	
+}
+	
+
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
