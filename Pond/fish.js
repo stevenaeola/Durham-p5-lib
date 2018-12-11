@@ -1,5 +1,5 @@
 class Fish {
-    constructor(c) {
+    constructor(c=color('blue'), d=1, speed = 1, alpha=20) {
         this.loc = createVector(random(width), random(height));
         /* Make a random velocity */
         this.vel = createVector(random(-1, 1), random(-1, 1));
@@ -7,13 +7,13 @@ class Fish {
         this.s = random(-90, 90);
         //New sizeMult, old sizeMult, initial frames, frames until fade done
         this.size = random(0.1, 0.3);
-        this.d = [1, 1, 0, 1];
+        this.d = [d, d, 0, 1];
         //New colour, old colour, initial frames, frames until fade done
         this.c = [c, c, 0, 1];
         //New alpha, old alpha, initial frames, frames until fade done
-        this.a = [20, 20, 0, 1]
+        this.a = [alpha, alpha, 0, 1]
         //New speedMult, old speedMult, initial frames, frames until fade done        
-        this.v = [1, 1, 0, 1];
+        this.v = [speed, speed, 0, 1];
     
         this.lerpValue = function(lerpObj) {
             return lerp(lerpObj[1], lerpObj[0], min((frameCount - lerpObj[2]) / lerpObj[3], 1));
