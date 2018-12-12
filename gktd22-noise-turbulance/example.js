@@ -75,7 +75,7 @@ function setHueSliderChangeEvents() {
 		// Check to see if the minimum hue has overtaken the maximum hue.
 		// If so, make them the same.
 		if (hueModes[inputID][0] > hueModes[inputID][1]) {
-			hueModes[inputID][0] = hueModes[inputID][1]
+			hueModes[inputID][0] = hueModes[inputID][1];
 			$("input.hue#" + inputID).val(hueModes[inputID][0]);
 		}
 		

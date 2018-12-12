@@ -65,7 +65,7 @@ class Particle {
 		if (h.minH != h.maxH) {
 			h.current += 0.5;
 			if (h.current > h.maxH) {
-			  h.current = h.minH + h.current - h.maxH;
+				h.current = h.minH + h.current - h.maxH;
 			}
 		}
 		
@@ -293,7 +293,7 @@ class NoiseTurbulanceHelper {
 	*/
 	clear() {
 		for (var i = this.pts.length - 1; i > -1; i--) {
-			var p = this.pts[i];
+			// var p = this.pts[i];
 			this.pts.splice(i, 1);
 		}
 		background(0);
@@ -303,7 +303,7 @@ class NoiseTurbulanceHelper {
 		A p5 function to be run so the helper can get key presses.
 	*/
 	keyPressed() {
-		if (key == 'c') {
+		if (key == "c") {
 			this.clear();
 		} else {
 			this.changeHue();
@@ -359,16 +359,17 @@ class NoiseTurbulanceHelper {
 		If the mouse is pressed, create new particles.
 		Should be called in a global function called draw().
 	*/
-	draw() {  
+	draw() {
+		var i;
 		if (mouseIsPressed) {
-			for (var i = 0; i < this.numParticlesPerFrame; i++) {
+			for (i = 0; i < this.numParticlesPerFrame; i++) {
 				var newP = new Particle(mouseX, mouseY, i + this.pts.length, i + this.pts.length, this.h,
 					this.pLifeSpan, this.pDecay, this.pSizeScalar, this.pVelScalar, this.pMinSizeRatio, this.pMaxSizeRatio);
 				this.pts.push(newP);
 			}
 		}
 
-		for (var i = this.pts.length - 1; i >= 0; i--) {
+		for (i = this.pts.length - 1; i >= 0; i--) {
 			var p = this.pts[i];
 			if (p.dead) {
 				this.pts.splice(i, 1);

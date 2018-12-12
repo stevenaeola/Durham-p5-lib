@@ -1,0 +1,11 @@
+{
+  "name": "gktd22-noise-turbulance",
+  "version": "1.0.0",
+  "description": "The example page in `index.html` includes sliders and buttons that allow you to change the parameters given below live.\r `example.js` only uses getter and setter functions from `noise.js` for it's sliders and buttons.",
+  "main": "example.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
