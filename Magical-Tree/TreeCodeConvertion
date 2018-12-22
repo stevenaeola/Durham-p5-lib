@@ -10,4 +10,18 @@ function setup() {
   colorMode(HSB);
   noLoop();
   noStroke();
+	//need to add createBackground
+	tree = createGraphics(width, height);
+}
+
+
+function draw() {
+	image(bg, 0, 0);
+	//need to add createTree
+	//need to add set Hue
+	//need to add draw leafs
+	image(tree, 0, 0);
+	//need to add drawleafs
+	//need to add round
+	
 }
