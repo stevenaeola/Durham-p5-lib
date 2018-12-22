@@ -47,4 +47,18 @@ function createTree() {
 		}
 }
 
-function branch
+function branch(x, y, bSize, theta, bLength, pos) {
+	n += 0.01;
+	var diam;
+	diam = lerp(bSize, 0.7*bSize, pos/bLength);
+	diam *= map(noise(n), 0, 1, 0.4, 1.6);
+	
+	tree.ellipse(x, y, diam, diam);
+	if (bSize > 0.6) {
+		if (pos < bLength) {
+			x += cos(theta + random(-PI/10, PI/10));
+      			y += sin(theta + random(-PI/10, PI/10));
+			branch(x, y, bSize, theta, bLength, pos+1);
+		} else {
+			leafs.add(x, y);
+			
