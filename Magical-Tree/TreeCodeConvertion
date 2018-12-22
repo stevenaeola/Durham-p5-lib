@@ -1,0 +1,13 @@
+var n = 0;
+var bg;
+var tree;
+var leafs = [];
+var minHue;
+var maxHue;
+
+function setup() {
+  createCanvas(900, 700);
+  colorMode(HSB);
+  noLoop();
+  noStroke();
+}
