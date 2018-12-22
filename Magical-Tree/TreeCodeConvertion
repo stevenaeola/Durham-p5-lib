@@ -10,7 +10,7 @@ function setup() {
   colorMode(HSB);
   noLoop();
   noStroke();
-	//need to add createBackground
+	createBackground();
 	tree = createGraphics(width, height);
 }
 
@@ -25,3 +25,26 @@ function draw() {
 	//need to add round
 	
 }
+
+
+function createBackground() {
+	bg = createGraphics(width, height);
+	bg.noStroke();
+	var diam;
+	for (diam = 1.5*width; diam > 0.5*width; diam -= 20) {
+		bg.fill(map(diam, 0.5*width, 1.5*width, 255, 210));
+		bg.ellipse(width/2, height/2, diam, diam);
+	}
+}
+
+function createTree() {
+	tree.noStroke();
+	tree.background(0, 0);
+	var i;
+	for (i = 0; i < 3; i++) {
+		tree.fill(map(i, 0, 2, 60, 20));
+		branch(width/2, height, 70, -HALF_PI, 150, 0);
+		}
+}
+
+function branch
