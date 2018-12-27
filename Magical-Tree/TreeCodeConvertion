@@ -17,7 +17,7 @@ function setup() {
 
 function draw() {
 	image(bg, 0, 0);
-	//need to add createTree
+	createTree();
 	//need to add set Hue
 	//need to add draw leafs
 	image(tree, 0, 0);
