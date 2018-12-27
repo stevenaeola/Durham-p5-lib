@@ -19,9 +19,9 @@ function draw() {
 	image(bg, 0, 0);
 	createTree();
 	setHue();
-	drawLeafs();
+	drawLeafs(10, 250, 0, 1);
 	image(tree, 0, 0);
-	drawLeafs();
+	drawLeafs(0, 20, 10, 40);
 	ground();
 	
 }
