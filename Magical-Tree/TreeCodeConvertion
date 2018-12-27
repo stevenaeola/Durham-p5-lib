@@ -77,7 +77,33 @@ function branch(x, y, bSize, theta, bLength, pos) {
 	}
 }
 	
-	
+function drawLeafs(minDiam, maxDiam, minAlpha, maxAlpha) {
+	var i;
+	for (i = 0; i < leafs.size(); i++) {
+		var h = map(i, 0, leafs.size(), minHue, maxHue);
+    		var s = 255;
+    		var b = 255;
+    		var a = random(minAlpha, maxAlpha);
+    		fill(h, s, b, a);
+    		var diam = random(minDiam, maxDiam);
+    		var jitterX = random(-30, 30);
+    		var jitterY = random(-30, 30);
+    		ellipse(leafs.get(i).x + jitterX, leafs.get(i).y + jitterY, diam, diam);
+  }
+}
+
+function ground() {
+  fill(20);
+  beginShape();
+  vertex(0, height);
+  var i;
+  for (i = 0; i <= width; i += 50) {
+    vertex(i, map(noise(n), 0, 1, height - 30, height));
+    n += 0.1;
+  }
+  vertex(width, height);
+  endShape();
+}
 				
       
 			
