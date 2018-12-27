@@ -1,7 +1,7 @@
 var n = 0;
 var bg;
 var tree;
-var leafs = createVector([]);
+var leafs = []
 var minHue;
 var maxHue;
 
@@ -56,7 +56,7 @@ function createTree() {
 	for (i = 0; i < 3; i++) {
 		tree.fill(map(i, 0, 2, 60, 20));
 		branch(width/2, height, 70, -HALF_PI, 150, 0);
-		}
+	}
 }
 
 function branch(x, y, bSize, theta, bLength, pos) {
@@ -71,7 +71,8 @@ function branch(x, y, bSize, theta, bLength, pos) {
 			x += cos(theta + random(-PI/10, PI/10));
       			y += sin(theta + random(-PI/10, PI/10));
 			branch(x, y, bSize, theta, bLength, pos+1);
-		} else {
+		} 
+		else {
 			leafs.add(x, y);
 			var drawLeftBranch = random(1) > 0.1;
 			var drawRightBranch = random(1) > 0.1;
@@ -84,8 +85,8 @@ function branch(x, y, bSize, theta, bLength, pos) {
 				tree.rotate(theta);
 				tree.quad(0, -diam/2, 2*diam, -diam/6, 2*diam, diam/6, 0, diam/2);
 				tree.pop();
-      			}
-    		}
+      }
+    }
 	}
 }
 	
@@ -116,6 +117,3 @@ function ground() {
   vertex(width, height);
   endShape();
 }
-				
-      
-			
