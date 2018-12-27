@@ -18,11 +18,11 @@ function setup() {
 function draw() {
 	image(bg, 0, 0);
 	createTree();
-	//need to add set Hue
-	//need to add draw leafs
+	setHue();
+	drawLeafs();
 	image(tree, 0, 0);
-	//need to add drawleafs
-	//need to add round
+	drawLeafs();
+	ground();
 	
 }
 
