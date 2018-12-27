@@ -26,6 +26,10 @@ function draw() {
 	
 }
 
+function mousePressed() {
+	redraw();
+}
+
 
 function createBackground() {
 	bg = createGraphics(width, height);
@@ -36,6 +40,14 @@ function createBackground() {
 		bg.ellipse(width/2, height/2, diam, diam);
 	}
 }
+
+function setHue() {
+	var rdn0 = random(255);
+  	var rdn1 = random(255);
+  	minHue = min(rdn0, rdn1);
+  	maxHue = max(rdn0, rdn1);
+}
+	
 
 function createTree() {
 	tree.noStroke();
