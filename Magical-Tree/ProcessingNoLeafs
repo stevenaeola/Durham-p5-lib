@@ -5,92 +5,87 @@ var minHue;
 var maxHue;
 
 function setup() {
-  createCanvas(900, 700);
-  colorMode(HSB);
-  noLoop();
-  noStroke();
-	
-	createBackground();
-	tree = createGraphics(width, height);
+    createCanvas(900, 700);
+    colorMode(HSB);
+    noLoop();
+    noStroke();
+
+    createBackground();
+    tree = createGraphics(width, height);
 }
 
-
 function draw() {
-	image(bg, 0, 0);
-	createTree();
-	setHue();
-	image(tree, 0, 0);
-	ground();
-	
+    image(bg, 0, 0);
+    createTree();
+    setHue();
+    image(tree, 0, 0);
+    ground();
 }
 
 function mousePressed() {
-	redraw();
+    redraw();
 }
 
-
 function createBackground() {
-	bg = createGraphics(width, height);
-	bg.beginShape()
-	bg.noStroke();
-	var diam;
-	for (diam = 1.5*width; diam > 0.5*width; diam -= 20) {
-		bg.fill(map(diam, 0.5*width, 1.5*width, 255, 210));
-		bg.ellipse(width/2, height/2, diam, diam);
-	}
-	bg.endShape()
+    bg = createGraphics(width, height);
+    bg.beginShape()
+    bg.noStroke();
+    var diam;
+    for (diam = 1.5*width; diam > 0.5*width; diam -= 20) {
+            bg.fill(map(diam, 0.5*width, 1.5*width, 255, 210));
+            bg.ellipse(width/2, height/2, diam, diam);
+    }
+    bg.endShape()
 }
 
 function setHue() {
-	var rdn0 = random(255);
-  var rdn1 = random(255);
-  minHue = min(rdn0, rdn1);
-  maxHue = max(rdn0, rdn1);
+    var rdn0 = random(255);
+    var rdn1 = random(255);
+    minHue = min(rdn0, rdn1);
+    maxHue = max(rdn0, rdn1);
 }
-	
 
 function createTree() {
-	tree.beginShape()
-	tree.noStroke();
-	tree.background(0, 0);
-	var i;
-	for (i = 0; i < 3; i++) {
-		tree.fill(map(i, 0, 2, 60, 20));
-		branch(width/2, height, 70, -HALF_PI, 150, 0);
-	}
-	tree.endShape()
+  tree.beginShape()
+  tree.noStroke();
+  tree.background(0, 0);
+  var i;
+  for (i = 0; i < 3; i++) {
+	  tree.fill(map(i, 0, 2, 60, 20));
+	  branch(width/2, height, 70, -HALF_PI, 150, 0);
+  }
+  tree.endShape()
 }
 
 function branch(x, y, bSize, theta, bLength, pos) {
-	n += 0.01;
-	var diam;
-	diam = lerp(bSize, 0.7*bSize, pos/bLength);
-	diam *= map(noise(n), 0, 1, 0.4, 1.6);
-	
-	tree.ellipse(x, y, diam, diam);
-	if (bSize > 0.6) {
-		if (pos < bLength) {
-			x += cos(theta + random(-PI/10, PI/10));
-      			y += sin(theta + random(-PI/10, PI/10));
-			branch(x, y, bSize, theta, bLength, pos+1);
-		} 
-		else {
-			var drawLeftBranch = random(1) > 0.1;
-			var drawRightBranch = random(1) > 0.1;
-			if (drawleftBranch) branch(x, y, random(0.5, 0.7)*bSize, theta - random(PI/15, PI/5), random(0.6, 0.8)*bLength, 0);
-      			if (drawrightBranch) branch(x, y, random(0.5, 0.7)*bSize, theta + random(PI/15, PI/5), random(0.6, 0.8)*bLength, 0);
-			
-			if (!drawleftBranch && !drawrightBranch) { 
-				tree.push()
-				tree.translate(x, y);
-				tree.rotate(theta);
-				tree.quad(0, -diam/2, 2*diam, -diam/6, 2*diam, diam/6, 0, diam/2);
-				tree.pop();
-			}
-		}
-	}
+  n += 0.01;
+  var diam;
+  diam = lerp(bSize, 0.7*bSize, pos/bLength);
+  diam *= map(noise(n), 0, 1, 0.4, 1.6);
+
+  tree.ellipse(x, y, diam, diam);
+  if (bSize > 0.6) {
+  	  if (pos < bLength) {
+	  	  x += cos(theta + random(-PI/10, PI/10));
+  			  y += sin(theta + random(-PI/10, PI/10));
+		  branch(x, y, bSize, theta, bLength, pos+1);
+	  } 
+	  else {
+		  var drawLeftBranch = random(1) > 0.1;
+		  var drawRightBranch = random(1) > 0.1;
+		  if (drawLeftBranch) branch(x, y, random(0.5,   0.7)*bSize, theta - random(PI/15, PI/5), random(0.6, 0.8)*bLength, 0);
+  			  if (drawRightBranch) branch(x, y, random(0.5,   0.7)*bSize, theta + random(PI/15, PI/5), random(0.6, 0.8)*bLength, 0);
+		
+		    if (!drawLeftBranch && !drawRightBranch) { 
+			  tree.push()
+			  tree.translate(x, y);
+			  tree.rotate(theta);
+			  tree.quad(0, -diam/2, 2*diam, -diam/6,   2*diam, diam/6, 0, diam/2);
+			  tree.pop();
+		    }
+	  }
+  }
 }
-	
 
 function ground() {
   fill(20);
