@@ -1,41 +1,49 @@
-function setup() {
-  createCanvas(windowWidth, windowHeight*0.5);
-  p = new Pond(50, color(0, 100, 100));
-}
-
-function draw() {
-    p.draw();
-}
-
 class Pond {
-    constructor(number=50, colour=color('blue'), size=1, speed = 1, alpha=20) {
-        strokeWeight(10);
-        /* 
-        IMPORTANT: because we are using vertices to make our fish, the line joining becomes spiky when the 
-        strokeWeight is bigger than 1. 
-        */
-        strokeJoin(ROUND);
-        stroke(0, 150, 255);
+    constructor(number=50, fishColour=color('blue'), pondColour=color('black'), size=1, speed = 1, alpha=20) {
+        this.pondColour = pondColour;
         /* Add fish */
         this.fish = []
         for (var i = 0; i < number; i++) {
-            this.add(new Fish(colour, size, speed, alpha));
+            this.add(new Fish(fishColour, size, speed, alpha));
         }
     }
     
-    draw() {
-        fill(0, 30);
-        rect(-10, -10, width+20, height+20);        
-        for (var i = 0; i < this.fish.length; i++) {
-            var f = this.fish[i];
-            f.draw();
-            f.boundaries();
-        }          
+    draw(g="") {        
+        if (g) {
+            g.background(this.pondColour);
+            g.fill(color(red(this.pondColour), green(this.pondColour), blue(this.pondColour), 30));
+            g.rect(-10, -10, width+20, height+20);
+            g.strokeJoin(ROUND);
+            g.stroke(0, 150, 255);
+            for (var i = 0; i < this.fish.length; i++) {
+                var f = this.fish[i];
+                f.draw(g);
+                f.boundaries(g);
+            }
+        } else {
+            fill(color(red(this.pondColour), green(this.pondColour), blue(this.pondColour), 30));
+            rect(-10, -10, width+20, height+20);
+            strokeWeight(10);
+            strokeJoin(ROUND);
+            stroke(0, 150, 255);
+            for (var i = 0; i < this.fish.length; i++) {
+                var f = this.fish[i];
+                f.draw();
+                f.boundaries();
+            }
+        }
     }
     
     add(f) {
         this.fish.push(f);
         
+    }
+    
+    trawl(numberToKill=this.fish.length) {
+        var length = this.fish.length;
+        for (var i = 0; i < min(numberToKill, length); i++) {
+            this.fish.pop();
+        }
     }
     
     fadeColour(colour, frames=100) {

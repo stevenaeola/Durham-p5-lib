@@ -24,37 +24,71 @@ class Fish {
         }
     }
 
-    draw() {
-        var col = this.lerpColourObj(this.c);
-        stroke(col);
-        fill(red(col), green(col), blue(col), this.lerpValue(this.a));
+    draw(g) {
+        if (g) {
+            var col = this.lerpColourObj(this.c);
+            g.stroke(col);
+            g.strokeWeight(10 * this.size * this.lerpValue(this.d));
+            g.fill(red(col), green(col), blue(col), this.lerpValue(this.a));
+            
+            this.loc.add(p5.Vector.mult(this.vel, this.lerpValue(this.v)));
+            push();
+            g.beginShape();
+            for (var i = 0; i <= 180; i+=20) {
+                var mult = this.size * this.lerpValue(this.d);
+                
+                var x = sin(radians(i)) * i/3;
+                var angle = sin(radians(i+this.s+frameCount*5)) * 50;
+                
+                var v = createVector((x-angle) * mult, i*2 * mult);
+                v.rotate(this.vel.heading()-radians(90))
+                v.add(this.loc.x, this.loc.y);
+                
+                g.vertex(v.x, v.y);
+                g.vertex(v.x, v.y);
+            }
+            for (var i = 180; i >= 0; i-=20) {
+                var mult = this.size * this.lerpValue(this.d);
 
-        this.loc.add(p5.Vector.mult(this.vel, this.lerpValue(this.v)));
-        push();
-        translate(this.loc.x, this.loc.y);
-        scale(this.size * this.lerpValue(this.d));
-        /* Get the direction and add 90 degrees. */
-        rotate(this.vel.heading()-radians(90));
-        beginShape();
-        for (var i = 0; i <= 180; i+=20) {
-            var x = sin(radians(i)) * i/3;
-            var angle = sin(radians(i+this.s+frameCount*5)) * 50;
-            vertex(x-angle, i*2);
-            vertex(x-angle, i*2);
+                
+                x = sin(radians(i)) * i/3;
+                angle = sin(radians(i+this.s+frameCount*5)) * 50;
+                
+                var v = createVector((-x-angle) * mult, i*2 * mult);
+                v.rotate(this.vel.heading()-radians(90))
+                v.add(this.loc.x, this.loc.y);
+                
+                g.vertex(v.x, v.y);
+                g.vertex(v.x, v.y);
+            }
+            g.endShape();
+
+        } else {
+            var col = this.lerpColourObj(this.c);
+            stroke(col);
+            fill(red(col), green(col), blue(col), this.lerpValue(this.a));
+            
+            this.loc.add(p5.Vector.mult(this.vel, this.lerpValue(this.v)));
+            push();
+            translate(this.loc.x, this.loc.y);
+            scale(this.size * this.lerpValue(this.d));
+            /* Get the direction and add 90 degrees. */
+            rotate(this.vel.heading()-radians(90));
+            beginShape();
+            for (var i = 0; i <= 180; i+=20) {
+                var x = sin(radians(i)) * i/3;
+                var angle = sin(radians(i+this.s+frameCount*5)) * 50;
+                vertex(x-angle, i*2);
+                vertex(x-angle, i*2);
+            }
+            for (var i = 180; i >= 0; i-=20) {
+                x = sin(radians(i)) * i/3;
+                angle = sin(radians(i+this.s+frameCount*5)) * 50;
+                vertex(-x-angle, i*2);
+                vertex(-x-angle, i*2);
+            }
+            endShape();
         }
-        /* 
-        Started from the top now we are here. We need to now start to draw from where the first for loop left off. 
-        Otherwise un ugly line will appear down the middle. To see what I mean uncomment the below line and comment
-        the other line.
-        */
-        for (var i = 180; i >= 0; i-=20) {
-        //for (i = 0; i < 180; i+=20){
-            x = sin(radians(i)) * i/3;
-            angle = sin(radians(i+this.s+frameCount*5)) * 50;
-            vertex(-x-angle, i*2);
-            vertex(-x-angle, i*2);
-        }
-        endShape();
         pop();
     }
 
