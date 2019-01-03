@@ -1,15 +1,20 @@
 // Original code was written in portuguese
+let burgers = [];
 let bubbles = [];
 let x = 1300;
 let y = 500;
 let counter = 0;
+var img;
+function preload() {
+    img = loadImage('Background.jpg');
+}
 
 function setup() {
     createCanvas(1400, 700);
 }
 
 function draw() {
-    background(111, 255, 247);
+    background(img);
     noStroke();
     //Sponge Bob House
     //Chimney
@@ -134,7 +139,7 @@ function draw() {
     fill(169, 167, 166);
     rect(200, 300, 50, 100);
 
-    //Car
+    //Boat
     fill(184, 201, 220);
     quad(x, y - 5, x + 100, y + 10, x + 100, y + 25, x + 5, y + 20);
     fill("black");
@@ -144,6 +149,16 @@ function draw() {
     ellipse(x + 85, y + 35, 10, 10);
     fill("red");
     quad(x + 5, y + 22, x + 100, y + 22, x + 100, y + 30, x + 10, y + 30);
+    triangle(x+3,y-9,x+3,y-15,x+10,y-12);
+    stroke("black");
+    strokeWeight(2);
+    line(x+11, y+3, x+9, y+10);
+    line(x+3,y-5,x+3,y-15);
+    fill(184, 201, 220);
+    ellipse(x+16, y+6, 3,3);
+    ellipse(x+14.5, y+10, 4,4);
+    strokeWeight(1);
+
     if (x >= 1300) {
         x = 0;
     }
@@ -168,7 +183,6 @@ function draw() {
     if (keyIsDown(RIGHT_ARROW)) {
         x += 5;
     }
-
 
     //SpongeBOB
     //Body
@@ -224,8 +238,40 @@ function draw() {
         bubbles[i].move();
         bubbles[i].show();
     }
-    //opening patricks house
-    
+    //Burgers Game
+    if (counter % 70 === 0) {
+        let burgw = 15;
+        let burgh = 10;
+        let s = new Burger(0, random(420,580), burgw, burgh);
+        burgers.push(s);
+    }
+
+    for (let i = 0; i < burgers.length; i++) {
+    burgers[i].move();
+    burgers[i].show();
+}
+
+
+}
+
+class Burger {
+    constructor(burgx, burgy, burgw, burgh) {
+        this.x = burgx;
+        this.y = burgy;
+        this.w = burgw;
+        this.h = burgh;
+    }
+
+    move() {
+        this.x = this.x + 3;
+    }
+
+    show() {
+        stroke(237, 156, 68);
+        strokeWeight(1);
+        fill(237, 156, 68);
+        ellipse(this.x, this.y, this.w, this.h );
+    }
 }
 
 class Bubble {
