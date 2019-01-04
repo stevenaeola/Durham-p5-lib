@@ -1,95 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 	<head>
 		<meta charset="utf-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	    <meta name="description" content="Example of Graph Plotting in p5.js">
+		<title>Graph Plotter Example</title>
 
-		<title>Graph Plotting Example</title>
+		<!-- Bootstrap CSS CDN -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+		
+		<!-- Custom CSS -->
+		<link rel="stylesheet" href="Example.css">
 
-
+		<!-- p5 JS CDN -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
 
-		<script src="./GraphPlotter.js"></script>
-		<script src="./Example.js"></script>
-		
-	    <!-- Bootstrap core CSS -->
-	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<!-- jQuery JS CDN - Slim version (=without AJAX) -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
-	    <!-- JQuery (Defined in head so it can be used below) -->
-		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-
-
-	    <!-- Custom styles for this template -->
-	    <link href="Example.css" rel="stylesheet">
+		<!-- Usage of GraphPlotter.js -->
+		<script src="GraphPlotter.js"></script>
+		<script src="Example.js"></script>
 	</head>
 
 	<body>
-	    <div id="wrapper">
+		<div class="wrapper">
+			<!-- Sidebar  -->
+			<nav id="sidebar">
+				<div class="sidebar-header">
+					<h3><u>Plot Equation</u></h3>
+				</div>
 
-	        <!-- Sidebar -->
-	        <div id="sidebar-wrapper">
-	            <ul class="sidebar-nav">
-	                <li class="sidebar-brand">
-	                    <a href="#">
-	                        Start Bootstrap
-	                    </a>
-	                </li>
-	                <li>
-	                    <a href="#">Dashboard</a>
-	                </li>
-	                <li>
-	                    <a href="#">Shortcuts</a>
-	                </li>
-	                <li>
-	                    <a href="#">Overview</a>
-	                </li>
-	                <li>
-	                    <a href="#">Events</a>
-	                </li>
-	                <li>
-	                    <a href="#">About</a>
-	                </li>
-	                <li>
-	                    <a href="#">Services</a>
-	                </li>
-	                <li>
-	                    <a href="#">Contact</a>
-	                </li>
-	            </ul>
-	        </div>
-	        <!-- /#sidebar-wrapper -->
+				<ul class="list-unstyled components text-center">
+					<div class="form-inline">
+					    <label>y =</label>
+						<input type="equation" class="form-control" id="equation_input" placeholder="6x + 2">
+					</div>
 
-	        <!-- Page Content -->
-	        <div id="page-content-wrapper">
-	            <div class="container-fluid">
-	                <h1>Simple Sidebar</h1>
-	                <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-	                <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-	                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
-	            </div>
-	        </div>
-	        <!-- /#page-content-wrapper -->
+					<br>
 
-	    </div>
-	    <!-- /#wrapper -->
+					<div class="form-inline">
+						<label><u>Scroll to zoom</u></label>
+						<button id="reset_btn" type="button" class="btn btn-primary">Reset</button>
+					</div>
 
-	    <!-- Bootstrap core JavaScript -->
-	    <script src="vendor/jquery/jquery.min.js"></script>
-	    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+					<div class="form-inline">
+						<label>Zoom:</label>
+  						<label id="zoom-value">1</label>
+					</div>
 
-	    <!-- Menu Toggle Script -->
-	    <script>
-	    $("#menu-toggle").click(function(e) {
-	        e.preventDefault();
-	        $("#wrapper").toggleClass("toggled");
-	    });
-	    </script>
+					<br>
 
-		<!-- Popper.js -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.js"></script>
+					<div class="text-left">
+						<label><u>Precision</u></label>
+						<label>Lower precision is higher accuracy but slower</label>
+					</div>
 
-		<!-- Bootstrap -->
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.js"></script>
+					<div class="form-inline">
+						<div>
+							<input type="range" min="20" max="1000" value="100" class="slider" id="precision_slider">
+						</div>
+
+						<label id="slider_value">1</label>
+					</div>
+
+					<br>
+					<div class="text-left">
+						<label><u>Available Functions</u></label>
+					</div>
+
+					<label>exp(f(x))</label>
+					<label>log(f(x))</label>
+					<label>max(f(x), a)</label>
+					<label>min(f(x), a)</label>
+					<label>pow(base, power)</label>
+					<label>base ^ power</label>
+					<br>
+					<label>sqrt(f(x))</label>
+					<label>random()</label>
+					<br>
+					<label>Most trig functions</label>
+				</ul>
+			</nav>
+
+			<!-- Page Content  -->
+			<div id="content" class="bg-dark canvas_parent">
+				<div id="canvas_parent" class="container-fluid canvas_parent"></div>
+			</div>
+		</div>
+
+		<!-- Popper.JS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+
+		<!-- Bootstrap JS -->
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+		<script type="text/javascript">
+			$("#equation_input").on("keyup", function(event) {
+				const equation_string = $("#equation_input").val()
+				if (equation_string !== undefined) {
+					graph_plotter.equation = equation_string;
+				}
+			});
+
+			$("#reset_btn").on("click", function(event) {
+				graph_plotter.zoom = 50
+			});
+
+			const slider = document.getElementById("precision_slider");
+			const output = document.getElementById("slider_value");
+			output.innerHTML = slider.value;
+
+			slider.oninput = function() {
+				output.innerHTML = this.value;
+				graph_plotter.precision = this.value
+			}
+
+		</script>
 	</body>
 </html>
