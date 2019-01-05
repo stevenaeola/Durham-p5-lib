@@ -4,7 +4,6 @@ mathjs_script.setAttribute('src','https://cdnjs.cloudflare.com/ajax/libs/mathjs/
 document.head.appendChild(mathjs_script);
 // === ===
 
-
 class Equation {
     constructor(equation_string) {
         this.equation_string = equation_string;
@@ -182,3 +181,5 @@ function mouseWheel(event) {
 
     return false;
 }
+
+var graph_plotter = new GraphPlotter();
