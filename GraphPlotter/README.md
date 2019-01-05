@@ -1,8 +1,16 @@
 # GraphPlotter
 ## Description
-`GraphPlotter.js` is a class that can be used to draw equations in the form `y = f(x)` using [`p5.js`](https://p5js.org/).
+`GraphPlotter.js` contains a class `GraphPlotter` which is a class that can be used to draw equations in the form `y = f(x)` using [`p5.js`](https://p5js.org/).
 
 Example usage can be seen in `Example.html`, `Example.js`, or further down in this page at [Usage](#Usage) or [Example](#Example).
+
+This project is based on a sketch on [OpenProcessing](https://www.openprocessing.org) found here: [Sketch](https://www.openprocessing.org/sketch/308997). I have made a number of changes to the original, found below:
+
+* Parameterised content
+* Allowed the user to change the equation to be drawn
+* Implemented a 'zoom' feature
+* Allowed a change in precision level
+* Instead of just plotting dots, the graph connects adjacent points to allow continuity between values.
 
 ## `GraphPlotter` Class Documentation
 ### Properties
