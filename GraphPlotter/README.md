@@ -33,7 +33,7 @@ Example usage can be seen in `Example.html`, `Example.js`, or further down in th
 ### Methods
 * `constructor()`
 	* Is the class constructor, takes no values and prepares the class to be used.
-	* Should be called before the `p5.js` `draw()` function, somewhere like `setup()`.
+	* Should be called before the `p5.js` `draw()` function, an instance is created in `GraphPlotter.js` using the name `graph_plotter`.
 
 * `draw([renderer])`
 	* Draws the graph and axis to a canvas or graphic defined by the optional parameter `renderer` of type `p5.Renderer`.
