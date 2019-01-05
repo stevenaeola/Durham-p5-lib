@@ -12,9 +12,7 @@ label {
     margin-right: 10px;
 }
 
-@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
-    font-family: 'Poppins', sans-serif;
     background: #fafafa;
 }
 
@@ -119,6 +117,10 @@ a[data-toggle="collapse"] {
     top: 50%;
     right: 20px;
     transform: translateY(-50%);
+}
+
+.spacer {
+    margin-top: 15px;
 }
 
 ul ul a {
