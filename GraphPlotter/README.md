@@ -51,7 +51,7 @@ In the `.html` file, the following order of javascript references must be made:
 
 For example (in `Example.html`):
 
-```javascript
+```html
 <!-- p5 JS CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
 
