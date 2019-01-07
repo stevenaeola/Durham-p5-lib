@@ -1,0 +1,53 @@
+class createTree {
+  
+  constructor() {
+    this.tree = createGraphics(width, height);
+    this.n = 0;
+  }
+  
+  draw() {
+    this.tree.beginShape();
+    this.tree.noStroke();
+    this.tree.background(0, 0);
+    this.for (this.i = 0; this.i < 3; this.i++) {
+        this.tree.fill(map(this.i, 0, 2, 60, 20));
+        this.branch(width / 2, height, 70, -HALF_PI, 150, 0);
+    }
+    this.tree.endShape();
+  }
+  
+
+  branch(x, y, bSize, theta, bLength, pos) {
+    this.x = x;
+    this.y = y;
+    this.bSize = bSize;
+    this.theta = theta;
+    this.blength = bLength;
+    this.pos = pos;
+    this.n += 0.01;
+    this.diam = lerp(bSize, 0.7 * bSize, pos / bLength);
+    this.diam *= map(noise(this.n), 0, 1, 0.4, 1.6);
+
+    this.tree.ellipse(x, y, this.diam, this.diam);
+    if (this.bSize > 0.6) {
+        if (this.pos < bLength) {
+            x += cos(this.theta + random(-PI / 10, PI / 10));
+            y += sin(this.theta + random(-PI / 10, PI / 10));
+            this.branch(this.x, this.y, this.bSize, this.theta, this.bLength, this.pos + 1);
+        } else {
+            this.drawLeftBranch = random(1) > 0.1;
+            this.drawRightBranch = random(1) > 0.1;
+            if (this.drawLeftBranch) this.branch(this.x, this.y, random(0.5, 0.7) * this.bSize, this.theta - random(PI / 15, PI / 5), random(0.6, 0.8) * this.bLength, 0);
+            if (this.drawRightBranch) this.branch(this.x, this.y, random(0.5, 0.7) * this.bSize, this.theta + random(PI / 15, PI / 5), random(0.6, 0.8) * this.bLength, 0);
+
+            if (!this.drawLeftBranch && !this.drawRightBranch) {
+                this.tree.push()
+                this.tree.translate(x, y);
+                this.tree.rotate(theta);
+                this.tree.quad(0, -diam / 2, 2 * diam, -diam / 6, 2 * diam, diam / 6, 0, diam / 2);
+                this.tree.pop();
+            }
+        }
+    }
+  }
+}
