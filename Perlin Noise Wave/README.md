@@ -1,6 +1,6 @@
 # Perlin Noise Wave
 
-This is a fork off [Perlin Noise Wave] (https://www.openprocessing.org/sketch/576489)
+This is a fork off [Perlin Noise Wave](https://www.openprocessing.org/sketch/576489)
 
 ## Wave Class
 This class takes in these parameters for its constructor 
