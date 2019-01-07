@@ -1,109 +1,43 @@
-background class
+var a;
+var g;
+var p;
+function setup() {
+  createCanvas(900, 700);
+  a = new treeBackground();
+  g = new ground();
+  p = new createTree();
+  a.draw();
+  g.draw()
+  p.draw()
+}
 
-tree class
-
-leaves class
-
-ground class
-
-
-
-class background {
-  bg;
-  diam;
+function draw() {
   
+}
+
+class treeBackground {
+
   constructor() {
-    this.bg = bg;
-    this.diam = diam;
+    this.bg = createGraphics(width, height);
   }
 
   draw() {
-    this.bg = createGraphics(width, height);
-    this.bg.beginShape();
     this.bg.noStroke();
     for (this.diam = 1.5 * width; this.diam > 0.5 * width; this.diam -= 20) {
-        bg.fill(map(this.diam, 0.5 * width, 1.5 * width, 255, 210));
-        bg.ellipse(width / 2, height / 2, this.diam, this.diam);
+        this.bg.fill(map(this.diam, 0.5 * width, 1.5 * width, 255, 110)); // changed this to make the gradient more pronounced
+        this.bg.ellipse(width / 2, height / 2, this.diam, this.diam);
     }
-    this.bg.endShape();
-  
+    image(this.bg, 0, 0);
   }
 
 }
 
-class genTree {
-  n;
-  diam;
-  drawLeftBranch;
-  drawRightBranch;
-  i;
-  
-  constructor(x, y, bSize, theta, bLength, pos) {
-    n.this = n;
-    diam.this = diam;
-    drawLeftBranch.this = drawLeftBranch;
-    drawRightBranch.this = drawRightBranch;
-    i.this = i;
-    this.leafs = [];
-    this.tree = createGraphics(width, height);
-    
-    x.this= x;
-    y.this = y;
-    bSize.this = bSize;
-    theta.this = theta;
-    bLength.this = this;
-    pos.this = pos;
-  
-  }
-  
-  branch() {
-    this.n += 0.01;
-    this.diam = lerp(this.bSize, 0.7 * this.bSize, this.pos / this.bLength);
-    this.diam *= map(noise(this.n), 0, 1, 0.4, 1.6);
+class ground {
 
-    tree.ellipse(this.x, this.y, this.diam, this.diam);
-    if (this.bSize > 0.6) {
-        if (this.pos < this.bLength) {
-            this.x += cos(this.theta + random(-PI / 10, PI / 10));
-            this.y += sin(this.theta + random(-PI / 10, PI / 10));
-            branch(this.x, this.y, this.bSize, this.theta, this.bLength, this.pos + 1);
-        } else {
-            this.leafs.push(createVector(x, y));
-            this.drawLeftBranch = random(1) > 0.1;
-            this.drawRightBranch = random(1) > 0.1;
-            if (this.drawLeftBranch) branch(this.x, this.y, random(0.5, 0.7) * this.bSize, this.theta - random(PI / 15, PI / 5), random(0.6, 0.8) * this.bLength, 0);
-            if (this.drawRightBranch) branch(this.x, this.y, random(0.5, 0.7) * this.bSize, this.theta + random(PI / 15, PI / 5), random(0.6, 0.8) * this.bLength, 0);
-
-            if (!this.drawLeftBranch && !this.drawRightBranch) {
-                this.tree.push()
-                this.tree.translate(this.x, this.y);
-                this.tree.rotate(this.theta);
-                thistree.quad(0, -this.diam / 2, 2 * this.diam, -this.diam / 6, 2 * this.diam, this.diam / 6, 0, this.diam / 2);
-                this.tree.pop();
-            }
-        }
-    }
+  constructor() {
+    this.n = 0;
   }
   
-  
-  draw() {
-    this.tree.beginShape();
-    this.tree.noStroke();
-    this.tree.background(0, 0);
-    for (this.i = 0; this.i < 3; this.i++) {
-        this.tree.fill(map(this.i, 0, 2, 60, 20));
-        this.branch(width / 2, height, 70, -HALF_PI, 150, 0);
-    }
-    this.tree.endShape();
-  }
-}
-
-class ground() {
-  i;
-  constructor(n) {
-    this.i = i;
-    this.n = n;
-  }
   draw() {
     fill(20);
     beginShape();
@@ -114,11 +48,60 @@ class ground() {
     }
     vertex(width, height);
     endShape();
-  
   }
 
 }
 
+class createTree {
+
+  constructor() {
+    this.tree = createGraphics(width, height);
+    this.n = 0;
+  }
+
+  draw() {
+    this.tree.beginShape();
+    this.tree.noStroke();
+    this.tree.background(0,0);
+		
+    for (let i = 0; i < 3; i++) {
+        this.tree.fill(map(i, 0, 2, 60, 20));
+        this.branch(width/2, height, 70, -HALF_PI, 150, 0);
+    }
+    this.tree.endShape();
+    image(this.tree, 5, 5);
+  }
+
+
+  branch(x, y, bSize, theta, bLength, pos) {
+    
+    this.n += 0.01;
+    let diam = lerp(bSize, 0.7 * bSize, pos / bLength);
+    diam *= map(noise(this.n), 0, 1, 0.4, 1.6);
+
+    this.tree.ellipse(x, y, diam, diam);
+    if (bSize > 0.6) {
+        if (pos < bLength) {
+            x += cos(theta + random(-PI / 10, PI / 10));
+            y += sin(theta + random(-PI / 10, PI / 10));
+            this.branch( x, y, bSize, theta, bLength, pos + 1);
+        } else {
+            let drawLeftBranch = random(1) > 0.1;
+            let drawRightBranch = random(1) > 0.1;
+            if (drawLeftBranch) this.branch(x, y, random(0.5, 0.7) * bSize, theta - random(PI / 15, PI / 5), random(0.6, 0.8) * bLength, 0);
+            if (drawRightBranch) this.branch(x, y, random(0.5, 0.7) * bSize, theta + random(PI / 15, PI / 5), random(0.6, 0.8) * bLength, 0);
+
+            if (!drawLeftBranch && !drawRightBranch) {
+                this.tree.push()
+                this.tree.translate(x, y);
+                this.tree.rotate(theta);
+                this.tree.quad(0, -diam / 2, 2 * diam, -diam / 6, 2 * diam, diam / 6, 0, diam / 2);
+                this.tree.pop();
+            }
+        }
+    }
+  }
+}
 
   
 
