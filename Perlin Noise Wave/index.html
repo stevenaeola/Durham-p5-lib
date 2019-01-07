@@ -1,15 +1,25 @@
 <!DOCTYPE html>
-<html lang="">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perlin Wave Noise</title>
-    <style> body {padding: 0; margin: 0;} </style>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
-	<script language="javascript" type="text/javascript" src="p5.dom.js"></script>
-    <script src="sketch.js"></script>
-	<script src="wave.js"></script>
-  </head>
-  <body>
-  </body>
+<html>
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.sound.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="utf-8" />
+
+</head>
+
+<body>  
+
+  <script src="sketch.js"></script>
+  <script src="wave.js"></script>  
+  <h1><center>Perlin Noise Wave</center></h1>
+  
+  Background Colour: <input type="text" id="myText" value="White">
+	<p>Enter a background colour and press the button to change it</p>
+  <button onclick="changeColour()">Change</button>
+
+</body>
+
 </html>

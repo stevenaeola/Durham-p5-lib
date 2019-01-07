@@ -6,8 +6,6 @@ var sliderx;
 var slidery;
 
 var bgcolour;
-var colourbutton;
-var backgroundcolour;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -18,34 +16,27 @@ function setup() {
   noiseF = random(200);
 
   sliderx = createSlider(0, width, 100);
-  sliderx.position(10, 10);
+  sliderx.position(10, 180);
   sliderx.style('width', '80px');
 
   slidery = createSlider(0, height, 100);
-  slidery.position(10, 40);
+  slidery.position(10, 210);
   slidery.style('width', '80px');
 
   slidercolour1 = createSlider(0, 255, 100);
-  slidercolour1.position(10, 70);
+  slidercolour1.position(10, 240);
   slidercolour1.style('width', '80px');
 
   slidercolour2 = createSlider(0, 255, 100);
-  slidercolour2.position(10, 100);
+  slidercolour2.position(10, 270);
   slidercolour2.style('width', '80px');
 
   bgcolour = "white";
-  backgroundcolour = createInput("Enter background colour");
-  backgroundcolour.position(200, 20);
-  backgroundcolour.size(150);
-
-  colourbutton = createButton("Change colour");
-  colourbutton.position(backgroundcolour.x + backgroundcolour.width, 20);
-  colourbutton.mousePressed(changeColour);
 
 }
 
 function changeColour() {
-  bgcolour = backgroundcolour.value();
+  bgcolour = document.getElementById("myText").value
 }
 
 function draw() {
