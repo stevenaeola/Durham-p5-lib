@@ -14,6 +14,7 @@ class createTree {
         this.branch(width / 2, height, 70, -HALF_PI, 150, 0);
     }
     this.tree.endShape();
+    image(tree, 0, 0);
   }
   
 
