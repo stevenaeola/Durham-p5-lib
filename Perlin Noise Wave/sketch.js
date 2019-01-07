@@ -1,6 +1,4 @@
 var offset = 300;
-var noiseX;
-var noiseY;
 var noiseF;
 var ofs = 0.0;
 
@@ -16,8 +14,7 @@ function setup(){
   stroke(255, 150);
   strokeWeight(1.5);
   noFill();
-  noiseX = random(200);
-  noiseY = random(200);
+
   noiseF = random(200);
   
   sliderx = createSlider(0, width, 100);
@@ -35,15 +32,15 @@ function setup(){
   slidercolour2 = createSlider(0, 255, 100);
   slidercolour2.position(10, 100);
   slidercolour2.style('width', '80px');
-	
-	bgcolour= "white";
-	backgroundcolour = createInput("Enter background colour");
-	backgroundcolour.position(200,20);
-	backgroundcolour.size(150);
-	
-	colourbutton = createButton("Change colour");
-	colourbutton.position(backgroundcolour.x+ backgroundcolour.width,20);
-	colourbutton.mousePressed(changeColour);
+  
+  bgcolour= "white";
+  backgroundcolour = createInput("Enter background colour");
+  backgroundcolour.position(200,20);
+  backgroundcolour.size(150);
+  
+  colourbutton = createButton("Change colour");
+  colourbutton.position(backgroundcolour.x+ backgroundcolour.width,20);
+  colourbutton.mousePressed(changeColour);
 	
 }
 
@@ -63,45 +60,8 @@ function draw() {
 	text("Colour 2", slidercolour2.x * 2 + slidercolour2.width, 110);
 	
   for (var h = slidery.value(); h < height + 100; h += 4) {
-		line = new Line (slidery.value(), sliderx.value(), noiseX, noiseY, noiseF, ofs, h, waveH,slidercolour1.value(), slidercolour2.value());
+		line = new Wave (slidery.value(), sliderx.value(), noiseF, ofs, h, waveH,slidercolour1.value(), slidercolour2.value());
 		line.drawLine();
 	}
 }
 
-
-class Line {
-	constructor (ysliderval, xsliderval, noiseX, noiseY, noiseF, ofs, h, waveH, colour1, colour2){
-		this.ysliderval=ysliderval;
-		this.xsliderval=xsliderval;
-		this.noiseX= noiseX;
-		this.noiseY= noiseY;
-		this.noiseF= noiseF;
-		this.ofs = ofs;
-		this.h = h;
-		this.waveH = waveH;
-		this.colour1 = colour1;
-		this.colour2 = colour2;
-	}
-	
-	drawLine(){
-    beginShape();
-		stroke(this.colour1, this.colour2, map(this.h, this.ysliderval, height, 0, 255));
-											
-		var x = 0;
-    var y = this.h + this.waveH * noise(this.noiseX, this.noiseY + this.h * 0.01, this.noiseF + this.ofs);
-    curveVertex(x, y);
-
-		for (var w = 0; w <= width; w += 20) {
-      x = w;
-      y = this.h + this.waveH * noise(this.noiseX + w * 0.001, this.noiseY + this.h * 0.01, this.noiseF + this.ofs)
-      curveVertex(x, y);
-    }
-		
-		x = width;
-    y = this.h + this.waveH * noise(this.noiseX + width, this.noiseY + this.h * 0.01, this.noiseF + this.ofs);
-    curveVertex(x, y);
-    endShape();
-	
-	}
-
-}
