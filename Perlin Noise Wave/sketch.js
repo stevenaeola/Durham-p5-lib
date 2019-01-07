@@ -36,7 +36,7 @@ function setup() {
 }
 
 function changeColour() {
-  bgcolour = document.getElementById("myText").value
+  bgcolour = document.getElementById("colour").value
 }
 
 function draw() {
