@@ -1,14 +1,17 @@
 var a;
 var g;
 var p;
+var l;
 function setup() {
   createCanvas(900, 700);
   a = new treeBackground();
   g = new ground();
   p = new createTree();
   a.draw();
-  g.draw()
-  p.draw()
+  g.draw();
+  p.draw();
+  l = new drawLeaves(p.leafsArray);
+  l.genLeaves(0, 50, 0, 0.12);
 }
 
 function draw() {
@@ -57,6 +60,7 @@ class createTree {
   constructor() {
     this.tree = createGraphics(width, height);
     this.n = 0;
+    this.leafs = [];
   }
 
   draw() {
@@ -86,6 +90,7 @@ class createTree {
             y += sin(theta + random(-PI / 10, PI / 10));
             this.branch( x, y, bSize, theta, bLength, pos + 1);
         } else {
+            this.leafs.push(createVector(x, y));
             let drawLeftBranch = random(1) > 0.1;
             let drawRightBranch = random(1) > 0.1;
             if (drawLeftBranch) this.branch(x, y, random(0.5, 0.7) * bSize, theta - random(PI / 15, PI / 5), random(0.6, 0.8) * bLength, 0);
@@ -101,7 +106,36 @@ class createTree {
         }
     }
   }
+
+  get leafsArray() {
+    return this.leafs
+  }
 }
 
+class drawLeaves {
   
-
+  constructor(leafArray) {
+    this.leafs = leafArray
+  
+  }
+  
+  genLeaves(minDiam, maxDiam, minAlpha, maxAlpha) {
+    var i;
+    for (i = 0; i < this.leafs.length; i++) {
+        let h = map(i, 0, this.leafs.length, minHue, maxHue);
+        let s = 255;
+        let b = 255;
+        let a = random(minAlpha, maxAlpha);
+        fill(h, s, b, a);
+        let diam = random(minDiam, maxDiam);
+        let jitterX = random(-30, 30);
+        let jitterY = random(-30, 30);  
+        ellipse(this.leafs[i].x + jitterX, this.leafs[i].y + jitterY, diam, diam);
+    }
+  }
+  
+  draw() {
+   this.genLeaves(0, 50, 0, 0.12);  // big leaves
+	 this.genLeaves(0, 15, 0, 0.4);  // small leaves
+  }
+}
