@@ -1,16 +1,13 @@
 var g;
 var p;
 
-function setup() {
-  createCanvas(windowWidth, windowHeight, WEBGL);
+function setup () {
+  canvas = createCanvas(windowWidth, windowHeight);
+  canvas.parent('canvas');
   g = createGraphics(1000, 1000);
-  p = new Pond(50, color('red'), color('green'));
+  p = new Pond(50);
 }
 
-function draw() {
-    background(255);
-    p.draw(g);
-    texture(g);
-    rotateX(millis() / 10000);
-    box(300);
+function draw () {
+  p.draw();
 }
