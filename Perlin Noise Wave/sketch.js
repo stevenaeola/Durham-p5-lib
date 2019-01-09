@@ -9,7 +9,7 @@ var sunX = 400;
 var sunY = 100;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, windowHeight-200);
   noiseVal = random(200);
 
   sliderX = createSlider(0, width, 100);
@@ -19,8 +19,9 @@ function setup() {
   sliderColour1.position(10, 210);
   sliderColour2 = createSlider(0, 255, 100);
   sliderColour2.position(10, 240);
-
-
+  
+  sun = new Sun(sunX, sunY);
+  
 }
 
 function changeColour() {
@@ -31,18 +32,8 @@ function draw() {
   background(bgColour);
 
   strokeWeight(0);
-  from = color(255, 245, 200);
-  to = color(255, 255, 250);
-  for (var i = 10; i > 0; --i) {
-    var size = map(i, 10, 0, 100, 0);
-    fill(lerpColor(color(255, 245, 200), color(255, 255, 250), 1 - i / 10));
-    ellipse(sunX, sunY, size, size);
-
-    if (dist(sunX, sunY, mouseX, mouseY) < size / 2 && mouseIsPressed) {
-      sunX = mouseX;
-      sunY = mouseY;
-    }
-  }
+  sun.createSun();
+  
   noFill();
   strokeWeight(1.5);
   waveSpeed += 0.015;
@@ -52,8 +43,8 @@ function draw() {
   text("Colour 1", sliderColour1.x * 2 + sliderColour1.width + 10, 50);
   text("Colour 2", sliderColour2.x * 2 + sliderColour2.width + 10, 80);
 
-  for (var waveNum = sunY + 10; waveNum < height; waveNum += 3) {
-    line = new Wave(sunY + 10, sliderX.value(), noiseVal, waveSpeed, waveNum, waveH, sliderColour1.value(), sliderColour2.value());
+  for (var waveNum = sun.sunY + 10; waveNum < height; waveNum += 3) {
+    line = new Wave(sun.sunY + 10, noiseVal, waveSpeed, waveNum, waveH, sliderColour1.value(), sliderColour2.value());
     line.drawLine();
   }
 }
