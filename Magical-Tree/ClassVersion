@@ -1,21 +1,52 @@
 var a;
-var g;
-var p;
-var l;
+
 function setup() {
   createCanvas(900, 700);
-  a = new treeBackground();
-  g = new ground();
-  p = new createTree();
+  a = new magicalTree();
   a.draw();
-  g.draw();
-  p.draw();
-  l = new drawLeaves(p.leafsArray);
-  l.genLeaves(0, 50, 0, 0.12);
 }
 
 function draw() {
   
+}
+
+class magicalTree {
+  
+  constructor(){
+    this.objBg = new treeBackground();
+    this.objTree = new createTree();
+    this.objGround = new ground();
+  }
+  
+  draw() {
+    colorMode(HSB);
+    this.buildBg();
+    this.buildTree();
+    this.buildGround();
+    this.buildLeaf();
+  }
+  
+  buildTree() {
+    this.objTree.draw();
+  }
+  
+  
+  buildGround() {
+    this.objGround.draw();
+  }
+  
+  
+  buildBg() {
+    this.objBg.draw();
+  }
+
+
+  buildLeaf() {
+    this.variable = this.objTree.leafArray;
+    this.lf = new drawLeaves(this.variable);
+    this.lf.draw(); 
+  }
+
 }
 
 class treeBackground {
@@ -42,6 +73,7 @@ class ground {
   }
   
   draw() {
+    noStroke();
     fill(20);
     beginShape();
     vertex(0, height);
@@ -107,7 +139,7 @@ class createTree {
     }
   }
 
-  get leafsArray() {
+  get leafArray() {
     return this.leafs
   }
 }
@@ -116,11 +148,14 @@ class drawLeaves {
   
   constructor(leafArray) {
     this.leafs = leafArray
-  
   }
   
   genLeaves(minDiam, maxDiam, minAlpha, maxAlpha) {
-    var i;
+    var rdn0 = random(255);
+    var rdn1 = random(255);
+    var minHue = min(rdn0, rdn1);
+    var maxHue = max(rdn0, rdn1);
+    let i;
     for (i = 0; i < this.leafs.length; i++) {
         let h = map(i, 0, this.leafs.length, minHue, maxHue);
         let s = 255;
@@ -134,8 +169,14 @@ class drawLeaves {
     }
   }
   
+  
+  
   draw() {
-   this.genLeaves(0, 50, 0, 0.12);  // big leaves
-	 this.genLeaves(0, 15, 0, 0.4);  // small leaves
+   this.genLeaves(0, 90, 0, 0.03);  // big leaves
+   this.genLeaves(0, 15, 0, 0.25);  // small leaves
+    
+   //this.genLeaves(0, 50, 0, 0.12);  // big leaves
+	 //this.genLeaves(0, 15, 0, 0.4);  // small leaves
   }
 }
+
