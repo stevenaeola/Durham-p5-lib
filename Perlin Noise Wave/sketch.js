@@ -1,57 +1,59 @@
 var offset = 300;
-var noiseF;
-var ofs = 0.0;
+var waveSpeed = 0.0;
 
-var sliderx;
-var slidery;
+var sliderX;
+var sliderY;
 
-var bgcolour;
+var bgColour = 'white';
+var sunX = 400;
+var sunY = 100;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  stroke(255, 150);
-  strokeWeight(1.5);
-  noFill();
+  noiseVal = random(200);
 
-  noiseF = random(200);
+  sliderX = createSlider(0, width, 100);
+  sliderX.position(10, 180);
 
-  sliderx = createSlider(0, width, 100);
-  sliderx.position(10, 180);
-  sliderx.style('width', '80px');
+  sliderColour1 = createSlider(0, 255, 100);
+  sliderColour1.position(10, 210);
+  sliderColour2 = createSlider(0, 255, 100);
+  sliderColour2.position(10, 240);
 
-  slidery = createSlider(0, height, 100);
-  slidery.position(10, 210);
-  slidery.style('width', '80px');
-
-  slidercolour1 = createSlider(0, 255, 100);
-  slidercolour1.position(10, 240);
-  slidercolour1.style('width', '80px');
-
-  slidercolour2 = createSlider(0, 255, 100);
-  slidercolour2.position(10, 270);
-  slidercolour2.style('width', '80px');
-
-  bgcolour = "white";
 
 }
 
 function changeColour() {
-  bgcolour = document.getElementById("colour").value
+  bgcolour = document.getElementById("colour").value;
 }
 
 function draw() {
-  background(bgcolour);
+  background(bgColour);
 
-  ofs += 0.015;
-  var waveH = map(sliderx.value(), 0, width, 100, 500);
+  strokeWeight(0);
+  from = color(255, 245, 200);
+  to = color(255, 255, 250);
+  for (var i = 10; i > 0; --i) {
+    var size = map(i, 10, 0, 100, 0);
+    fill(lerpColor(color(255, 245, 200), color(255, 255, 250), 1 - i / 10));
+    ellipse(sunX, sunY, size, size);
 
-  text("Wave width", sliderx.x * 2 + sliderx.width, 20);
-  text("Wave Height", slidery.x * 2 + slidery.width, 50);
-  text("Colour 1", slidercolour1.x * 2 + slidercolour1.width, 80);
-  text("Colour 2", slidercolour2.x * 2 + slidercolour2.width, 110);
+    if (dist(sunX, sunY, mouseX, mouseY) < size / 2 && mouseIsPressed) {
+      sunX = mouseX;
+      sunY = mouseY;
+    }
+  }
+  noFill();
+  strokeWeight(1.5);
+  waveSpeed += 0.015;
+  var waveH = map(sliderX.value(), 0, width, 100, 500);
 
-  for (var h = slidery.value(); h < height + 100; h += 4) {
-    line = new Wave(slidery.value(), sliderx.value(), noiseF, ofs, h, waveH, slidercolour1.value(), slidercolour2.value());
+  text("Wave width", sliderX.x * 2 + sliderX.width + 10, 20);
+  text("Colour 1", sliderColour1.x * 2 + sliderColour1.width + 10, 50);
+  text("Colour 2", sliderColour2.x * 2 + sliderColour2.width + 10, 80);
+
+  for (var waveNum = sunY + 10; waveNum < height; waveNum += 3) {
+    line = new Wave(sunY + 10, sliderX.value(), noiseVal, waveSpeed, waveNum, waveH, sliderColour1.value(), sliderColour2.value());
     line.drawLine();
   }
 }

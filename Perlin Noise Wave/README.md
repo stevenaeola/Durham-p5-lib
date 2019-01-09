@@ -6,8 +6,8 @@ This is a fork off [Perlin Noise Wave](https://www.openprocessing.org/sketch/576
 This class takes in these parameters for its constructor 
 - ysliderval and xsliderval: which change the height and width of the wave respectively
 - noiseF: is a randomly generated number that effects the noise of the wave. The mouse movement also effects the noise
-- ofs: offset the waves to have different heights 
-- h: is the density i.e how many waves are produced
+- wavespeed: changes the speed of the waves. Having it too slow will cause the waves to stop moving.
+- wavenum: is the density i.e how many waves are produced
 - waveH: is defined by the xsliderval
 - colour1 and colour2: changes the colour of the waves
 
