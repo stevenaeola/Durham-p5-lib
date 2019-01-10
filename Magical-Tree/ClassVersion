@@ -4,6 +4,7 @@ function setup() {
   createCanvas(900, 700);
   a = new magicalTree();
   a.draw();
+
 }
 
 function draw() {
@@ -17,6 +18,7 @@ class magicalTree {
     this.objTree = new createTree();
     this.objGround = new ground();
     this.lf = new drawLeaves();
+    this.fruit = new drawLeaves()
   }
   
   draw() {
@@ -29,10 +31,7 @@ class magicalTree {
   
   buildTree() {
     this.objTree.draw();
-    var variable = this.objTree.leafArray;
-    this.lf.setLeafArray(variable);
-    
-    
+    this.lf.setLeafArray(this.objTree.leafArray);
   }
   
   
@@ -55,6 +54,52 @@ class magicalTree {
     var minColor = lColor - 15;
     var maxColor = lColor + 15;
     this.lf.changeColor(minColor, maxColor);
+  
+  }
+
+  fruitColor(fColor) {
+    var minColor = fColor - 5;
+    var maxColor = fColor + 5;
+    this.fruit.changeColor(minColor, maxColor);
+  
+  }
+
+  addFruit(fru) {
+    this.fruit.setLeafArray(this.objTree.leafArray);
+    switch (fru) {
+      
+      case "apple":
+        this.fruitColor(10);
+        break;
+      
+      case "orange":
+        this.fruitColor(33);
+        break;
+        
+      case "lemon":
+        this.fruitColor(60);
+        break;
+        
+      case "plum":
+        this.fruitColor(285)
+        break;
+    }
+    this.fruit.drawFruit();
+        
+  }
+
+  treeHeight(tHeight) {
+    this.objTree.changeHeight(tHeight);
+  
+  }
+
+  treeAge(tAge) {
+    this.objTree.changeAge(tAge);
+  
+  }
+
+  treeDensity(tDensity) {
+    this.objTree.changeDensity(tDensity);
   
   }
 
@@ -104,19 +149,27 @@ class createTree {
     this.tree = createGraphics(width, height);
     this.n = 0;
     this.leafs = [];
+    this.treeHeight = 150;
+    this.treeDensity = 3;
+    this.treeAge = 70;
   }
 
-  draw() {
+  sketch() {
     this.tree.beginShape();
     this.tree.noStroke();
     this.tree.background(0,0);
 		
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < this.treeDensity; i++) {
         this.tree.fill(map(i, 0, 2, 60, 20));
-        this.branch(width/2, height, 70, -HALF_PI, 150, 0);
+        this.branch(width/2, height, this.treeAge, -HALF_PI, this.treeHeight, 0);
     }
     this.tree.endShape();
+  }
+  
+  draw() {
+    this.sketch();
     image(this.tree, 5, 5);
+  
   }
 
 
@@ -153,6 +206,20 @@ class createTree {
   get leafArray() {
     return this.leafs
   }
+
+
+  changeHeight(tHeight) {
+    this.treeHeight = tHeight;
+  }
+
+  changeDensity(tDensity) {
+    this.treeDensity = tDensity;
+  }
+
+  changeAge(tAge) {
+    this.treeAge = tAge;
+  }
+
 }
 
 
@@ -217,5 +284,11 @@ class drawLeaves {
   
   }
 
+  drawFruit() {
+    this.genLeaves(0, 12, 0, 0.60);
+  }
+
   
 }
+
+
