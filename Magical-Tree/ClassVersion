@@ -1,18 +1,26 @@
 var a;
+var button;
+var slider;
 
 function setup() {
+  createP('Welcome to Magical Tree')
+  slider = createSlider(70,100,70);
   createCanvas(900, 700);
   a = new clMagicalTree();
-  a.draw();
-
+  
 }
 
 function draw() {
-  
+  a.draw();
 }
 
+function mousePressed() {
+  a.redraw();
+}
+
+
 class clMagicalTree {
-  
+
   constructor(){
     this.objBg = new clTreeBackground();
     this.objTree = new clCreateTree();
@@ -20,7 +28,7 @@ class clMagicalTree {
     this.objLeaf = new clDrawLeaves();
     this.objFruit = new clDrawLeaves()
   }
-  
+
   draw() {
     colorMode(HSB);
     this.buildBg();
@@ -28,18 +36,18 @@ class clMagicalTree {
     this.buildGround();
     this.buildLeaf();
   }
-  
+
   buildTree() {
     this.objTree.draw();
     this.objLeaf.setLeafArray(this.objTree.leafArray);
   }
-  
-  
+
+
   buildGround() {
     this.objGround.draw();
   }
-  
-  
+
+
   buildBg() {
     this.objBg.draw();
   }
@@ -47,60 +55,68 @@ class clMagicalTree {
 
   buildLeaf() {
     this.objLeaf.draw();
-    
+
   }
 
   setLeafColor(argColor) {
     var minColor = argColor - 15;
     var maxColor = argColor + 15;
     this.objLeaf.changeColor(minColor, maxColor);
-  
+
   }
 
   setFruitColor(argColor) {
     var minColor = argColor - 5;
     var maxColor = argColor + 5;
     this.objFruit.changeColor(minColor, maxColor);
-  
+
   }
 
   addFruit(argFruit) {
     this.objFruit.setLeafArray(this.objTree.leafArray);
     switch (argFruit) {
-      
+
       case "apple":
         this.setFruitColor(10);
         break;
-      
+
       case "orange":
         this.setFruitColor(33);
         break;
-        
+
       case "lemon":
         this.setFruitColor(60);
         break;
-        
+
       case "plum":
         this.setFruitColor(285)
         break;
     }
     this.objFruit.drawFruit();
-        
+
   }
 
   setTreeHeight(argHeight) {
     this.objTree.setHeight(argHeight);
-  
+
   }
 
   setTreeAge(argAge) {
     this.objTree.setAge(argAge);
-  
+
   }
 
   setTreeDensity(argDensity) {
     this.objTree.setDensity(argDensity);
-  
+
+  }
+
+  redraw() {
+    clear();
+    this.objLeaf.deleteLeaf();
+    this.objFruit.deleteLeaf();
+    this.draw();
+
   }
 
 }
@@ -112,6 +128,7 @@ class clTreeBackground {
   }
 
   draw() {
+    noLoop();
     this.bg.noStroke();
     for (this.diam = 1.5 * width; this.diam > 0.5 * width; this.diam -= 20) {
         this.bg.fill(map(this.diam, 0.5 * width, 1.5 * width, 255, 110)); // changed this to make the gradient more pronounced
@@ -127,14 +144,15 @@ class clGround {
   constructor() {
     this.n = 0;
   }
-  
+
   draw() {
+    noLoop();
     noStroke();
     fill(20);
     beginShape();
     vertex(0, height);
     for (var i = 0; i <= width; i += 50) {
-        vertex(this.i, map(noise(this.n), 0, 1, height - 30, height));
+        vertex(i, map(noise(this.n), 0, 1, height - 30, height));
         this.n += 0.1;
     }
     vertex(width, height);
@@ -158,23 +176,25 @@ class clCreateTree {
     this.tree.beginShape();
     this.tree.noStroke();
     this.tree.background(0, 0);
-		
+
     for (var i = 0; i < this.treeDensity; i++) {
         this.tree.fill(map(i, 0, 2, 60, 20));
         this.branch(width/2, height, this.treeAge, -HALF_PI, this.treeHeight, 0);
     }
     this.tree.endShape();
   }
-  
+
   draw() {
+    noLoop();
+    this.tree.clear();
     this.sketch();
     image(this.tree, 5, 5);
-  
+
   }
 
 
   branch(x, y, bSize, theta, bLength, pos) {
-    
+
     this.n += 0.01;
     var diam = lerp(bSize, 0.7 * bSize, pos / bLength);
     diam *= map(noise(this.n), 0, 1, 0.4, 1.6);
@@ -224,16 +244,16 @@ class clCreateTree {
 
 
 class clDrawLeaves {
-  
+
   constructor(leafArray=[]) {
     this.leafs = leafArray;
     this.randomColor = true;
     this.minHue = 0;
     this.maxHue = 0;
   }
-  
+
   genLeaves(minDiam, maxDiam, minAlpha, maxAlpha) {
-    
+
     var minHue;
     var maxHue;
   	if (this.randomColor) {
@@ -245,7 +265,7 @@ class clDrawLeaves {
       minHue = this.minHue;
       maxHue = this.maxHue;
     }
-    
+
     for (var i = 0; i < this.leafs.length; i++) {
         var h = map(i, 0, this.leafs.length, minHue, maxHue);
         var s = 255;
@@ -254,13 +274,13 @@ class clDrawLeaves {
         fill(h, s, b, a);
         var diam = random(minDiam, maxDiam);
         var jitterX = random(-30, 30);
-        var jitterY = random(-30, 30);  
+        var jitterY = random(-30, 30);
         ellipse(this.leafs[i].x + jitterX, this.leafs[i].y + jitterY, diam, diam);
     }
   }
-  
-  
-  
+
+
+
   draw() {
    this.genLeaves(0, 90, 0, 0.03);  // big leaves
    this.genLeaves(0, 15, 0, 0.25);  // small leaves
@@ -270,15 +290,21 @@ class clDrawLeaves {
     this.minHue = argMinHue;
     this.maxHue = argMaxHue;
     this.randomColor = false;
-  
+
   }
 
   setLeafArray(argLeafArray) {
     this.leafs = argLeafArray;
-  
+
   }
 
   drawFruit() {
     this.genLeaves(0, 12, 0, 0.60);
-  } 
+  }
+
+
+  deleteLeaf() {
+    this.leafs.splice(0, this.leafs.length);
+    }
+  
 }
