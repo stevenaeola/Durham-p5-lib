@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>In and Out test page</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.js"></script>
+    <script src="renderer_wrapper.js"></script>
+    <script src="sketch.js"></script>
+    <style>
+    #left
+    {
+      padding-top: 10px;
+      margin-left: 2%;
+      float: left;
+      width: 20%;
+    }
+
+    #right
+    {
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: 10px;
+      float: right;
+      width: 18%;
+    }
+    input {
+      width: 200px;
+      height: 20px;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="left">
+      <div id="canvas">
+
+      </div>
+    </div>
+    <div id="right">
+      <form id="form">
+        X Position<input type = "number" id = "x" value = "40"/><br>
+        Y Position<input type = "number" id = "y" value = "460"/><br>
+        Side Length<input type = "number" id = "length" value = "460"/><br>
+        Recursion Depth<input type = "number" id = "level" value="100"/><br>
+        Colour<input type = "text" id = "colour" value="0, 0, 0"/><br>
+        Colour Fade<input type = "text" id = "colour_fade" value="0, 0, 0"/><br>
+        Line Weight<input type = "number" id = "line_weight" value="1"/><br>
+        Animation Time<input type = "number" id = "animation_time" value="6000"/><br>
+        Master Time<input type = "number" id = "master_time" value="0"/><br>
+      </form>
+      <p>X and Y position simply adjusts the position of the lower left corner of the triangle.</p>
+      <p>Side Length adjusts length of all sides</p>
+      <p>Recursion Depth adjusts the amount of subtriangles contained within the master triangle</p>
+      <p>Colour is a comma delimited field to adjust RGB values of master triangle. Colour fade adjusts amount the RGB values change by each recursive call.</p>
+      <p>Line weight adjusts thickness of the drawn lines.</p>
+      <p>Animation Time adjusts the time in milliseconds for the "In and Out" animation complete. Master Time adjusts time in milliseconds for one full rotation.</p>
+    </div>
+  </body>
+</html>
