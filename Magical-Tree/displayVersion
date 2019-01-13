@@ -1,0 +1,375 @@
+var a;
+var resetButton;
+var colorSlider;
+var ageSlider;
+var heightSlider;
+var densitySlider
+var colorLable;
+var fruitRadio;
+var defultButton;
+
+
+function setup() {
+  
+  resetButton = createButton('New Tree');
+  resetButton.position(20, 10);
+  colorSlider = createSlider(0,360,150);
+  colorSlider.position(20, 30);
+  ageSlider = createSlider(0, 150, 70);
+  ageSlider.position(20, 50);
+  heightSlider = createSlider(50, 200, 150);
+  heightSlider.position(20, 70);
+  densitySlider = createSlider(1, 10, 3);
+  densitySlider.position(20, 90);
+  fruitRadio = createRadio();
+  fruitRadio.position(20, 110);
+  fruitRadio.option('apple');
+  fruitRadio.option('orange');
+  fruitRadio.option('lemon');
+  fruitRadio.option('plum');
+  fruitRadio.option('no fruit');
+  fruitRadio.value('no fruit');
+  defultButton = createButton("Reset Tree");
+  defultButton.position(20, 135);
+  createCanvas(900, 700);
+  a = new clMagicalTree();
+  resetButton.mousePressed(newTree);
+  defultButton.mousePressed(reset);
+}
+
+function draw() {
+  
+  fruitRadio.changed(addFruit);
+  colorSlider.changed(newTree);
+  ageSlider.changed(newTree);
+  heightSlider.changed(newTree);
+  densitySlider.changed(newTree);
+  a.setLeafColor(colorSlider.value());
+  a.setTreeAge(ageSlider.value());
+  a.setTreeHeight(heightSlider.value());
+  a.setTreeDensity(densitySlider.value());
+  a.draw();
+
+}
+
+function addFruit() {
+  a.addFruit(fruitRadio.value())
+}
+
+function newTree() {
+  a.redraw();
+  addFruit();
+  
+}
+
+function reset() {
+  fruitRadio.value("no fruit");
+  ageSlider.value(70);
+  heightSlider.value(150);
+  densitySlider.value(3);
+  a.redraw();
+}
+
+class clMagicalTree {
+
+  constructor(){
+    this.objBg = new clTreeBackground();
+    this.objTree = new clCreateTree();
+    this.objGround = new clGround();
+    this.objLeaf = new clDrawLeaves();
+    this.objFruit = new clDrawLeaves()
+  }
+
+  draw() {
+    colorMode(HSB);
+    this.buildBg();
+    this.buildTree();
+    this.buildGround();
+    this.buildLeaf();
+  }
+
+  buildTree() {
+    this.objTree.draw();
+    this.objLeaf.setLeafArray(this.objTree.leafArray);
+  }
+
+
+  buildGround() {
+    this.objGround.draw();
+  }
+
+
+  buildBg() {
+    this.objBg.draw();
+  }
+
+
+  buildLeaf() {
+    this.objLeaf.draw();
+
+  }
+
+  setLeafColor(argColor) {
+    var minColor = argColor - 15;
+    var maxColor = argColor + 15;
+    this.objLeaf.changeColor(minColor, maxColor);
+
+  }
+
+  setFruitColor(argColor) {
+    if (argColor != this.objFruit.getColor()) {
+      this.redraw();
+    }
+    var minColor = argColor - 5;
+    var maxColor = argColor + 5;
+    this.objFruit.changeColor(minColor, maxColor);
+
+  }
+
+  addFruit(argFruit) {
+    
+    this.objFruit.setLeafArray(this.objTree.leafArray);
+    switch (argFruit) {
+
+      case "apple":
+        this.setFruitColor(10);
+        break;
+
+      case "orange":
+        this.setFruitColor(33);
+        break;
+
+      case "lemon":
+        this.setFruitColor(60);
+        break;
+
+      case "plum":
+        this.setFruitColor(285)
+        break;
+        
+      case "no fruit":
+        this.objFruit.deleteLeaf();
+        
+    }
+    if (argFruit != "no fruit") {
+      this.objFruit.drawFruit();
+    } else {
+      this.redraw();
+    }
+
+  }
+
+  setTreeHeight(argHeight) {
+    this.objTree.setHeight(argHeight);
+
+  }
+
+  setTreeAge(argAge) {
+    this.objTree.setAge(argAge);
+
+  }
+
+  setTreeDensity(argDensity) {
+    this.objTree.setDensity(argDensity);
+
+  }
+
+  redraw() {
+    this.objLeaf.deleteLeaf();
+    this.objFruit.deleteLeaf();
+    redraw();
+  }
+
+}
+
+class clTreeBackground {
+
+  constructor() {
+    this.bg = createGraphics(width, height);
+  }
+
+  draw() {
+    noLoop();
+    this.bg.noStroke();
+    for (this.diam = 1.5 * width; this.diam > 0.5 * width; this.diam -= 20) {
+        this.bg.fill(map(this.diam, 0.5 * width, 1.5 * width, 255, 110)); // changed this to make the gradient more pronounced
+        this.bg.ellipse(width / 2, height / 2, this.diam, this.diam);
+    }
+    image(this.bg, 0, 0);
+  }
+
+}
+
+class clGround {
+
+  constructor() {
+    this.n = 0;
+  }
+
+  draw() {
+    noLoop();
+    noStroke();
+    fill(20);
+    beginShape();
+    vertex(0, height);
+    for (var i = 0; i <= width; i += 50) {
+        vertex(i, map(noise(this.n), 0, 1, height - 30, height));
+        this.n += 0.1;
+    }
+    vertex(width, height);
+    endShape();
+  }
+
+}
+
+class clCreateTree {
+
+  constructor() {
+    this.tree = createGraphics(width, height);
+    this.n = 0;
+    this.leafs = [];
+    this.treeHeight = 150;
+    this.treeDensity = 3;
+    this.treeAge = 70;
+  }
+
+  sketch() {
+    this.tree.beginShape();
+    this.tree.noStroke();
+    this.tree.background(0, 0);
+
+    for (var i = 0; i < this.treeDensity; i++) {
+        this.tree.fill(map(i, 0, 2, 60, 20));
+        this.branch(width/2, height, this.treeAge, -HALF_PI, this.treeHeight, 0);
+    }
+    this.tree.endShape();
+  }
+
+  draw() {
+    noLoop();
+    this.tree.clear();
+    this.sketch();
+    image(this.tree, 5, 5);
+
+  }
+
+
+  branch(x, y, bSize, theta, bLength, pos) {
+
+    this.n += 0.01;
+    var diam = lerp(bSize, 0.7 * bSize, pos / bLength);
+    diam *= map(noise(this.n), 0, 1, 0.4, 1.6);
+
+    this.tree.ellipse(x, y, diam, diam);
+    if (bSize > 0.6) {
+        if (pos < bLength) {
+            x += cos(theta + random(-PI / 10, PI / 10));
+            y += sin(theta + random(-PI / 10, PI / 10));
+            this.branch(x, y, bSize, theta, bLength, pos + 1);
+        } else {
+            this.leafs.push(createVector(x, y));
+            var drawLeftBranch = random(1) > 0.1;
+            var drawRightBranch = random(1) > 0.1;
+            if (drawLeftBranch) this.branch(x, y, random(0.5, 0.7) * bSize, theta - random(PI / 15, PI / 5), random(0.6, 0.8) * bLength, 0);
+            if (drawRightBranch) this.branch(x, y, random(0.5, 0.7) * bSize, theta + random(PI / 15, PI / 5), random(0.6, 0.8) * bLength, 0);
+
+            if (!drawLeftBranch && !drawRightBranch) {
+                this.tree.push()
+                this.tree.translate(x, y);
+                this.tree.rotate(theta);
+                this.tree.quad(0, -diam / 2, 2 * diam, -diam / 6, 2 * diam, diam / 6, 0, diam / 2);
+                this.tree.pop();
+            }
+        }
+    }
+  }
+
+  get leafArray() {
+    return this.leafs
+  }
+
+
+  setHeight(tHeight) {
+    this.treeHeight = tHeight;
+  }
+
+  setDensity(tDensity) {
+    this.treeDensity = tDensity;
+  }
+
+  setAge(tAge) {
+    this.treeAge = tAge;
+  }
+
+}
+
+
+class clDrawLeaves {
+
+  constructor(leafArray=[]) {
+    this.leafs = leafArray;
+    this.randomColor = true;
+    this.minHue = 0;
+    this.maxHue = 0;
+  }
+
+  genLeaves(minDiam, maxDiam, minAlpha, maxAlpha) {
+
+    var minHue;
+    var maxHue;
+  	if (this.randomColor) {
+      var rdn0 = random(255);
+      var rdn1 = random(255);
+      minHue = min(rdn0, rdn1);
+      maxHue = max(rdn0, rdn1);
+    } else {
+      minHue = this.minHue;
+      maxHue = this.maxHue;
+    }
+
+    for (var i = 0; i < this.leafs.length; i++) {
+        var h = map(i, 0, this.leafs.length, minHue, maxHue);
+        var s = 255;
+        var b = 255;
+        var a = random(minAlpha, maxAlpha);
+        fill(h, s, b, a);
+        var diam = random(minDiam, maxDiam);
+        var jitterX = random(-30, 30);
+        var jitterY = random(-30, 30);
+        ellipse(this.leafs[i].x + jitterX, this.leafs[i].y + jitterY, diam, diam);
+    }
+  }
+
+
+
+  draw() {
+   this.genLeaves(0, 90, 0, 0.03);  // big leaves
+   this.genLeaves(0, 15, 0, 0.25);  // small leaves
+  }
+
+  changeColor(argMinHue, argMaxHue) {
+    this.minHue = argMinHue;
+    this.maxHue = argMaxHue;
+    this.randomColor = false;
+
+  }
+
+  getColor() {
+    return (this.maxHue - 5);
+  }
+
+  setLeafArray(argLeafArray) {
+    this.leafs = argLeafArray;
+
+  }
+
+  drawFruit() {
+    this.genLeaves(0, 12, 0, 0.60);
+  }
+
+
+  deleteLeaf() {
+    this.leafs.splice(0, this.leafs.length);
+    }
+  
+}
