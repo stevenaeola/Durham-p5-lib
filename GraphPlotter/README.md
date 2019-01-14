@@ -41,7 +41,7 @@ This project is based on a sketch on [OpenProcessing](https://www.openprocessing
 ### Methods
 * `constructor()`
 	* Is the class constructor, takes no values and prepares the class to be used.
-	* Should be called before the `p5.js` `draw()` function, an instance is created in `GraphPlotter.js` using the name `graph_plotter`.
+	* An instance should be created before `draw()`, somewhere like `setup()`.
 
 * `draw([renderer])`
 	* Draws the graph and axis to a canvas or graphic defined by the optional parameter `renderer` of type `p5.Renderer`.
@@ -68,17 +68,40 @@ For example (in `Example.html`):
 <script src="Example.js"></script>
 ```
 
- Nothing special must be done in `setup()` as an instance of `GraphPlotter` is created in `GraphPlotter.js`. To use this instance in your `draw()` function, simply do `graph_plotter.draw([renderer])`.
- 
- For example (in `Example.js`):
- 
- ```javascript
- function draw() {
+**When initialising the canvas, it must be using `WEBGL` mode otherwise the coordinate system will change and the graph will not be drawn correctly.**
+
+An instance of `GraphPlotter` must be created before `draw()` in somewhere like `setup()`. A basic example would be the following (similarly to `Example.js`):
+
+```javascript
+var canvas;
+var graph_plotter;
+
+function setup() {
+    canvas = createCanvas(..., ..., WEBGL);
+
+	...
+
+    graph_plotter = new GraphPlotter();
+}
+
+function draw() {
     graph_plotter.draw(canvas);
-    
-    ...
- }
- ```
+
+	...	
+}
+```
+
+This will create a graph on the canvas, but in order to draw an equation, you must supply the object with an equation. This is found in `Example.html` as the page contains a textbox for the user to enter an equation; the relevant code is below:
+
+```javascript
+$("#equation_input").on("keyup", function(event) {
+	const equation_string = $("#equation_input").val();
+
+	...
+	
+	graph_plotter.equation = equation_string;
+});
+```
 
 ## Example
 This directory contains an example usage: `Example.html`, `Example.js`, and `Example.css`. 

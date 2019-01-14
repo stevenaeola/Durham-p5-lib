@@ -95,14 +95,14 @@
 
 		<script>
 			$("#equation_input").on("keyup", function(event) {
-				const equation_string = $("#equation_input").val()
+				const equation_string = $("#equation_input").val();
 				if (equation_string !== undefined) {
 					graph_plotter.equation = equation_string;
 				}
 			});
 
 			$("#reset_btn").on("click", function(event) {
-				graph_plotter.zoom = 50
+				graph_plotter.zoom = 50;
 			});
 
 			const slider = document.getElementById("precision_slider");
@@ -111,7 +111,7 @@
 
 			slider.oninput = function() {
 				output.innerHTML = this.value;
-				graph_plotter.precision = this.value
+				graph_plotter.precision = this.value;
 			}
 
 		</script>

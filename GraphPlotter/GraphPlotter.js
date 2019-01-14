@@ -5,7 +5,8 @@ document.head.appendChild(mathjs_script);
 // === ===
 
 class Equation {
-    constructor(equation_string) {
+    constructor(graph_plotter, equation_string) {
+    	this.graph_plotter = graph_plotter
         this.equation_string = equation_string;
         this.calc_points();
     }
@@ -20,7 +21,7 @@ class Equation {
             }
         }
 
-        for (let x_val = -width / 2; x_val <= width / 2; x_val += graph_plotter.precision / 100) {
+        for (let x_val = -width / 2; x_val <= width / 2; x_val += this.graph_plotter.precision / 100) {
             let y_value = undefined;
 
             // Test if the equation is valid
@@ -51,7 +52,8 @@ class Equation {
                 continue;
             }	
 
-            graphic.curveVertex((graph_plotter.zoom * this.points[index][0]) + (width / 2), (graph_plotter.zoom * this.points[index][1]) + (height / 2));
+            graphic.curveVertex((this.graph_plotter.zoom * this.points[index][0]) + (width / 2), 
+            	(this.graph_plotter.zoom * this.points[index][1]) + (height / 2));
         }
 
         graphic.endShape();
@@ -68,6 +70,8 @@ class GraphPlotter {
 
         this.do_draw = true;
         this.axis_text_increment = 1;
+
+        this.axis_text = createGraphics(width, height);
     }
 
     // Getters / Setters
@@ -99,7 +103,7 @@ class GraphPlotter {
     }
 
     set equation(equation_string) {
-        this.equation_object = new Equation(equation_string);
+        this.equation_object = new Equation(this, equation_string);
         this.do_draw = true;
     }
 
@@ -130,28 +134,27 @@ class GraphPlotter {
     draw(renderer) {
         if (this.do_draw_value) {
         	// Draw the numbers that the axis represent
-            let axis_text = createGraphics(width, height);
             for (let x_val = 0; x_val <= max(width / 2, height / 2); x_val += this.axis_text_increment) {
-                axis_text.textSize(10);
+                this.axis_text.textSize(10);
 
-                axis_text.text(x_val, (this.zoom * x_val) + width / 2, height / 2);
-                axis_text.text(-x_val, (this.zoom * -x_val) + width / 2, height / 2);
+                this.axis_text.text(x_val, (this.zoom * x_val) + width / 2, height / 2);
+                this.axis_text.text(-x_val, (this.zoom * -x_val) + width / 2, height / 2);
 
-                axis_text.text(-x_val, width / 2, (this.zoom * x_val) + height / 2);
-                axis_text.text(x_val, width / 2, height / 2 - (this.zoom * x_val));
+                this.axis_text.text(-x_val, width / 2, (this.zoom * x_val) + height / 2);
+                this.axis_text.text(x_val, width / 2, height / 2 - (this.zoom * x_val));
             }
 
             // Draw x-axis
-            axis_text.strokeWeight(1);
-            axis_text.line(0, height / 2, width, height / 2);
+            this.axis_text.strokeWeight(1);
+            this.axis_text.line(0, height / 2, width, height / 2);
 
             // Draw y-axis
-            axis_text.line(width / 2, 0, width / 2, height);
+            this.axis_text.line(width / 2, 0, width / 2, height);
 
             //Draw equations
             strokeWeight(2);
             if (this.equation_object !== undefined) {
-                this.equation_object.draw(axis_text);
+                this.equation_object.draw(this.axis_text);
             }
 
             if (renderer) {
@@ -161,25 +164,10 @@ class GraphPlotter {
             }
 
             // Texture and plane have no method within p5.Renderer
-            texture(axis_text);
+            texture(this.axis_text);
             plane(width, height);
 			
             this.do_draw = false;
         }
     }
 }
-
-
-function mouseWheel(event) {
-    const zoom_sensitivity = 0.05;
-    const zoom_minimum = 1;
-    const zoom_maximum = 100;
-
-    graph_plotter.zoom += zoom_sensitivity * event.delta;
-    graph_plotter.zoom = constrain(graph_plotter.zoom, zoom_minimum, zoom_maximum);
-    graph_plotter.do_draw = true;
-
-    return false;
-}
-
-var graph_plotter = new GraphPlotter();
