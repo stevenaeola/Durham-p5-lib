@@ -2,18 +2,19 @@ const A = {
   COLOUR: 0,
   MAG: 1,
   SPEED: 2,
-  VEL: 3,
-  LOC: 4,
-  WIGGLE: 5
+  BIG: 3,
+  VEL: 4,
+  LOC: 5,
+  WIGGLE: 6
 };
 
 class Fish {
-  constructor (colour = color(0, 0, 255, 30), mag = random(0.1, 0.3), speed = 1, vel = createVector(random(-1, 1), random(-1, 1)), loc = createVector(random(width), random(height)), wiggle = random(-90, 90)) {
+  constructor (colour = color(0, 0, 255, 30), mag = 1, speed = 1, big = random(0.1, 0.3), vel = createVector(random(-1, 1), random(-1, 1)), loc = createVector(random(width), random(height)), wiggle = random(-90, 90)) {
     // These arrays store the appearance of the fish as it was before a fade was initialised, after the fish has finished fading, the frame count at which the fade was started and the number of frames until it is finished.
-    this.oldAppearance = [colour, mag, speed, vel, loc, wiggle];
-    this.newAppearance = [colour, mag, speed, vel, loc, wiggle];
-    this.initialFrames = [0, 0, 0, 0, 0, 0];
-    this.framesUntilFadeDone = [1, 1, 1, 1, 1, 1];
+    this.oldAppearance = [colour, mag, speed, big, vel, loc, wiggle];
+    this.newAppearance = [colour, mag, speed, big, vel, loc, wiggle];
+    this.initialFrames = [0, 0, 0, 0, 0, 0, 0];
+    this.framesUntilFadeDone = [1, 1, 1, 1, 1, 1, 1];
 
     // This function cleans up set methods for the appearance properties of the fish
     this.setAppearance = function (valRef, val) {
@@ -23,6 +24,7 @@ class Fish {
       this.framesUntilFadeDone[valRef] = 1;
     };
 
+    // This function cleans up fade methods for the appearance properties of the fish
     this.fadeAppearance = function (valRef, val, frames) {
       this.oldAppearance[valRef] = this.lerpValue(valRef);
       this.newAppearance[valRef] = val;
@@ -32,11 +34,11 @@ class Fish {
 
     // This function allows for linear interpolation between two appearance values (i.e. help the fade to occur). It also prevents code for the get methods being repeated many times
     this.lerpValue = function (valRef) {
-      // If the value is a vector, do vector interpolation
       var oldVal;
       var newVal;
       var initial;
       var timeUntilDone;
+      // If the value is a vector, do vector interpolation
       if (valRef === A.VEL || valRef === A.LOC) {
         oldVal = this.oldAppearance[valRef];
         newVal = this.newAppearance[valRef];
@@ -45,13 +47,15 @@ class Fish {
         var lerped = oldVal;
         lerped.lerp(oldVal, newVal, min((frameCount - initial) / timeUntilDone, 1));
         return lerped;
+      // If the value is a colour, do colour interpolation
       } else if (valRef === A.COLOUR) {
         oldVal = this.oldAppearance[A.COLOUR];
         newVal = this.newAppearance[A.COLOUR];
         initial = this.initialFrames[A.COLOUR];
         timeUntilDone = this.framesUntilFadeDone[A.COLOUR];
         return lerpColor(oldVal, newVal, min((frameCount - initial) / timeUntilDone, 1));
-      } else if (valRef === A.MAG || valRef === A.SPEED || valRef === A.WIGGLE) {
+      // Otherwise, do normal linear interpolation
+      } else if (valRef === A.MAG || valRef === A.SPEED || valRef === A.WIGGLE || valRef === A.BIG) {
         oldVal = this.oldAppearance[valRef];
         newVal = this.newAppearance[valRef];
         initial = this.initialFrames[valRef];
@@ -74,7 +78,7 @@ class Fish {
   }
 
   set mag (m) {
-    this.setAppearance(A.MAG, m);
+    this.setAppearance(A.MAG, max(m, 0.1));
   }
 
   get speed () {
@@ -83,6 +87,14 @@ class Fish {
 
   set speed (s) {
     this.setAppearance(A.SPEED, s);
+  }
+
+  get big () {
+    return this.lerpValue(A.BIG);
+  }
+
+  set big (b) {
+    this.setAppearance(A.BIG, b);
   }
 
   get vel () {
@@ -109,13 +121,17 @@ class Fish {
     this.setAppearance(A.WIGGLE, w);
   }
 
+  get dim () {
+    return this.big * this.mag;
+  }
+
   draw (g) {
     var x;
     var angle;
     var v;
     if (g) {
-      g.stroke(color(red(this.colour), green(this.colour), blue(this.colour), 255));
-      g.strokeWeight(50 * this.mag);
+      g.stroke(color(red(this.colour), green(this.colour), blue(this.colour), 255)); // The outside stroke of the fish should always be of full alpha
+      // g.strokeWeight(50 * this.mag);
       g.fill(this.colour);
 
       this.loc.add(p5.Vector.mult(this.vel, this.speed));
@@ -126,7 +142,7 @@ class Fish {
         x = sin(radians(i)) * i / 3;
         angle = sin(radians(i + this.wiggle + frameCount * 5)) * 50;
 
-        v = createVector((x - angle) * this.mag, i * 2 * this.mag);
+        v = createVector((x - angle) * this.dim, i * 2 * this.dim);
         v.rotate(this.vel.heading() - radians(90));
         v.add(this.loc.x, this.loc.y);
 
@@ -137,7 +153,7 @@ class Fish {
         x = sin(radians(j)) * j / 3;
         angle = sin(radians(j + this.wiggle + frameCount * 5)) * 50;
 
-        v = createVector((-x - angle) * this.mag, j * 2 * this.mag);
+        v = createVector((-x - angle) * this.dim, j * 2 * this.dim);
         v.rotate(this.vel.heading() - radians(90));
         v.add(this.loc.x, this.loc.y);
 
@@ -148,11 +164,10 @@ class Fish {
     } else {
       stroke(color(red(this.colour), green(this.colour), blue(this.colour), 255));
       fill(this.colour);
-
       this.loc.add(p5.Vector.mult(this.vel, this.speed));
       push();
       translate(this.loc.x, this.loc.y);
-      scale(this.mag);
+      scale(this.dim);
       /* Get the direction and add 90 degrees. */
       rotate(this.vel.heading() - radians(90));
       beginShape();
@@ -173,35 +188,29 @@ class Fish {
     pop();
   }
 
-  boundaries () {
-    /* Instead of changing the velocity when the fish  */
-    if (this.loc.x < -100) this.loc.x = width + 100;
-    if (this.loc.x > width + 100) this.loc.x = -100;
-    if (this.loc.y < -100) this.loc.y = height + 100;
-    if (this.loc.y > height + 100) this.loc.y = -100;
+  boundaries (g) {
+    if (g) {
+      if (this.loc.x < -100) this.loc.x = g.width + 100;
+      if (this.loc.x > g.width + 100) this.loc.x = -100;
+      if (this.loc.y < -100) this.loc.y = g.height + 100;
+      if (this.loc.y > g.height + 100) this.loc.y = -100;
+    } else {
+      if (this.loc.x < -100) this.loc.x = width + 100;
+      if (this.loc.x > width + 100) this.loc.x = -100;
+      if (this.loc.y < -100) this.loc.y = height + 100;
+      if (this.loc.y > height + 100) this.loc.y = -100;
+    }
   }
 
-  fadeColour (c, frames) {
+  fadeColour (c, frames = 100) {
     this.fadeAppearance(A.COLOUR, c, frames);
   }
 
-  fadeMag (m, frames) {
-    this.fadeAppearance(A.MAG, this.mag * m, frames);
+  fadeMag (m, frames = 100) {
+    this.fadeAppearance(A.MAG, m, frames);
   }
 
-  fadeSpeed (s, frames) {
+  fadeSpeed (s, frames = 100) {
     this.fadeAppearance(A.SPEED, s, frames);
-  }
-
-  fadeVel (c, frames) {
-    this.fadeAppearance(A.VEL, p5.Vector.add(this.vel, c), frames);
-  }
-
-  fadeLoc (l, frames) {
-    this.fadeAppearance(A.LOC, p5.Vector.add(this.loc, l), frames);
-  }
-
-  fadeWiggle (w, frames) {
-    this.fadeAppearance(A.WIGGLE, w, frames);
   }
 }
