@@ -1,23 +1,44 @@
-<!DOCTYPE html><html>
-<head>
+<!DOCTYPE html><html><head>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.sound.min.js"></script>
   <link rel="stylesheet" type="text/css" href="style.css">
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
+
+  <script src="Control.js"></script>
+  <script type="text/javascript" src="sketch.js"></script>
+  <script src="wave.js"></script>
+  <script src="wave2.js"></script>
+  <script src="sun.js"></script>
 
 </head>
 
-<body>  
-  <script src="Control.js"></script>
-  <script src="sketch.js"></script>
-  <script src="wave.js"></script> 
-  <script src="sun.js"></script> 
-  <h1><center>Perlin Noise Wave</center></h1>
-  
+<body>
+  <h1>
+    <center>Perlin Noise Wave</center>
+  </h1>
+
   Background Colour: <input type="text" id="colour" value="White">
-	<p>Enter a background colour and press the button to change it</p>
-  <button onclick="changeColour()">Change</button>
+  <p>Enter a background colour and press the button to change it</p>
+  <button onclick="x.setColour()">Change</button>
+
+  <div class="slidecontainer">
+    Wave width: <input type="range" min="1" max="255" value="50" class="slider" id="waveWidth">
+  </div>
+
+  <div class="slidecontainer">
+    Colour 1: <input type="range" min="1" max="255" value="255" class="slider" id="colour1">
+  </div>
+
+  <div class="slidecontainer">
+    Colour 2: <input type="range" min="1" max="255" value="50" class="slider" id="colour2">
+  </div>
+
+  <form name="RadioForm">
+    <input type="radio" name="wave" value="1" checked=""> Wave 1<br>
+    <input onclick="setup()" type="radio" id="wave2" name="wave" value="2"> Wave 2
+  </form>
+
 
 
 

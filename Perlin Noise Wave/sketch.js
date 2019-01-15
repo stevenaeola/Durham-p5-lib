@@ -1,35 +1,31 @@
-var sliderX;
-var sliderY;
-
-var bgColour = 'white';
-
-
 function setup() {
-  createCanvas(windowWidth, windowHeight-200);
-
-  sliderX = createSlider(0, width, 100);
-  sliderX.position(10, 180);
-
-  sliderColour1 = createSlider(0, 255, 10);
-  sliderColour1.position(10, 210);
-  sliderColour2 = createSlider(0, 255, 100);
-  sliderColour2.position(10, 240);
-  
+  createCanvas(windowWidth, windowHeight - 200);
   x = new Control();
-  
+  y = new Control();
 }
 
-function changeColour() {
-  bgColour = document.getElementById("colour").value;
-}
 
 function draw() {
-  x.setColours(sliderColour1.value(), sliderColour2.value());
-  x.getSlidervalue(sliderX.value());
-  x.draw();
-  text("Wave width", sliderX.x * 2 + sliderX.width + 10, 20);
-  text("Colour 1", sliderColour1.x * 2 + sliderColour1.width + 10, 50);
-  text("Colour 2", sliderColour2.x * 2 + sliderColour2.width + 10, 80);
+  var radios = document.getElementsByName('wave');
+  for (var i = 0, length = radios.length; i < length; i++) {
+    if (radios[i].checked) {
+			flag = radios[i].value;
+      break;
+    }
+  }
+  
+  if (flag == 1) {
+    x.setColours(document.getElementById("colour1").value, document.getElementById("colour2").value);
+    x.getSlidervalue(document.getElementById("waveWidth").value);
+    x.getFlagValue(flag);
+    x.draw();
+  }
 
+  if (flag == 2) {
+    y.setColours(document.getElementById("colour1").value, document.getElementById("colour2").value);
+    y.getSlidervalue(document.getElementById("waveWidth").value);
+    y.getFlagValue(flag);
+    y.draw();
+  }
 
 }
