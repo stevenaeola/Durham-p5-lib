@@ -1,11 +1,11 @@
 # In and Out animation object documentation #
 ## Description ##
-Animation in p5 that generates a recursive "triangle-within-triangle" structure that oscilliates in and out in a harmonic fashion. Optional parameters to adjust position in canvas, size, colour and more.
+Animation in p5 that generates an iterative "triangle-within-triangle" shape that oscilliates in and out in a harmonic fashion. Optional parameters to adjust position in canvas, size, colour and more.
 
 ---
 ## Requirements ##
 * p5
-* ESCRIPT 2018
+* ESCRIPT 2015
 ---
 ## Usage ##
 ```javascript
@@ -30,7 +30,7 @@ Animation in p5 that generates a recursive "triangle-within-triangle" structure 
   x_pos: X position of bottom left corner of triangle. Default = 40
   y_pos: Y position of bottom left corner of triangle. Default = 460
   length: Size of the side of the largest triangle. Default = 460
-  level: Recursion depth of triangles. Default = 100
+  level: Amount of iterations to draw triangles for per frame. Default = 100
   colour: Triangle line colour as a array. Default = [0, 0, 0]
   colour_fade: Value to add to colour each recursive call as an array. Default = [0, 0, 0]
   line_weight: Thickness of drawn line. Default = 1
@@ -41,18 +41,6 @@ Animation in p5 that generates a recursive "triangle-within-triangle" structure 
 ```
   r: Graphic or Canvas to draw object on. p5.Renderer object.
   If none passed then default renderer used.
-```
-#### harom(ax, ay, bx, by, level, ratio, colour, colour_fade, r)
-```
-  ax: X coordinate of corner a of triangle
-  ay: Y coordinate of corner a of triangle
-  bx: X coordinate of corner b of triangle
-  by: Y coordinate of corner b of triangle
-  level: Amount of recursive calls until termination
-  ratio: Ratio from a and b to place new corners in next call of harom
-  colour: Triangle line colour as array.
-  colour_fade: Value to add to colour each recursive call.
-  r: Graphic or Canvas to draw object on. p5.renderer object. If nothing passed then default renderer is used.
 ```
 #### getters/setters
 ```
@@ -126,7 +114,7 @@ Y Position controls the y position of the object from the canvas origin.
 
 Side Length controls the length of the sides of the outer most triangle.
 
-Recursion Depth controls the amount of recursion calls every frame. Large values may cause performance to dramatically decrease.
+Recursion Depth controls the amount of iterations every frame. Large values may cause performance to dramatically decrease.
 
 Colour controls the RGB colour of the outer most triangle as a comma delimited string. A single value will be interpreted as greyscale and values above or below 255 or 0 respectively will instead be interpreted as these max or min values.
 
@@ -140,9 +128,16 @@ Master Time controls the time for one complete rotation of the object in millise
 
 ---
 ## Original Source ##
-
+#### Source Location
 [Original Source in Processing here](https://www.openprocessing.org/sketch/563267)
----
+
+#### Changes from source
+* Parameterised code to include ability to change position, size, number of iterations, colour, fading of colour, line weight, time for animation to complete and rotation.
+
+* Changed from recursive implementation to iterative implementation to allow for greater "depth" without performance becoming too low to run.
+
+* Changed from a sketch to class implementation with getters and setters
+
 ---
 ## License
 ```
