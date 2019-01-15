@@ -11,6 +11,7 @@ var randButton;
 
 
 function setup() {
+  // creating and positioning interctables
   resetButton = createButton('New Tree');
   resetButton.position(20, 10);
   colorSlider = createSlider(0, 360, 150);
@@ -21,6 +22,8 @@ function setup() {
   heightSlider.position(20, 70);
   densitySlider = createSlider(1, 10, 3);
   densitySlider.position(20, 90);
+  
+  // defining and setting up radio button
   fruitRadio = createRadio();
   fruitRadio.position(20, 110);
   fruitRadio.option('apple');
@@ -29,11 +32,17 @@ function setup() {
   fruitRadio.option('plum');
   fruitRadio.option('no fruit');
   fruitRadio.value('no fruit');
+  
+  // setting up random and defult button
   randButton = createButton("Randomize Tree");
   randButton.position(20, 135)
   defultButton = createButton("Reset Tree");
   defultButton.position(20, 160);
+  
+  // creating magical tree object
   a = new clMagicalTree();
+  
+  // setting up function calls on button press
   resetButton.mousePressed(newTree);
   randButton.mousePressed(randomTree);
   defultButton.mousePressed(reset);
@@ -41,16 +50,21 @@ function setup() {
 }
 
 function draw() {
+  // setting function calls when sliders changed
   fruitRadio.changed(addFruit);
   colorSlider.changed(newTree);
   ageSlider.changed(newTree);
   heightSlider.changed(newTree);
   densitySlider.changed(newTree);
+  
+  // setting magical tree interaction with sliders
   a.setLeafColor(colorSlider.value());
   a.setTreeAge(ageSlider.value());
   a.setTreeHeight(heightSlider.value());
   a.setTreeDensity(densitySlider.value());
   a.draw();
+  
+  // adding in text on screen to sliders
   fill(0);
   text("Leave Colour", colorSlider.x * 2 + colorSlider.width, 40);
   text("Tree Age", ageSlider.x * 2 + ageSlider.width, 60);
