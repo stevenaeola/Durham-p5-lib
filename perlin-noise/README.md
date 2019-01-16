@@ -15,6 +15,8 @@ Inititalises the Sketch class.
 ```
 #### draw()
 Draws the particles.
+```
+```
 ---
 ## Example HTML page ##
 The example page contains a control panel on the top of the page and a canvas below where the
