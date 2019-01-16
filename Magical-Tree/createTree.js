@@ -1,12 +1,7 @@
 class clCreateTree {
 
-  constructor(argRenderer) {
-    if (argRenderer != undefined) {
-      this.tree = argRenderer;
-    } else {
-      this.tree = createGraphics(width, height);
-    }
-    
+  constructor() {
+    this.tree = createGraphics(width, height);
     this.n = 0;
     this.leafs = [];
     this.treeHeight = 150;
@@ -26,11 +21,15 @@ class clCreateTree {
     this.tree.endShape();
   }
 
-  draw() {
-    noLoop();
+  draw(g) {
+    this.tree.noLoop();
     this.tree.clear();
     this.sketch();
-    image(this.tree, 5, 5);
+    if (g) {
+      g.image(this.tree, 5, 5);
+    } else {
+      image(this.tree, 5, 5);
+    }
 
   }
 
