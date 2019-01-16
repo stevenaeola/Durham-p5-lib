@@ -96,13 +96,13 @@ class InAndOut {
 	get_master_rotate() {return this.master_rotate;}
 
 	// Setters for class attributes
-	set_x_pos(_) {this.x_pos = _;}
-	set_y_pos(_) {this.y_pos = _;}
-	set_length(_) {this.length = _;}
-	set_level(_) {this.level = _;}
-	set_colour(_) {this.colour = _;}
-	set_colour_fade(_) {this.colour_fade = _;}
-	set_line_weight(_) {this.line_weight = _;}
-	set_animation_time(_) {this.animation_time = _;}
-	set_master_rotate(_) {this.master_rotate = _;}
+	set_x_pos(_) {if (!Number.isNaN(_)) {console.log(_); this.x_pos = _;}}
+	set_y_pos(_) {if (!Number.isNaN(_)) {this.y_pos = _;}}
+	set_length(_) {if (!Number.isNaN(_) && _ >= 1) {this.length = _;}}
+	set_level(_) {if (!Number.isNaN(_) && _ >= 1) {this.level = _;}}
+	set_colour(_) {if (!Number.isNaN(_[0]) && !Number.isNaN(_[1]) && !Number.isNaN(_[2]) && _[0] >= 0 && _[1] >= 0 && _[2] >= 0) {this.colour = _;}}
+	set_colour_fade(_) {if (!Number.isNaN(_[0]) && !Number.isNaN(_[1]) && !Number.isNaN(_[2])) {this.colour_fade = _;}}
+	set_line_weight(_) {if (!Number.isNaN(_) && _ >= 1) {this.line_weight = _;}}
+	set_animation_time(_) {if (!Number.isNaN(_) && _ >= 1) {this.animation_time = _;}}
+	set_master_rotate(_) {if (!Number.isNaN(_) && _ >= 1) {this.master_rotate = _;}}
 }

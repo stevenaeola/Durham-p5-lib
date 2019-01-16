@@ -20,7 +20,7 @@ function draw()
 }
 
 function windowResized() {
-	resizeCanvas(window.innerWidth * 0.75, window.innerHeight);
+	resizeCanvas(window.innerWidth * 0.75, window.innerHeight*0.95);
 }
 
 // Event listener when DOM is loaded
