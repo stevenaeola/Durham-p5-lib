@@ -1,7 +1,11 @@
 class clTreeBackground {
 
-  constructor() {
-    this.bg = createGraphics(width, height);
+  constructor(argRenderer) {
+    if (argRenderer != undefined) {
+      this.bg = argRenderer;
+    } else {
+      this.bg = createGraphics(width, height);
+    }
   }
 
   draw() {
