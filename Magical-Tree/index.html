@@ -7,7 +7,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.sound.min.js"></script>
   <link rel="stylesheet" type="text/css" href="style.css">
   <meta charset="utf-8" />
-  <script src="sketch.js"></script>
+  <script src="index.js"></script>
   <script src="clMagicalTree.js"></script>
   <script src="clGround.js"></script>
   <script src="clCreateTree.js"></script>
@@ -20,108 +20,149 @@
       border-collapse: collapse;
     }
   </style>
-  
+
   <style>
     .slidecontainer {
-  width: 100%;
-}
-.slider {
-  -webkit-appearance: none;
-  width: 130%;
-  height: 15px;
-  border-radius: 5px;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-}
+      width: 100%;
+    }
 
-.slider:hover {
-  opacity: 1;
-}
+    .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 15px;
+      border-radius: 5px;
+      background: #d3d3d3;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+    }
 
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background: #4CAF50;
-  cursor: pointer;
-}
+    .slider:hover {
+      opacity: 1;
+    }
 
-.slider::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: #4CAF50;
-  cursor: pointer;
-}
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #4CAF50;
+      cursor: pointer;
+    }
+
+    .slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: #4CAF50;
+      cursor: pointer;
+    }
+  </style>
+  <style>
+    div.title {
+    text-align: center;
+    }
+    
+    div.radioButton {
+    text-align: center;
+    }
+    
+    div.modifiers {
+    text-align: center;
+    }
   </style>
 </head>
 
 <body>
 
-  <h1> Welcome to my Magical Tree reusable component</h1>
+  <div class = "title"><h1> Welcome to my Magical Tree reusable component</h1></div>
 
   <div class="modifiers">
-    <table style="width:35%">
-      <tr>
-        <th><button id="btnRedraw">Redraw Tree</button></th>
-      </tr>
-      
-      <tr>
-        <td>Leaf Colour</td>
-        <td><input type="range" min="0" max="360" value="120" class="slider" id="colorSlider"></td>
-      </tr>
-      
-      <tr>
-        <td>Tree Age</td>
-        <td><input type="range" min="0" max="150" value="70" class="slider" id="ageSlider"></td>
-      </tr>
-      
-      <tr>
-        <td>Tree Height</td>
-        <td><input type="range" min="50" max="200" value="150" class="slider" id="heightSlider"></td>
-      </tr>
-      
-      <tr>
-        <td>Tree Density</td>
-        <td><input type="range" min="1" max="10" value="3" class="slider" id="densitySlider"></td>
-      </tr>
     
-    
+    <table align = "center">
       <tr>
-        <th><button id="btnReset">Reset Tree</button></th>
-      </tr>
-    
-    <tr>
-        <th><button id="btnRandom">Randomise Tree</button></th>
+        <div class = "radioButton">
+        <form action="" id="canvasType">
+          <td><input type="radio" name="canvasStyle" value="Canvas" id="canvas"> Sketch to canvas<br></td>
+          <td><input type="radio" name="canvasStyle" value="Cube" id="cube"> Sketch to cube<br></td>
+        </form>
+        </div>
       </tr>
     </table>
     
-  </div>
+    <table align="center">
 
+      <tr>
+        <td>Leaf Colour:</td>
+        <td><input type="range" min="0" max="360" value="120" class="slider" id="colorSlider"></td>
+      </tr>
 
+      <tr>
+        <td>Tree Age:</td>
+        <td><input type="range" min="0" max="150" value="70" class="slider" id="ageSlider"></td>
+      </tr>
 
+      <tr>
+        <td>Tree Height:</td>
+        <td><input type="range" min="50" max="200" value="150" class="slider" id="heightSlider"></td>
+      </tr>
+
+      <tr>
+        <td>Tree Density:</td>
+        <td><input type="range" min="1" max="10" value="3" class="slider" id="densitySlider"></td>
+      </tr>
+
+    </table>
+    <table align = "center">
+      <tr>
+        <div class = "radioButton">
+        <form action="" id="radioFruit">
+          <td><input type="radio" name="fruit" value="radioApple" id="apple"> Apple<br></td>
+          <td><input type="radio" name="fruit" value="radioOrange" id="orange"> Orange<br></td>
+          <td><input type="radio" name="fruit" value="radioLemon" id="lemon"> Lemon</td>
+          <td><input type="radio" name="fruit" value="radioPlum" id="plum"> Plum</td>
+          <td><input type="radio" name="fruit" value="radioNone" id="noFruit"> No fruit</td>
+        </form>
+        </div>
+      </tr>
+      
+      <tr>
+        <td><button id="btnRedraw">Redraw Tree</button></td>
+        <td></td>
+        <td><button id="btnReset">Reset Tree</button></td>
+        <td></td>
+        <td><button id="btnRandom">Randomise Tree</button></td>
+      </tr>
+    </table>
+   </div>   
   <script>
+    document.getElementById("canvas").addEventListener("click", swapSketch);
+    document.getElementById("cube").addEventListener("click", swapSketch);
+    
     document.getElementById("btnRedraw").addEventListener("click", newTree);
 
     document.getElementById("colorSlider").addEventListener("change", changeColor);
-    
+
     document.getElementById("ageSlider").addEventListener("change", changeAge);
-    
+
     document.getElementById("heightSlider").addEventListener("change", changeHeight);
-    
+
     document.getElementById("densitySlider").addEventListener("change", changeDensity);
 
+
+    document.getElementById("apple").addEventListener("click", changeFruit);
+    document.getElementById("orange").addEventListener("click", changeFruit);
+    document.getElementById("lemon").addEventListener("click", changeFruit);
+    document.getElementById("plum").addEventListener("click", changeFruit);
+    document.getElementById("noFruit").addEventListener("click", changeFruit);
+
+
     document.getElementById("btnReset").addEventListener("click", reset);
-    
+
     document.getElementById("btnRandom").addEventListener("click", randomTree);
   </script>
-
-
 </body>
 
 </html>
