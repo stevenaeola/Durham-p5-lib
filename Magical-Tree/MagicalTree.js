@@ -1,7 +1,12 @@
 class clMagicalTree {
 
-  constructor() {
-    createCanvas(900, 700);
+  constructor(argRenderer) {
+    if (argRenderer != undefined) {
+      this.renderer = argRenderer;
+      
+    } else {
+      createCanvas(900, 700);
+    }
     this.objBg = new clTreeBackground();
     this.objTree = new clCreateTree();
     this.objGround = new clGround();
@@ -18,39 +23,57 @@ class clMagicalTree {
   }
 
   buildTree() {
-    this.objTree.draw();
-    this.objLeaf.setLeafArray(this.objTree.leafArray);
+    if (this.renderer != undefined) {
+      this.objTree.draw(this.renderer);
+      this.objLeaf.setLeafArray(this.objTree.leafArray, this.renderer);
+    } else {
+      this.objTree.draw();
+      this.objLeaf.setLeafArray(this.objTree.leafArray);
+    }
   }
 
 
   buildGround() {
-    this.objGround.draw();
+    if (this.renderer != undefined) {
+      this.objGround.draw(this.renderer);
+    
+    } else {
+      this.objGround.draw();
+    }
   }
 
 
   buildBg() {
-    this.objBg.draw();
+    if (this.renderer != undefined) {
+      this.objBg.draw(this.renderer);
+    } else {
+      this.objBg.draw();
+    }
+    
   }
 
 
   buildLeaf() {
-    this.objLeaf.draw();
-
+    if (this.renderer != undefined) {
+      this.objLeaf.draw(this.renderer);
+    } else {
+      this.objLeaf.draw();
+    }
+    
   }
 
   setLeafColor(argColor) {
-    var minColor = argColor - 15;
-    var maxColor = argColor + 15;
+    var minColor = parseInt(argColor) - 15;
+    var maxColor = parseInt(argColor) + 15;
     this.objLeaf.changeColor(minColor, maxColor);
-
   }
 
   setFruitColor(argColor) {
     if (argColor != this.objFruit.getColor()) {
       this.redraw();
     }
-    var minColor = argColor - 5;
-    var maxColor = argColor + 5;
+    var minColor = parseInt(argColor) - 5;
+    var maxColor = parseInt(argColor) + 5;
     this.objFruit.changeColor(minColor, maxColor);
 
   }
@@ -89,18 +112,28 @@ class clMagicalTree {
   }
 
   setTreeHeight(argHeight) {
-    this.objTree.setHeight(argHeight);
+    this.objTree.setHeight(parseInt(argHeight));
 
   }
 
   setTreeAge(argAge) {
-    this.objTree.setAge(argAge);
-
+    this.objTree.setAge(parseInt(argAge));
   }
 
   setTreeDensity(argDensity) {
     this.objTree.setDensity(argDensity);
+  }   
+    
+  getTreeHeight() {
+    return this.objTree.getHeight();
+  }
 
+  getTreeAge() {
+    return this.objTree.getAge();
+  }
+
+  getTreeDensity(argDensity) {
+    return this.objTree.getDensity();
   }
 
   redraw() {
@@ -108,4 +141,17 @@ class clMagicalTree {
     this.objFruit.deleteLeaf();
     redraw();
   }
+
+  //randomise() {
+  //  var fruits = ['apple', 'orange', 'plum', 'lemon', 'no fruit']
+  //  var randomItem = fruits[Math.floor(Math.random()*fruits.length)];
+  //  this.setLeafColor(random(360));
+  //  this.addFruit(randomItem);
+  //  this.setTreeAge(random(150));
+  //  this.setTreeHeight(random(50, 200));
+  //  this.setTreeDensity(random(1, 10));
+  //  this.redraw();
+  
+  //}
+
 }
