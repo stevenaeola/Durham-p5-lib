@@ -125,13 +125,12 @@ class Fish {
     return this.big * this.mag;
   }
 
-  draw (g) {
+  draw (g="") {
     var x;
     var angle;
     var v;
     if (g) {
       g.stroke(color(red(this.colour), green(this.colour), blue(this.colour), 255)); // The outside stroke of the fish should always be of full alpha
-      // g.strokeWeight(50 * this.mag);
       g.fill(this.colour);
 
       this.loc.add(p5.Vector.mult(this.vel, this.speed));
@@ -168,7 +167,7 @@ class Fish {
       push();
       translate(this.loc.x, this.loc.y);
       scale(this.dim);
-      /* Get the direction and add 90 degrees. */
+      // Get the direction and add 90 degrees
       rotate(this.vel.heading() - radians(90));
       beginShape();
       for (var k = 0; k <= 180; k += 20) {
@@ -188,7 +187,8 @@ class Fish {
     pop();
   }
 
-  boundaries (g) {
+  // If the fish leaves the viewing area, wrap it to the other side.
+  boundaries (g="") {
     if (g) {
       if (this.loc.x < -100) this.loc.x = g.width + 100;
       if (this.loc.x > g.width + 100) this.loc.x = -100;

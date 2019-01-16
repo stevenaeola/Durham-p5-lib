@@ -1,9 +1,9 @@
 class Pond {
-  constructor (number = 10, pondColour = color('black'), fishColour = color(0, 0, 255, 20)) {
+  constructor (number = 10, pondColour = color('black'), fishColour = color(0, 0, 255, 20), fishMag = 1, fishSpeed = 1) {
     this.pondColour = pondColour;
     this.fish = [];
     for (var i = 0; i < number; i++) {
-      this.add(new Fish(fishColour));
+      this.add(new Fish(fishColour, fishMag, fishSpeed));
     }
   }
 
@@ -12,14 +12,14 @@ class Pond {
       // Draw background of pond
       g.background(this.pondColour);
       g.fill(color(red(this.pondColour), green(this.pondColour), blue(this.pondColour), 30));
-      g.rect(-10, -10, width + 20, height + 20);
+      g.rect(-10, -10, g.width + 20, g.height + 20);
 
       g.strokeWeight(5);
       g.strokeJoin(ROUND);
       g.stroke(0, 150, 255);
-
+      var f;
       for (var i = 0; i < this.fish.length; i++) {
-        var f = this.fish[i];
+        f = this.fish[i];
         f.draw(g);
         f.boundaries(g);
       }
@@ -32,8 +32,8 @@ class Pond {
       strokeJoin(ROUND);
       stroke(0, 150, 255);
 
-      for (var i = 0; i < this.fish.length; i++) {
-        var f = this.fish[i];
+      for (var j = 0; j < this.fish.length; j++) {
+        f = this.fish[j];
         f.draw();
         f.boundaries();
       }
@@ -55,12 +55,8 @@ class Pond {
 
   // Functions below allow user to fade properties of all fish in pond
   fadeColour (c, frames = 100) {
-    if (a) {
-      var col = color(c);
-      col.setAlpha(a);
-    }
     for (var i = 0; i < this.fish.length; i++) {
-      this.fish[i].fadeColour(col, frames);
+      this.fish[i].fadeColour(c, frames);
     }
   }
 
@@ -73,24 +69,6 @@ class Pond {
   fadeSpeed (s, frames = 100) {
     for (var i = 0; i < this.fish.length; i++) {
       this.fish[i].fadeSpeed(s, frames);
-    }
-  }
-
-  fadeVel (v, frames = 100) {
-    for (var i = 0; i < this.fish.length; i++) {
-      this.fish[i].fadeVel(v, frames);
-    }
-  }
-
-  fadeLoc (l, frames = 100) {
-    for (var i = 0; i < this.fish.length; i++) {
-      this.fish[i].fadeLoc(l, frames);
-    }
-  }
-
-  fadeWiggle (w, frames = 100) {
-    for (var i = 0; i < this.fish.length; i++) {
-      this.fish[i].fadeWiggle(w, frames);
     }
   }
 }
