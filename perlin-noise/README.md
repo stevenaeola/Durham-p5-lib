@@ -14,9 +14,9 @@ Inititalises the Sketch class.
 	s: Float for the speed of each particle. Default = 4 
 ```
 #### draw()
-Draws the particles
+Draws the particles.
 ---
-##Example HTML page##
+## Example HTML page ##
 The example page contains a control panel on the top of the page and a canvas below where the
 sketch with the particular inputs specified by the control panel is run.
 
