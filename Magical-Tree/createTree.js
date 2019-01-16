@@ -1,7 +1,12 @@
 class clCreateTree {
 
-  constructor() {
-    this.tree = createGraphics(width, height);
+  constructor(argRenderer) {
+    if (argRenderer != undefined) {
+      this.tree = argRenderer;
+    } else {
+      this.tree = createGraphics(width, height);
+    }
+    
     this.n = 0;
     this.leafs = [];
     this.treeHeight = 150;
@@ -75,6 +80,18 @@ class clCreateTree {
 
   setAge(tAge) {
     this.treeAge = tAge;
+  }
+
+  getHeight() {
+    return this.treeHeight;
+  }
+
+  getDensity() {
+    return this.treeDensity;
+  }
+
+  getAge() {
+    return this.treeAge;
   }
 
 }
