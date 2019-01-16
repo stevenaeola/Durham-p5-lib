@@ -1,6 +1,9 @@
 class clDrawLeaves {
 
-  constructor(leafArray = []) {
+  constructor(argRenderer, leafArray = []) {
+    if (argRenderer != undefined) {
+      this.renderer = argRenderer;
+    }
     this.leafs = leafArray;
     this.randomColor = true;
     this.minHue = 0;
@@ -26,11 +29,19 @@ class clDrawLeaves {
       var s = 255;
       var b = 255;
       var a = random(minAlpha, maxAlpha);
-      fill(h, s, b, a);
+      
       var diam = random(minDiam, maxDiam);
       var jitterX = random(-30, 30);
       var jitterY = random(-30, 30);
-      ellipse(this.leafs[i].x + jitterX, this.leafs[i].y + jitterY, diam, diam);
+      
+      if (this.renderer != undefined) {
+        this.renderer.fill(h, s, b, a);
+        this.renderer.ellipse(this.leafs[i].x + jitterX, this.leafs[i].y + jitterY, diam, diam);
+      
+      } else {
+        fill(h, s, b, a);
+        ellipse(this.leafs[i].x + jitterX, this.leafs[i].y + jitterY, diam, diam);
+      }
     }
   }
 
@@ -39,12 +50,17 @@ class clDrawLeaves {
   draw() {
     this.genLeaves(0, 90, 0, 0.03); // big leaves
     this.genLeaves(0, 15, 0, 0.25); // small leaves
+    
+    if (this.renderer != undefined) {
+      image(this.renderer, 0, 0)
+    }
   }
 
   changeColor(argMinHue, argMaxHue) {
     this.minHue = argMinHue;
     this.maxHue = argMaxHue;
     this.randomColor = false;
+   
 
   }
 
@@ -59,6 +75,9 @@ class clDrawLeaves {
 
   drawFruit() {
     this.genLeaves(0, 12, 0, 0.60);
+    if (this.renderer != undefined) {
+      image(this.renderer, 0, 0)
+    }
   }
 
 
