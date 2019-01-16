@@ -1,12 +1,21 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html>
+<html>
+
+<head>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.sound.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="style.css">
-  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
   <script src="Control.js"></script>
-  <script type="text/javascript" src="sketch.js"></script>
+  <script src="index.js"></script>
   <script src="wave.js"></script>
   <script src="wave2.js"></script>
   <script src="sun.js"></script>
@@ -14,32 +23,75 @@
 </head>
 
 <body>
-  <h1>
-    <center>Perlin Noise Wave</center>
-  </h1>
+  <div class="container-fluid">
+      <h1>
+        <center>Perlin Noise Wave</center>
+      </h1>
+    
+<div id="hide">
+  
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" id="colour" placeholder="Enter in a colour to change background colour ">
+        <div class="input-group-append">
+          <button class="btn btn-success" type="submit" id="bg" onclick="x.setColour()">Change</button>
+        </div>
+      </div>
 
-  Background Colour: <input type="text" id="colour" value="White">
-  <p>Enter a background colour and press the button to change it</p>
-  <button onclick="x.setColour()">Change</button>
+      <p>Move your mouse to affect the wave's movement. Drag the sun to change the height of the wave</p>
+      </div>
+      <form>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" onclick="window.location.reload()" class="custom-control-input" id="2d" name="webgl" value="1" checked >
+        <label class="custom-control-label" for="2d">2D</label>
+      </div>
 
-  <div class="slidecontainer">
-    Wave width: <input type="range" min="1" max="255" value="50" class="slider" id="waveWidth">
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" onclick="changeView()" class="custom-control-input" id="3d" name="webgl" value="2">
+        <label class="custom-control-label" for="3d">3D</label>
+      </div>
+    </form>
+
+
+    <form>
+      <label for="colour2">Wave Fluctuation</label>
+      <input type="range" min="1" max="1000" value="50" class="custom-range" id="waveWidth" name="colour2">
+
+      <label for="colour1">Colour 1</label>
+      <input type="range" min="1" max="255" value="255" class="custom-range" id="colour1" name="colour1">
+
+      <label for="colour2">Colour 2</label>
+      <input type="range" min="1" max="255" value="50" class="custom-range" id="colour2" name="colour2">
+    </form>
+
+    <form>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" class="custom-control-input" id="wave1" name="wave" value="1" checked >
+        <label class="custom-control-label" for="wave1">Wave 1</label>
+      </div>
+
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" class="custom-control-input" id="wave2" name="wave" value="2" >
+        <label class="custom-control-label" for="wave2">Wave 2</label>
+      </div>
+    </form>
+
   </div>
 
-  <div class="slidecontainer">
-    Colour 1: <input type="range" min="1" max="255" value="255" class="slider" id="colour1">
-  </div>
+  <script>
+    document.getElementById("wave1").addEventListener("click", function() {
+      show();
+    })
 
-  <div class="slidecontainer">
-    Colour 2: <input type="range" min="1" max="255" value="50" class="slider" id="colour2">
-  </div>
+    document.getElementById("wave2").addEventListener("click", function() {
+      hide();
+      setup();
+    })
 
-  <form name="RadioForm">
-    <input type="radio" name="wave" value="1" checked=""> Wave 1<br>
-    <input onclick="setup()" type="radio" id="wave2" name="wave" value="2"> Wave 2
-  </form>
+    document.getElementById("bg").addEventListener("click", function() {
+      x.setColour();
+    })
+  </script>
 
+</body>
 
-
-
-</body></html>
+</html>

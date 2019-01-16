@@ -1,27 +1,46 @@
 class Wave2 {
-  constructor(step, noiseScale, offset, ofs, ofs_v, colour1, colour2, yVal) {
-    this.step = step;
-    this.noiseScale = noiseScale;
-    this.offset = offset;
-    this.ofs = ofs;
-    this.ofs_v = ofs_v;
-    this.colour1 = colour1;
-    this.colour2 = colour2;
-    this.yVal = yVal;
+  constructor(sliderxValue) {
+    this.step = 80;
+    this.noiseScale = 0.02;
+    this.offset = 300;
+    this.sliderxValue = sliderxValue;
   }
 
-  drawLine2(y0, colour1, colour2) {
+  drawLine2(y0, colour1, colour2, g) {
+    
+    if(g){
+    this.render = createGraphics(windowWidth, windowHeight);
+      
+    this.render.fill(255, 4);
+    this.render.beginShape();
+    this.render.curveVertex(-50, y0);
+    for (var i = 0; i < width / this.step + 5; i += 1) {
+      var noiseVal = noise(i * this.noiseScale * y0 * 0.06, frameCount * this.noiseScale);
+      this.render.stroke(colour1, colour2, map(5, mouseY, height, 0, 255));
+      this.render.curveVertex( i * this.step - 10, y0 + noiseVal * this.offset * (this.sliderxValue/1000));
+    }
+    this.render.curveVertex(width + 10, height + 200);
+    this.render.curveVertex(0, height + 210);
+    this.render.curveVertex(0, height + 210);
+    this.render.endShape();
+      
+    g.image(this.render, 0,0);    
+    }
+    
+    else{
     fill(255, 4);
     beginShape();
     curveVertex(-50, y0);
-    for (var i = 0; i < width / this.step + 3; i += 1) {
-      var noiseVal = noise(i * this.noiseScale * (y0 * 0.06), frameCount * this.noiseScale);
-      stroke(color('blue'), color('black'), map(5, this.yVal, height, 0, 255));
-      curveVertex(i * this.step - 10, y0 + noiseVal * this.offset);
+    for (var i = 0; i < width / this.step + 5; i += 1) {
+      var noiseVal = noise(i * this.noiseScale * y0 * 0.06, frameCount * this.noiseScale);
+      stroke(colour1, colour2, map(5, mouseY, height, 0, 255));
+      curveVertex( i * this.step - 10, y0 + noiseVal * this.offset * (this.sliderxValue/1000));
     }
     curveVertex(width + 10, height + 200);
     curveVertex(0, height + 210);
     curveVertex(0, height + 210);
     endShape();
   }
+  }
+
 }
