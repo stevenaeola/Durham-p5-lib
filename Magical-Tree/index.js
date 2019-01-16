@@ -1,142 +1,155 @@
-var a;
-/*var resetButton;
-var colorSlider;
-var ageSlider;
-var heightSlider;
-var densitySlider
-var colorLable;
-var fruitRadio;
-var defultButton;
-var randButton;*/
+//creates varaible which will be tree object
+var tree;
+var g;
+var type = 0;
 
-
-
+//setup function
 function setup() {
-  // creating and positioning interctables
-  /*resetButton = createButton('New Tree');
-  resetButton.position(20, 10);
-  colorSlider = createSlider(0, 360, 150);
-  colorSlider.position(20, 30);
-  ageSlider = createSlider(0, 150, 70);
-  ageSlider.position(20, 50);
-  heightSlider = createSlider(50, 200, 150);
-  heightSlider.position(20, 70);
-  densitySlider = createSlider(1, 10, 3);
-  densitySlider.position(20, 90);
-  
-  // defining and setting up radio button
-  fruitRadio = createRadio();
-  fruitRadio.position(20, 110);
-  fruitRadio.option('apple');
-  fruitRadio.option('orange');
-  fruitRadio.option('lemon');
-  fruitRadio.option('plum');
-  fruitRadio.option('no fruit');
-  fruitRadio.value('no fruit');
-  
-  // setting up random and defult button
-  randButton = createButton("Randomize Tree");
-  randButton.position(20, 135)
-  defultButton = createButton("Reset Tree");
-  defultButton.position(20, 160);*/
-  
-  // creating magical tree object
-  a = new clMagicalTree();
-  
-  // setting up function calls on button press
-  /*resetButton.mousePressed(newTree);
-  randButton.mousePressed(randomTree);
-  defultButton.mousePressed(reset);*/
-  
+  createCanvas(windowWidth, 700); 
+  //sets initial radio button to 'no fruit' by defult
+  document.getElementById("noFruit").checked = true;
+  //creates instance of magical tree
+  tree = new clMagicalTree();
 }
 
 function draw() {
-  // setting function calls when sliders changed
-  /*fruitRadio.changed(addFruit);
-  colorSlider.changed(newTree);
-  ageSlider.changed(newTree);
-  heightSlider.changed(newTree);
-  densitySlider.changed(newTree);
+  //checks which sketch to do
+ // if (type == 0) {
+    //runs draw function to display tree
+    tree.draw();
+ // }
+  //if (type == 1) {
+    //runs draw function to display tree
+  //  tree.draw(g);
+  //  texture(g);
+  //  box(200);
+}
   
-  // setting magical tree interaction with sliders
-  a.setLeafColor(colorSlider.value());
-  a.setTreeAge(ageSlider.value());
-  a.setTreeHeight(heightSlider.value());
-  a.setTreeDensity(densitySlider.value());*/
-  a.draw();
-  
-  // adding in text on screen to sliders
-  /*fill(0);
-  text("Leave Colour", colorSlider.x * 2 + colorSlider.width, 40);
-  text("Tree Age", ageSlider.x * 2 + ageSlider.width, 60);
-  text("Tree Height", heightSlider.x * 2 + heightSlider.width, 80);
-  text("Tree Density", densitySlider.x * 2 + densitySlider.width, 100);*/
   
 
+
+function swapSketch() {
+  if (document.getElementById("canvas").checked) {
+    type = 0;
+    draw();
+  }
+  if (document.getElementById("cube").checked) {
+    type = 1;
+    draw();
+  }
 }
 
-function addFruit() {
-  a.addFruit(fruitRadio.value())
-}
-
+//function to generate new tree
 function newTree() {
-  a.redraw();
-  //addFruit();
-
+  tree.redraw();
+  //calls change fruit function to update the previously selected fruit
+  changeFruit();
 }
 
+//function called when reset button pressed
 function reset() {
-  //fruitRadio.value("no fruit");
-  //ageSlider.value(70);
-  //heightSlider.value(150);
-  //densitySlider.value(3);
-  document.getElementById("colorSlider").value = random(0,360);
+
+  //sets sliders to original defult values
   document.getElementById("ageSlider").value = 70;
   document.getElementById("heightSlider").value = 150;
   document.getElementById("densitySlider").value = 3;
+  document.getElementById("noFruit").checked = true;
+  //calls functions to grab slider values and update tree
   changeAge();
   changeHeight();
   changeColor();
   changeDensity();
-  a.redraw();
+  changeFruit();
+  //sets the leaf color to random colors
+  tree.setRandomLeafColor(true);
+  //calls new tree to be drawn
+  newTree();
 }
 
+//function to run when the random tree button is called
 function randomTree() {
-  //var fruits = ['apple', 'orange', 'plum', 'lemon', 'no fruit']
-  //var randomItem = fruits[Math.floor(Math.random()*fruits.length)];
- // fruitRadio.value(randomItem);
-  document.getElementById("colorSlider").value = random(0,360);
-  document.getElementById("ageSlider").value = random(0,150);
-  document.getElementById("heightSlider").value = random(50,200);
-  document.getElementById("densitySlider").value = random(1,10);
+
+  //sets tree sliders to random values within range
+  document.getElementById("colorSlider").value = random(0, 360);
+  document.getElementById("ageSlider").value = random(0, 150);
+  document.getElementById("heightSlider").value = random(50, 200);
+  document.getElementById("densitySlider").value = random(1, 10);
+  //calls functions to grab slider values and update tree
   changeAge();
   changeHeight();
   changeColor();
   changeDensity();
-  a.redraw();
+  randomFruit();
+}
+//function which selets random fruit when random button is pressed
+function randomFruit() {
+  //generates random integer from 0 to 4
+  var num = Math.floor(random(0, 5));
+  //switch statement that sets random fruit radio button to be selected
+  switch (num) {
+    case 0:
+      document.getElementById("apple").checked = true;
+      tree.addFruit("apple");
+      break;
+    case 1:
+      document.getElementById("orange").checked = true;
+      tree.addFruit("orange");
+      break;
+    case 2:
+      document.getElementById("lemon").checked = true;
+      tree.addFruit("lemon");
+      break;
+    case 3:
+      document.getElementById("plum").checked = true;
+      tree.addFruit("plum");
+      break;
+    case 4:
+      document.getElementById("noFruit").checked = true;
+      tree.addFruit("no fruit");
+      break;
+  }
 }
 
+//function to change tree leaves colour
 function changeColor() {
   var sliderColor = document.getElementById("colorSlider").value;
-  a.setLeafColor(sliderColor);
-  a.redraw();
+  tree.setLeafColor(sliderColor);
+  newTree();
 }
 
 function changeAge() {
   var sliderAge = document.getElementById("ageSlider").value;
-  a.setTreeAge(sliderAge);
-  a.redraw();
+  tree.setTreeAge(sliderAge);
+  newTree();
 }
 
 function changeHeight() {
   var sliderHeight = document.getElementById("heightSlider").value;
-  a.setTreeHeight(sliderHeight);
-  a.redraw();
+  tree.setTreeHeight(sliderHeight);
+  newTree();
 }
 
 function changeDensity() {
   var sliderDensity = document.getElementById("densitySlider").value;
-  a.setTreeDensity(sliderDensity);
-  a.redraw();
+  tree.setTreeDensity(sliderDensity);
+  newTree();
 }
 
+function changeFruit() {
+  if (document.getElementById("apple").checked) {
+    tree.addFruit("apple");
+  }
+  if (document.getElementById("orange").checked) {
+    tree.addFruit("orange");
+  }
+  if (document.getElementById("lemon").checked) {
+    tree.addFruit("lemon");
+  }
+  if (document.getElementById("plum").checked) {
+    tree.addFruit("plum");
+  }
+  if (document.getElementById("noFruit").checked) {
+    tree.addFruit("no fruit");
+  }
+
+}
