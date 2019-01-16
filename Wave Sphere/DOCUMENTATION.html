@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <title>Wave Sphere</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css" integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
+        <style>
+/*--------------------------------------------------------------------------------------------- * Copyright (c) Microsoft Corporation. All rights reserved. * Licensed under the MIT License. See License.txt in the project root for license information. *--------------------------------------------------------------------------------------------*/ body { font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback"; font-size: 14px; padding: 0 26px; line-height: 22px; word-wrap: break-word; } #code-csp-warning { position: fixed; top: 0; right: 0; color: white; margin: 16px; text-align: center; font-size: 12px; font-family: sans-serif; background-color:#444444; cursor: pointer; padding: 6px; box-shadow: 1px 1px 1px rgba(0,0,0,.25); } #code-csp-warning:hover { text-decoration: none; background-color:#007acc; box-shadow: 2px 2px 2px rgba(0,0,0,.25); } body.scrollBeyondLastLine { margin-bottom: calc(100vh - 22px); } body.showEditorSelection .code-line { position: relative; } body.showEditorSelection .code-active-line:before, body.showEditorSelection .code-line:hover:before { content: ""; display: block; position: absolute; top: 0; left: -12px; height: 100%; } body.showEditorSelection li.code-active-line:before, body.showEditorSelection li.code-line:hover:before { left: -30px; } .vscode-light.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(0, 0, 0, 0.15); } .vscode-light.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(0, 0, 0, 0.40); } .vscode-light.showEditorSelection .code-line .code-line:hover:before { border-left: none; } .vscode-dark.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 255, 255, 0.4); } .vscode-dark.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 255, 255, 0.60); } .vscode-dark.showEditorSelection .code-line .code-line:hover:before { border-left: none; } .vscode-high-contrast.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 160, 0, 0.7); } .vscode-high-contrast.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 160, 0, 1); } .vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before { border-left: none; } img { max-width: 100%; max-height: 100%; } a { text-decoration: none; } a:hover { text-decoration: underline; } a:focus, input:focus, select:focus, textarea:focus { outline: 1px solid -webkit-focus-ring-color; outline-offset: -1px; } hr { border: 0; height: 2px; border-bottom: 2px solid; } h1 { padding-bottom: 0.3em; line-height: 1.2; border-bottom-width: 1px; border-bottom-style: solid; } h1, h2, h3 { font-weight: normal; } h1 code, h2 code, h3 code, h4 code, h5 code, h6 code { font-size: inherit; line-height: auto; } table { border-collapse: collapse; } table > thead > tr > th { text-align: left; border-bottom: 1px solid; } table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table > tbody > tr > td { padding: 5px 10px; } table > tbody > tr + tr > td { border-top: 1px solid; } blockquote { margin: 0 7px 0 5px; padding: 0 16px 0 10px; border-left-width: 5px; border-left-style: solid; } code { font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback"; font-size: 14px; line-height: 19px; } body.wordWrap pre { white-space: pre-wrap; } .mac code { font-size: 12px; line-height: 18px; } pre:not(.hljs), pre.hljs code > div { padding: 16px; border-radius: 3px; overflow: auto; } /** Theming */ pre code { color: var(--vscode-editor-foreground); } .vscode-light pre { background-color: rgba(220, 220, 220, 0.4); } .vscode-dark pre { background-color: rgba(10, 10, 10, 0.4); } .vscode-high-contrast pre { background-color: rgb(0, 0, 0); } .vscode-high-contrast h1 { border-color: rgb(0, 0, 0); } .vscode-light table > thead > tr > th { border-color: rgba(0, 0, 0, 0.69); } .vscode-dark table > thead > tr > th { border-color: rgba(255, 255, 255, 0.69); } .vscode-light h1, .vscode-light hr, .vscode-light table > tbody > tr + tr > td { border-color: rgba(0, 0, 0, 0.18); } .vscode-dark h1, .vscode-dark hr, .vscode-dark table > tbody > tr + tr > td { border-color: rgba(255, 255, 255, 0.18); } 
+</style>
+<style>
+/* https://raw.githubusercontent.com/isagalaev/highlight.js/master/src/styles/vs2015.css */ /* * Visual Studio 2015 dark style * Author: Nicolas LLOBERA <nllobera@gmail.com> */ .hljs-keyword, .hljs-literal, .hljs-symbol, .hljs-name { color: #569CD6; } .hljs-link { color: #569CD6; text-decoration: underline; } .hljs-built_in, .hljs-type { color: #4EC9B0; } .hljs-number, .hljs-class { color: #B8D7A3; } .hljs-string, .hljs-meta-string { color: #D69D85; } .hljs-regexp, .hljs-template-tag { color: #9A5334; } .hljs-subst, .hljs-function, .hljs-title, .hljs-params, .hljs-formula { color: #DCDCDC; } .hljs-comment, .hljs-quote { color: #57A64A; font-style: italic; } .hljs-doctag { color: #608B4E; } .hljs-meta, .hljs-meta-keyword, .hljs-tag { color: #9B9B9B; } .hljs-variable, .hljs-template-variable { color: #BD63C5; } .hljs-attr, .hljs-attribute, .hljs-builtin-name { color: #9CDCFE; } .hljs-section { color: gold; } .hljs-emphasis { font-style: italic; } .hljs-strong { font-weight: bold; } /*.hljs-code { font-family:'Monospace'; }*/ .hljs-bullet, .hljs-selector-tag, .hljs-selector-id, .hljs-selector-class, .hljs-selector-attr, .hljs-selector-pseudo { color: #D7BA7D; } .hljs-addition { background-color: #144212; display: inline-block; width: 100%; } .hljs-deletion { background-color: #600; display: inline-block; width: 100%; } /* From https://raw.githubusercontent.com/isagalaev/highlight.js/master/src/styles/vs.css */ /* Visual Studio-like style based on original C# coloring by Jason Diamond <jason@diamond.name> */ .vscode-light .hljs-function, .vscode-light .hljs-params { color: inherit; } .vscode-light .hljs-comment, .vscode-light .hljs-quote, .vscode-light .hljs-variable { color: #008000; } .vscode-light .hljs-keyword, .vscode-light .hljs-selector-tag, .vscode-light .hljs-built_in, .vscode-light .hljs-name, .vscode-light .hljs-tag { color: #00f; } .vscode-light .hljs-string, .vscode-light .hljs-title, .vscode-light .hljs-section, .vscode-light .hljs-attribute, .vscode-light .hljs-literal, .vscode-light .hljs-template-tag, .vscode-light .hljs-template-variable, .vscode-light .hljs-type, .vscode-light .hljs-addition { color: #a31515; } .vscode-light .hljs-deletion, .vscode-light .hljs-selector-attr, .vscode-light .hljs-selector-pseudo, .vscode-light .hljs-meta { color: #2b91af; } .vscode-light .hljs-doctag { color: #808080; } .vscode-light .hljs-attr { color: #f00; } .vscode-light .hljs-symbol, .vscode-light .hljs-bullet, .vscode-light .hljs-link { color: #00b0e8; } .vscode-light .hljs-emphasis { font-style: italic; } .vscode-light .hljs-strong { font-weight: bold; }
+</style>
+<style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <h1 id="wave-sphere">Wave Sphere</h1>
+<p>Example constructor</p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">var</span> ws = <span class="hljs-keyword">new</span> WaveSphere();
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setup</span>(<span class="hljs-params"></span>)</span>{    
+    createCanvas(<span class="hljs-number">700</span>, <span class="hljs-number">700</span>);
+    ws.setup(<span class="hljs-number">1000</span>, <span class="hljs-number">200</span>, <span class="hljs-number">300</span>, <span class="hljs-number">300</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">draw</span>(<span class="hljs-params"></span>)</span>{
+    background(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+    ws.draw();
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mousePressed</span>(<span class="hljs-params"></span>)</span>{
+       ws.mousePressed();
+}
+</div></code></pre>
+<p>Using optional p5.Renderer</p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">var</span> ws = <span class="hljs-keyword">new</span> WaveSphere();
+<span class="hljs-keyword">var</span> sphereGraphic;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setup</span>(<span class="hljs-params"></span>)</span>{ 
+    createCanvas(<span class="hljs-number">700</span>, <span class="hljs-number">700</span>);
+    sphereGraphic = createGraphics(<span class="hljs-number">700</span>, <span class="hljs-number">700</span>) ;
+    ws.setup(<span class="hljs-number">100</span>,<span class="hljs-number">200</span>, <span class="hljs-number">350</span>, <span class="hljs-number">350</span>, sphereGraphic);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">draw</span>(<span class="hljs-params"></span>)</span>{P
+    sphereGraphic.background(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>) ;
+    ws.draw(sphereGraphic);
+    image(sphereGraphic, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mousePressed</span>(<span class="hljs-params"></span>)</span>{
+       ws.mousePressed(sphereGraphic);
+}
+</div></code></pre>
+<h2 id="methods">Methods</h2>
+<hr>
+<pre><code class="language-javascript"><div>setup(nPoints, radius, x, y, [optional] renderObject)
+draw([optional] renderObject)
+mousePressed([optional] renderObject)
+collision([int] x, [int] y, [int] z)
+</div></code></pre>
+<h3 id="setup">Setup</h3>
+<pre><code class="language-javascript"><div>setup(nPoints, radius, x, y, [optional] renderObject)
+</div></code></pre>
+<p>Call to set up the object. To align with the flow of a p5 program most the variable initiation is done here rather than the constructor. This function must be called before any other function calls to ensure everything is set up. Calling setup also sets all the variable to their default value. Setup can be called again after its initial call however it will remove and recreate all the points that are used in the sphere and reset all the values to their default.</p>
+<h3 id="draw">Draw</h3>
+<pre><code class="language-javascript"><div>draw([optional] renderObject)
+</div></code></pre>
+<p>This function should be called every time the canvas/p5.Renderer draw call is made. It redraws the sphere and animates it.</p>
+<h3 id="mouse-pressed">Mouse pressed</h3>
+<pre><code class="language-javascript"><div>mousePressed([optional] renderObject)
+</div></code></pre>
+<p>This function should be called every time the canvas/p5.Renderer mousePressed() is called. If mouse behaviour is not required see the Mouse Activity parameter</p>
+<h3 id="collision">Collision</h3>
+<pre><code class="language-javascript"><div>collision([int] x, [int] y, [int] z)
+</div></code></pre>
+<p>This function will send the point closest the the (x,y,z) argument towards the middle of the sphere. The sphere is in its own coordinate space centered around the origin. Note that this coordinate space is independent of the canvas coordinates of the sphere. Hence calls to this function should be made with the argument point (x,y,z) in the sphere coordinate space for the desired behaviour. The size of the collision can be set using setClickMagnitude().</p>
+<h2 id="parameters">Parameters</h2>
+<hr>
+<h3 id="colour">Colour</h3>
+<pre><code class="language-javascript"><div>    setColour([int] r, [int] g, [int] b)
+</div></code></pre>
+<p>Sets the whole colour of the sphere to rgb value specified, all values should be between 0-255.
+Default colour: white (255,255,255)</p>
+<pre><code class="language-javascript"><div>    setFrontBackColour([int] red_front, [int] green_front, [int] blue_front, [int] red_back, [int] green_back, [int] blue_back)
+</div></code></pre>
+<p>Sets the colour at the front and the back of the sphere all values should be between 0-255.</p>
+<pre><code class="language-javascript"><div>    [int array length=<span class="hljs-number">6</span>] getFrontBackColour()
+</div></code></pre>
+<p>returns the colour currently being displayed at the front and the back of the sphere.<br/>
+returns array: [red_front, green_front, blue_front, red_back, green_back, blue_back]
+all values will be between 0-255.</p>
+<hr>
+<h3 id="click-magnitude">Click Magnitude</h3>
+<pre><code class="language-javascript"><div>setClickMagnitude([float] size)
+[float] getClickMagnitude()
+</div></code></pre>
+<p>Sets and gets the size of effect a mouse click has on the surface of the sphere.<br/>
+&lt;0.5 - Smaller reaction.<br/>
+&gt;0.5 - Larger reaction.<br/>
+Default: 0.5</p>
+<hr>
+<h3 id="fps">FPS</h3>
+<pre><code class="language-javascript"><div>setShowFPS([bool] show)
+</div></code></pre>
+<p>If set to true will show FPS in the bottom left corner.<br/>
+Default: false</p>
+<hr>
+<h3 id="output-scale">Output scale</h3>
+<pre><code class="language-javascript"><div>setOutputScale([float] scale)
+[float] getOutputScale()
+</div></code></pre>
+<p>Sets and Gets the scale of the output. This parameter can be changed without effecting the current dynamics of the sphere.<br/>
+&lt;1.2 - smaller outputted sphere.<br/>
+&gt;1.2 - larger outputted sphere. <br/>
+Default: 1.2</p>
+<hr>
+<h3 id="radius">Radius</h3>
+<pre><code class="language-javascript"><div>setRadius([int] r)
+[int] getRadius()
+</div></code></pre>
+<p>Sets and Gets the radius of sphere. Will effect physics of sphere as it changes, see output scale if this isn't a desirable effect.</p>
+<hr>
+<h3 id="number-of-points">Number of points</h3>
+<pre><code class="language-javascript"><div>getNumberOfPoints()
+</div></code></pre>
+<p>Returns the number of points in the circle.<br/>
+NOTE: points cannot be changed once set. To change the number of points setup() must be called again.</p>
+<hr>
+<h3 id="surface-reactivity">Surface reactivity</h3>
+<pre><code class="language-javascript"><div>setSurfaceReactivity([float] m)
+[float] getSurfaceReactivity()
+</div></code></pre>
+<p>Gets and sets the reactivity of the surface.<br/>
+Default: 50</p>
+<hr>
+<h3 id="surface-tension">Surface tension</h3>
+<pre><code class="language-javascript"><div>setSurfaceTension([float] h)
+[float] getSurfaceTension()
+</div></code></pre>
+<p>Gets and sets the surface tension of the sphere.<br/>
+Default: 0.99</p>
+<hr>
+<h3 id="viscosity">Viscosity</h3>
+<pre><code class="language-javascript"><div>setViscosity([float] hh)
+[float] getViscosity()
+</div></code></pre>
+<p>Gets and sets the viscosity of the air (mostly).<br/>
+Default: 0.01</p>
+<hr>
+<h3 id="position">Position</h3>
+<pre><code class="language-javascript"><div>    setX([int] x)
+    setY([int] y)
+</div></code></pre>
+<p>Sets the X and Y coordinates of the center of the sphere.</p>
+<pre><code class="language-javascript"><div>    [int] getX()
+    [int] getY()
+</div></code></pre>
+<p>Gets the X and Y coordinates of the center of the sphere.</p>
+<hr>
+<h3 id="mouse-activity">Mouse activity</h3>
+<pre><code class="language-javascript"><div>setMouseActive([bool] active)
+[bool] getMouseActive()
+</div></code></pre>
+<p>Gets and sets wether the sphere should react to to the mouse.<br/>
+Default: true</p>
+<hr>
+<h3 id="mouse-activity-1">Mouse activity</h3>
+<pre><code class="language-javascript"><div>setMouseActiveRegion([int array] [Xmin, Xmax, Ymin, Ymax])
+[int array] [Xmin, Xmax, Ymin, Ymax] getMouseActiveRegion()
+</div></code></pre>
+<p>Gets and sets the active region of the mouse. This is the region where the mouse will be acknowledged for clicks and rotation. Outside this region it will be ignored.<br/>
+Default: size of canvas/p5.render object is in.</p>
+<hr>
+<h3 id="mouse-sensitivity">Mouse sensitivity</h3>
+<pre><code class="language-javascript"><div>setMouseSensitivity([float] sensitivity)
+[float] getMouseSensitivity()
+</div></code></pre>
+<p>Gets and sets the sensitivity of the sphere rotation to the mouse.<br/>
+&lt;1 - less sensitive<br/>
+&gt;1 - more sensitive<br/>
+Default: 1<br/></p>
+<hr>
+<h3 id="spin-mode">Spin Mode</h3>
+<pre><code class="language-javascript"><div>setSpinMode([int <span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span> only] x)
+[int <span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span> only] getSpinMode()
+</div></code></pre>
+<p>Gets and set the sphere spin mode.<br/>
+The sphere has 3 different spin modes:<br/>
+Mode 0: No spin<br/>
+Mode 1: Mouse reactive spin<br/>
+Mode 2: Constant spin (set Constant Spin for more details)</p>
+<hr>
+<h3 id="constant-spin">Constant Spin</h3>
+<pre><code class="language-javascript"><div>setConsSpinX([int] x)
+setConsSpinY([int] y)
+[int] getConsSpinX()
+[int] getConsSpinY()
+</div></code></pre>
+<p>Sets and gets the (x,y) coordinate that the sphere spins towards. The coordinates are in the sphere coordinate space not the canvas space (for more info read &quot;Collision&quot; method). The further away from the origin the faster the sphere will spin.<br/>
+For constant spin to take place the sphere must be in the correct Spin Mode.<br/>
+Default: 100, 100</p>
+<h2 id="changes-from-original">Changes from original</h2>
+<hr>
+<ul>
+<li>Generalisation: Removed all hard coded variables and replaced them with real variables (position, radius, click magnitude, constants that depended on the radius).</li>
+<li>Added new colour model, allowing the colour to be set to different colours at the front and back.</li>
+<li>Added optional FPS counter.</li>
+<li>Added collision method.</li>
+<li>Added ability to apply constant spin.</li>
+<li>A large emphasis on increasing the speed, there is approximately a 2x framerate increase from the original.</li>
+<li>Added the ability for the mouse to be ignored, either by being out of a useful region (the screen) or it can be turned off.</li>
+<li>Parameterization: added getters and setters for all useful parameters including all the variables that were hard coded.</li>
+</ul>
+<h2 id="licence">Licence</h2>
+<hr>
+<p>Current Object:<br/>
+&quot;WaveSphere&quot;<br/>
+under Creative Commons Attribution ShareAlike<br/>
+<a href="https://creativecommons.org/licenses/by-sa/3.0https://creativecommons.org/licenses/GPL/2.0/">https://creativecommons.org/licenses/by-sa/3.0https://creativecommons.org/licenses/GPL/2.0/</a></p>
+<p>Original Sketch:<br/>
+&quot;WavesOnSphere_1.0&quot; by ashley fong<br/>
+<a href="http://www.openprocessing.org/sketch/638487Licensed">http://www.openprocessing.org/sketch/638487Licensed</a><br/>
+under Creative Commons Attribution ShareAlike<br/>
+<a href="https://creativecommons.org/licenses/by-sa/3.0https://creativecommons.org/licenses/GPL/2.0/">https://creativecommons.org/licenses/by-sa/3.0https://creativecommons.org/licenses/GPL/2.0/</a><br/></p>
+
+    </body>
+    </html>
