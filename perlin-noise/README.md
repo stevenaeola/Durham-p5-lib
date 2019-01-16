@@ -2,6 +2,7 @@
 ## Description ##
 Animation in p5 that creates particles, of 3 different colours, on the canvas which moves around 
 the screen. Optional parameters are RGB colours of each group, number and speed of particles.
+
 ---
 ## Arguments ##
 #### constructor(a, b, c, n, s) 
@@ -18,7 +19,7 @@ Draws the particles.
 ```
 ```
 ---
-## Example HTML page ##
+## Example HTML Page ##
 ```
 The example page contains a control panel on the top of the page and a canvas below where the sketch with the particular inputs specified by the control panel is run.
 
@@ -31,7 +32,7 @@ There is a slider to control the speed of each particles that increments in a st
 There is a Reload button which will take the user inputs and pass them through as parameters to the Sketch class and will then reload the canvas.
 ```
 
-## License
+## License & Source
 ```
 "perlin noise" by yasai
 http://www.openprocessing.org/sketch/494102

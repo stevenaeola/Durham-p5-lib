@@ -43,8 +43,7 @@ function reload(){
 }
 
 function setup(){
-	canvas = createCanvas(windowWidth, windowHeight);
-	canvas.parent("canvas");
+	createCanvas(windowWidth, windowHeight);
 	reload();
 }
 
