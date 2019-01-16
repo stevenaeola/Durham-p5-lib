@@ -65,7 +65,7 @@ function setup() {
 function draw() {
 	background(img);
 	noStroke();
-	//Scene Work
+	//The following lines are mostly scene work for the background
 
 	//Sponge Bob House
 	//Chimney
@@ -192,6 +192,8 @@ function draw() {
 
 
 	//End of scene work
+
+
 	//SpongeBOB
 	//Body
 	if (patrick === false) {
@@ -318,7 +320,7 @@ function draw() {
 
 	//GAME MODE
 
-	//Base Screen with options
+	//Base Screen with options written onto the scene
 	if (singlegame === false && doublesgame === false && instructions === false && singlegameover === false && doublegameover === false && gamecomplete === false) {
 		noStroke();
 		fill('Black');
@@ -415,7 +417,7 @@ function draw() {
 			badburgers[i].move();
 			badburgers[i].show();
 		}
-
+		//Quit Instructions
 		fill('Black');
 		textAlign(CENTER);
 		textSize(16);
@@ -473,7 +475,7 @@ function draw() {
 		ellipse(x + 16, y + 6, 3, 3);
 		ellipse(x + 14.5, y + 10, 4, 4);
 		strokeWeight(1);
-
+		//Move commands
 		if (x >= 1300) {
 			x = 0;
 		}
@@ -498,7 +500,7 @@ function draw() {
 		if (keyIsDown(RIGHT_ARROW)) {
 			x += 7;
 		}
-
+		//Quit instructions
 		fill('Black');
 		textAlign(CENTER);
 		textSize(16);
@@ -508,14 +510,14 @@ function draw() {
 		singlegame = false;
 		instructions = false;
 	}
-
+	//Loss Screen
 	if (singlegameover === true) {
 		fill('Black');
 		textAlign(CENTER);
 		textSize(20);
 		strokeWeight(1);
 		stroke('Black');
-		text('SPONGE BOB HAS LOST HIS KRABBY PATTIES! PRESS Q TO RESTART', 700, 500);
+		text('NOW SPONGE BOB HAS LOST HIS KRABBY PATTIES! PRESS Q TO RESTART', 700, 500);
 		singlegame = false;
 		instructions = false;
 	}
@@ -526,12 +528,12 @@ function draw() {
 		textSize(20);
 		strokeWeight(1);
 		stroke('Black');
-		text('SPONGE BOB HAS LOST HIS KRABBY PATTIES! PRESS Q TO RESTART', 700, 500);
+		text('NOW SPONGE BOB HAS LOST HIS KRABBY PATTIES! PRESS Q TO RESTART', 700, 500);
 		doublesgame = false;
 		instructions = false;
 	}
 
-	if (score === 5) {
+	if (score === 25) {
 		gamecomplete = true;
 	}
 
@@ -543,7 +545,8 @@ function draw() {
 		textSize(20);
 		strokeWeight(1);
 		stroke('Black');
-		text('Thanks for helping me find my Krabby Patties! You have unlocked faster Gold Burgers and you can now try to find the easter eggs!', 700, 500);
+		text('Thanks for helping me find my Krabby Patties! You have unlocked faster Gold Burgers and you can now try ' +
+			'to find the easter eggs!', 700, 500);
 		fill('Black');
 		textAlign(CENTER);
 		textSize(15);
@@ -553,6 +556,7 @@ function draw() {
 		singlegame = false;
 		doublesgame = false;
 		instructions = false;
+		//Change colour of the burgers
 		BurgerColour1 = gold1;
 		BurgerColour2 = gold2;
 		BurgerColour3 = gold3;
@@ -588,6 +592,8 @@ function draw() {
 	noStroke();
 	text('In memory of Stephen Hillenburg', 20, 10);
 
+
+	//Game Over for missing too many
 	if (missed === 5) {
 		doublesgame = false;
 		singlegame = false;
@@ -607,10 +613,21 @@ class Burger {
 		this.w = burgW;
 		this.h = lettuceh;
 		this.t = tomatoh;
+        this._burgW = burgW;
 	}
 
-	move() {
+    get burgW() {
+        return this._burgW;
+    }
+
+    set burgW(value) {
+        this._burgW = value;
+    }
+
+    move() {
+		//Movement
 		this.x = this.x + BurgerSpeed;
+		//Collisions
 		if (this.x <= mouseX + 70 && mouseX - 10 <= this.x && mouseY - 15 <= this.y && this.y <= mouseY + 95) {
 			this.h = 0;
 			this.w = 0;
@@ -619,7 +636,7 @@ class Burger {
 			this.y = 0;
 			this.x = 1400;
 		}
-
+        //Collisions
 		if (doublesgame === true) {
 			if (this.x <= x + 90 && x - 5 <= this.x && y - 15 <= this.y && this.y <= y + 50) {
 				this.h = 0;
@@ -630,7 +647,7 @@ class Burger {
 				this.x = 1400;
 			}
 		}
-
+		//Missed Adder
 		if (this.x === 1392) {
 			missed += 1;
 		}
@@ -660,11 +677,12 @@ class BadBurger {
 
 	move() {
 		this.x = this.x + 4;
+        //Collisions
 		if (this.x <= mouseX + 70 && mouseX - 10 <= this.x && mouseY - 15 <= this.y && this.y <= mouseY + 95) {
 			singlegameover = true;
 			doublegameover = true;
 		}
-
+		//Collisions
 		if (doublesgame === true) {
 			if (this.x <= x + 90 && x - 5 <= this.x && y - 15 <= this.y && this.y <= y + 50) {
 				doublegameover = true;
