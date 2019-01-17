@@ -7,6 +7,18 @@ class Pond {
     }
   }
   
+  setPondColour(c) {
+    this.pondColour = c;
+  }
+  
+  getPondColour(c) {
+    return this.pondColour;
+  }
+  
+  setFish(f, index) {
+    this.fish[index] = f;
+  }
+  
   getFish(index) {
     return this.fish[index];
   }

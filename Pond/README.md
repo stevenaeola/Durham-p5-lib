@@ -35,6 +35,9 @@ A class that allows the user to easily create and manage many fish objects.
 #### Methods
 |Name|Arguments|Description|
 |:---|:--------|:----------|
+|setPondColour|c (p5.Color)|Changes the background colour of the pond to *c*.|
+|getPondColour|*None*|Returns the current background colour of the pond.|
+|setFish|f (Fish), index (Integer)|Sets the fish at the specified *index* to *f*.|
 |getFish|index (Integer)|Returns the fish at the specified *index* in the pond's fish array.|
 |draw|g (OPTIONAL p5.Graphics)|Draws each fish in the pond to the viewing area.|
 |add|f (Fish)|Adds a fish object *f* to the pond.|
