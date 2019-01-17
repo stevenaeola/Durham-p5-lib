@@ -1,0 +1,54 @@
+
+/*hide control panel*/
+#control{
+	display: none;
+    top: 0;
+    left: 0;
+    background: #80bfff;
+    border-radius: 5px;
+    padding: 20px;
+    
+}
+/*show control panel*/
+.with_panel #control {
+    display: block;
+}
+
+
+/*control panel button*/
+.access{
+	
+    display: block;
+    position: absolute;/*place it to right up corner*/
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: 0;
+    padding-top: 40px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background: white 10px 10px / 20px 20px no-repeat;
+}
+
+/*control panel button*/
+#access_cl {
+    background-color: lightblue;/*background of the bar*/
+    background-image: repeating-linear-gradient(#ff4d4d,#ff4d4d 2px,#ff9999 2px, #ff9999 4px);/*repeating-linear-gradient = three pink pararell line*/
+}
+
+
+
+/*text field*/
+input[type=number], select {
+    width: 100%;
+    padding: 5px 5px;
+    margin: 5px 0;
+    display: inline-block;
+    border: 1px solid #ff4d4d;
+    border-radius: 2px;
+    box-sizing: border-box;
+}
+
+
+
+
