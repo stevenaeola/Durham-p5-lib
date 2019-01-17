@@ -130,6 +130,7 @@ class Fish {
     var angle;
     var v;
     if (g) {
+      // Translate, rotate and scale functions were not working when using a custom graphics renderer so I have translated, rotated and scaled the vertices manually here
       g.stroke(color(red(this.colour), green(this.colour), blue(this.colour), 255)); // The outside stroke of the fish should always be of full alpha
       g.fill(this.colour);
 
