@@ -154,7 +154,7 @@ class clMagicalTree {
   }
 
   //redraws magical tree
-  reraw() {
+  redraw() {
     this.objLeaf.deleteLeaf();
     this.objFruit.deleteLeaf();
     redraw();
