@@ -1,11 +1,9 @@
 //creates varaible which will be tree object
 var tree;
-var g;
-var type = 0;
 
 //setup function
 function setup() {
-  createCanvas(windowWidth, 700); 
+  createCanvas(windowWidth, windowHeight);
   //sets initial radio button to 'no fruit' by defult
   document.getElementById("noFruit").checked = true;
   //creates instance of magical tree
@@ -13,31 +11,12 @@ function setup() {
 }
 
 function draw() {
-  //checks which sketch to do
- // if (type == 0) {
-    //runs draw function to display tree
-    tree.draw();
- // }
-  //if (type == 1) {
-    //runs draw function to display tree
-  //  tree.draw(g);
-  //  texture(g);
-  //  box(200);
+  tree.draw();
+
 }
-  
-  
 
 
-function swapSketch() {
-  if (document.getElementById("canvas").checked) {
-    type = 0;
-    draw();
-  }
-  if (document.getElementById("cube").checked) {
-    type = 1;
-    draw();
-  }
-}
+
 
 //function to generate new tree
 function newTree() {
@@ -117,24 +96,28 @@ function changeColor() {
   newTree();
 }
 
+//function called to change age
 function changeAge() {
   var sliderAge = document.getElementById("ageSlider").value;
   tree.setTreeAge(sliderAge);
   newTree();
 }
 
+//function called to change height
 function changeHeight() {
   var sliderHeight = document.getElementById("heightSlider").value;
   tree.setTreeHeight(sliderHeight);
   newTree();
 }
 
+//function caled to change density
 function changeDensity() {
   var sliderDensity = document.getElementById("densitySlider").value;
   tree.setTreeDensity(sliderDensity);
   newTree();
 }
 
+//function called when radiobutton is clicked
 function changeFruit() {
   if (document.getElementById("apple").checked) {
     tree.addFruit("apple");
