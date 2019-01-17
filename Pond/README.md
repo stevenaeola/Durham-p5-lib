@@ -47,7 +47,7 @@ A class that allows the user to easily create and manage many fish objects.
 |fadeSpeed|s (Number), frames (Integer, default=100)|Smoothly accelerates every fish from its previous speed to *s* in *frames* frames.|
 
 # Example
-The example provides a tutorial demonstrating some of the major functionality of the component. The user can also pass in an optional p5.Graphics object to the draw functions of Fish and Pond to allow drawing as textures on 3D shapes. The velocity, location, initial size and wiggle of a fish can also be accessed using get/set, but fade functions for these properties don't exist as they are usually randomly generated and not intended to be modified.
+The example provides a tutorial demonstrating some of the major functionality of the component. The user can also pass in an optional p5.Graphics object to the draw functions of Fish and Pond to allow drawing as textures on 3D shapes. The velocity, location, initial size and wiggle of a fish can also be accessed using get/set, but fade functions for these properties don't exist as they are usually randomly generated and not intended to be modified when used in conjunction with Pond.
 
 # Licencing
 The Pond code is derived from [Michael Pinn's](https://www.openprocessing.org/user/39442) sketch ['Fish Tank'](https://www.openprocessing.org/sketch/162912) on OpenProcessing.org which is published under the [Creative Commons Attribution Non-Commerical No Derivatives](https://creativecommons.org/licenses/by-nc-nd/3.0/) licence. The Pond code is published under the same licence.
