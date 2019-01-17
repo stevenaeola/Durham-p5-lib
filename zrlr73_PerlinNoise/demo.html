@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Perlin Noise Demonstration</title>
+        <link rel="stylesheet" href="demo-assets/demo.css">
+    </head>
+    <body>
+        <div id="canvascontainer"></div>
+        <div id="sidebar">
+            <h1>Perlin Noise</h1>
+            <h2>Based on <a href="https://www.openprocessing.org/sketch/566877" target="_blank">this sketch</a> by <a href="https://www.openprocessing.org/user/77286" target="_blank">Tony R</a>. GitHub repo <a href="https://github.com/barnstorm3r/p5coursework" target="_blank">here</a>.</h2>
+            <div class="instructions">
+                <p>To update the parameters of the implementation of Perlin Noise on this page, simply type (or select) your desired values in the form below, then click one of the buttons in the bottom right to update the sketch.</p>
+                <p>The 'update' button will update the parameters instantly without restarting, where the 'restart' button will update them and restart the sketch. Refresh the page to reset the sketch to default values.</p>
+            </div>
+
+            <form autocomplete="off" id="parameterform">
+                <h4>Seed</h4>
+                <input type="text" class="number" name="seed" value="759">
+                <p>The seed is used to generate the Perlin Noise that produces the patterns you see. A different seed will result in different patterns. NB: the seed needs to be a number.</p>
+                
+                <h4>Number of particles</h4>
+                <input type="text" class="number" name="numParticles" value="250">
+                <p>This decides how many particles should be alive at once. A larger number may produce more pretty lines, but will also run slower.</p>
+
+                <h4>Mode</h4>
+                <input type="radio" class="number radio" name="mode" value="0" checked> 0<br>
+                <input type="radio" class="number radio" name="mode" value="1"> 1
+                <p>Mode 0 makes all particles spawn at the top by default, where mode 1 will allow particles to spawn anywhere. Mode 0 produces a nice 'cascade' effect from the top, but mode 1 makes nice 'contours' across the whole canvas.</p>
+
+                <h4>Particle Life</h4>
+                <h5>Min</h5>
+                <input type="text" class="number" name="minLife" value="0">
+                <h5>Max</h5>
+                <input type="text" class="number" name="maxLife" value="25">
+                <p>These values determine how long each particle should spend travelling around before it dies and respawns somewhere else. The life of each particle is generated within these bounds.</p>
+                
+                <h4>Noise Scale</h4>
+                <input type="text" class="number" name="noiseScale" value="200">
+                <p>The noise scale gives how large the Perlin Noise canvas should be relative to the pixels on your screen. A smaller value will result in more intricate patterns, and a larger value in larger, less detailed patterns.</p>
+
+                <h4>Simulation Speed</h4>
+                <input type="text" class="number" name="simulationSpeed" value="0.2">
+                <p>The speed expresses how fast the particles should move around. Very high speeds may cause the trails to look less consistent.</p>
+
+                <h4>Inner Padding</h4>
+                <h5>Vertical</h5>
+                <input type="text" class="number" name="paddingY" value="30"> pixels
+                <h5>Horizontal</h5>
+                <input type="text" class="number" name="paddingX" value="30"> pixels
+                <p>The extra space to leave around the inside edge of the canvas in pixels.</p>
+
+                <h4>Colours</h4>
+                <p>Unfortunately the background colour cannot be changed because the temporal fading (making older trails fade away) relies on being able to continuously darken the whole canvas, meaning any background we try to set would be changed to black in a few seconds.</p>
+                <h5>Default</h5>
+                <input type="text" class="colour" name="defaultColour" value="#ffffff">
+                <p>The colour to use for non-coloured particles.</p>
+                <h5>Left</h5>
+                <input type="text" class="colour" name="colourL" value="#00ffff">
+                <p>The colour to use for coloured particles moving left.</p>
+                <h5>Right</h5>
+                <input type="text" class="colour" name="colourR" value="#800080">
+                <p>The colour to use for coloured particles moving right.</p>
+                <div id="btn-div">
+                    <input type="submit" class="submit-button" name="submit" value="Update">
+                    <input type="button" class="submit-button" id="restart-btn" name="restart" value="Restart">
+                </div>
+            </form>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+        <script src="perlinNoise.js"></script>
+        <script src="demo-assets/demo.js"></script>
+    </body>
+</html>

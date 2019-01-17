@@ -1,0 +1,96 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, sans-serif;
+    text-align: justify;
+}
+a {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.5s ease;
+}
+a:hover {
+    color: #000;
+}
+#p5_loading {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+#canvascontainer {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0px 0px 80px -20px #666666;
+}
+#sidebar {
+    margin-left: 40vw;
+    padding: 2%;
+}
+#sidebar h1 {
+    font-size: 90px;
+    margin: 0px;
+}
+#sidebar h2 {
+    margin: 0px;
+}
+form {
+    margin-right: 20vw;
+}
+form h4 {
+    margin-bottom: 0px;
+}
+form h5 {
+    margin-top: 3px;
+    margin-bottom: 0px;
+}
+form p {
+    margin-top: 7px;
+}
+form input:not(.radio):not(.submit-button) {
+    margin-top: 1px;
+    padding: 5px;
+    font-size: 18px;
+    border: 0px;
+    background-color: #e8e8e8;
+    width: 80px;
+    border: 0.5px solid #e8e8e8;
+    transition: border 0.5s ease;
+    outline: none;
+}
+form input:not(.radio):not(.submit-button):focus {
+    border: 0.5px solid #000000;
+}
+#btn-div {
+    position: fixed;
+    bottom: 0px;
+    right: 20px;
+}
+form .submit-button {
+    display: block;
+    border: 0px;
+    margin-bottom: 20px;
+    padding: 0px;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.5s ease, color 0.5s ease;
+    cursor: pointer;
+    height: 60px;
+    width: 180px;
+    outline: none;
+}
+form .submit-button:hover {
+    background-color: #e8e8e8;
+    color: #000000;
+}
+.instructions {
+    margin-right: 10vw;
+    font-size: 18px;
+}
