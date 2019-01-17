@@ -1,18 +1,17 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.sound.min.js"></script>
+<!DOCTYPE html><html><head>
+  <!--> sources all files to be used <-->
+  <script src="p5.min.js"></script>
+  <script src="p5.dom.min.js"></script>
+  <script src="p5.sound.min.js"></script>
   <link rel="stylesheet" type="text/css" href="style.css">
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <script src="index.js"></script>
   <script src="clMagicalTree.js"></script>
   <script src="clGround.js"></script>
   <script src="clCreateTree.js"></script>
   <script src="clDrawLeaves.js"></script>
   <script src="clTreeBackground.js"></script>
+  <!--> sets up table to display <-->
   <style>
     table,
     th,
@@ -20,7 +19,7 @@
       border-collapse: collapse;
     }
   </style>
-
+  <!--> css style for sliders <-->
   <style>
     .slidecontainer {
       width: 100%;
@@ -60,6 +59,7 @@
       cursor: pointer;
     }
   </style>
+  <!--> css style for classes <-->
   <style>
     div.title {
     text-align: center;
@@ -77,24 +77,13 @@
 
 <body>
 
-  <div class = "title"><h1> Welcome to my Magical Tree reusable component</h1></div>
+  <div class="title"><h1> Welcome to my Magical Tree reusable component</h1></div>
 
   <div class="modifiers">
     
-    <table align = "center">
-      <tr>
-        <div class = "radioButton">
-        <form action="" id="canvasType">
-          <td><input type="radio" name="canvasStyle" value="Canvas" id="canvas"> Sketch to canvas<br></td>
-          <td><input type="radio" name="canvasStyle" value="Cube" id="cube"> Sketch to cube<br></td>
-        </form>
-        </div>
-      </tr>
-    </table>
-    
     <table align="center">
-
-      <tr>
+<!--> sets up able to display buttons and sliders <-->
+      <tbody><tr>
         <td>Leaf Colour:</td>
         <td><input type="range" min="0" max="360" value="120" class="slider" id="colorSlider"></td>
       </tr>
@@ -114,18 +103,19 @@
         <td><input type="range" min="1" max="10" value="3" class="slider" id="densitySlider"></td>
       </tr>
 
-    </table>
-    <table align = "center">
-      <tr>
-        <div class = "radioButton">
-        <form action="" id="radioFruit">
-          <td><input type="radio" name="fruit" value="radioApple" id="apple"> Apple<br></td>
+    </tbody></table>
+    <div class="radioButton">
+        <form action="" id="radioFruit"></form>
+          </div><table align="center">
+      <tbody><tr>
+        <!--> radio button setup <-->
+        <td><input type="radio" name="fruit" value="radioApple" id="apple"> Apple<br></td>
           <td><input type="radio" name="fruit" value="radioOrange" id="orange"> Orange<br></td>
           <td><input type="radio" name="fruit" value="radioLemon" id="lemon"> Lemon</td>
           <td><input type="radio" name="fruit" value="radioPlum" id="plum"> Plum</td>
           <td><input type="radio" name="fruit" value="radioNone" id="noFruit"> No fruit</td>
-        </form>
-        </div>
+        
+        
       </tr>
       
       <tr>
@@ -135,12 +125,10 @@
         <td></td>
         <td><button id="btnRandom">Randomise Tree</button></td>
       </tr>
-    </table>
-   </div>   
+    </tbody></table>
+   </div>  
+   <!--> object interactable event listeners <--> 
   <script>
-    document.getElementById("canvas").addEventListener("click", swapSketch);
-    document.getElementById("cube").addEventListener("click", swapSketch);
-    
     document.getElementById("btnRedraw").addEventListener("click", newTree);
 
     document.getElementById("colorSlider").addEventListener("change", changeColor);
@@ -163,6 +151,6 @@
 
     document.getElementById("btnRandom").addEventListener("click", randomTree);
   </script>
-</body>
 
-</html>
+
+</body></html>
