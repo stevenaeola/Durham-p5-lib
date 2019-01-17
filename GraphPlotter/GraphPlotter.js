@@ -6,7 +6,7 @@ document.head.appendChild(mathjs_script);
 
 class Equation {
     constructor(graph_plotter, equation_string) {
-    	this.graph_plotter = graph_plotter
+        this.graph_plotter = graph_plotter;
         this.equation_string = equation_string;
         this.calc_points();
     }
@@ -53,7 +53,7 @@ class Equation {
             }	
 
             graphic.curveVertex((this.graph_plotter.zoom * this.points[index][0]) + (width / 2), 
-            	(this.graph_plotter.zoom * this.points[index][1]) + (height / 2));
+                (this.graph_plotter.zoom * this.points[index][1]) + (height / 2));
         }
 
         graphic.endShape();
@@ -71,6 +71,7 @@ class GraphPlotter {
         this.do_draw = true;
         this.axis_text_increment = 1;
 
+        this.graph_graphic = createGraphics(width, height);
         this.axis_text = createGraphics(width, height);
     }
 
@@ -133,10 +134,12 @@ class GraphPlotter {
     // Draw function
     draw(renderer) {
         if (this.do_draw_value) {
-        	// Draw the numbers that the axis represent
+            this.graph_graphic.clear();
+            this.axis_text.clear();
+            
+            // Draw the numbers that the axis represent
+            this.graph_graphic.textSize(10);
             for (let x_val = 0; x_val <= max(width / 2, height / 2); x_val += this.axis_text_increment) {
-                this.axis_text.textSize(10);
-
                 this.axis_text.text(x_val, (this.zoom * x_val) + width / 2, height / 2);
                 this.axis_text.text(-x_val, (this.zoom * -x_val) + width / 2, height / 2);
 
@@ -144,27 +147,29 @@ class GraphPlotter {
                 this.axis_text.text(x_val, width / 2, height / 2 - (this.zoom * x_val));
             }
 
+            this.graph_graphic.copy(this.axis_text, 0, 0, width, height, 0, 0, width, height);
+
             // Draw x-axis
-            this.axis_text.strokeWeight(1);
-            this.axis_text.line(0, height / 2, width, height / 2);
+            this.graph_graphic.strokeWeight(1);
+            this.graph_graphic.line(0, height / 2, width, height / 2);
 
             // Draw y-axis
-            this.axis_text.line(width / 2, 0, width / 2, height);
+            this.graph_graphic.line(width / 2, 0, width / 2, height);
 
             //Draw equations
             strokeWeight(2);
             if (this.equation_object !== undefined) {
-                this.equation_object.draw(this.axis_text);
+                this.equation_object.draw(this.graph_graphic);
             }
 
             if (renderer) {
-                renderer.background(255);				
+                renderer.background(255);		
             } else {
                 background(255);
             }
 
             // Texture and plane have no method within p5.Renderer
-            texture(this.axis_text);
+            texture(this.graph_graphic);
             plane(width, height);
 			
             this.do_draw = false;

@@ -1,10 +1,21 @@
 # GraphPlotter
 ## Description
-`GraphPlotter.js` contains a class `GraphPlotter` which is a class that can be used to draw equations in the form `y = f(x)` using [`p5.js`](https://p5js.org/).
+`GraphPlotter.js` contains a class `GraphPlotter` which can be used to draw equations in the form `y = f(x)` using [`p5.js`](https://p5js.org/).
 
 Example usage can be seen in `Example.html`, `Example.js`, or further down in this page at [Usage](#Usage) or [Example](#Example).
 
-This project is based on a sketch on [OpenProcessing](https://www.openprocessing.org) found here: [Sketch](https://www.openprocessing.org/sketch/308997). I have made a number of changes to the original, found below:
+This project is based on a sketch on [OpenProcessing](https://www.openprocessing.org) found [here](https://www.openprocessing.org/sketch/308997), with the following attribution:
+
+```
+"Grapher" by zachary lemberg
+http://www.openprocessing.org/sketch/308997
+
+Licensed under Creative Commons Attribution ShareAlike
+https://creativecommons.org/licenses/by-sa/3.0
+https://creativecommons.org/licenses/GPL/2.0/
+```
+
+I have made a number of changes to the original, found below:
 
 * Parameterised content
 * Allowed the user to change the equation to be drawn
@@ -22,7 +33,7 @@ This project is based on a sketch on [OpenProcessing](https://www.openprocessing
 * `equation`
 	* Defines which graph will be drawn.
 	* Must only use `x` as a variable.
-	* The result of the equation produces a y-value, that is to say if the equation represents `f(x)` then `y = f(x)`.
+	* The result of the equation produces a y-value, that is to say if the statement represents `f(x)` then `y = f(x)`.
 	* Takes a string value as input but then converts that into an instance of `Equation` defined in `GraphPlotter.js`.
 	* If a given equation is invalid, errors are handled and not thrown, the graph will not be drawn.
 	* Example usage: `graph_plotter.equation = "cos(x^2) + 5x"`.
