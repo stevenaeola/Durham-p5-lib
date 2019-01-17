@@ -1,6 +1,7 @@
 # Perlin Noise Wave
 
 This is a fork off [Perlin Noise Wave](https://www.openprocessing.org/sketch/576489)
+License  GNU GENERAL PUBLIC LICENSE
 
 ## Index.js
 The index.js file will be the first thing to run and choose what is and what is not loaded onto the webpage. 
