@@ -831,7 +831,22 @@ The changeDensity function is called when the age slider is modified
 This is the sliders that can modify the tree
 ![SCREENSHOT](pictures/Modifier.png)
 
+This is an example of the standard tree that will be displayed on startup:
 ![SCREENSHOT](pictures/StandardTree.png)
+
+Fruit can be addedc via radio buttons
+![SCREENSHOT](pictures/Fruit.png)
+
+Fruit wil be displayed to the tree
+![SCREENSHOT](pictures/FruitTree.png)
+
+Interesting designs can be made via the sliders or using the random tree button
+![SCREENSHOT](pictures/RandomTree.png)
+
+![SCREENSHOT](pictures/AgeTree.png)
     
 ## Third section
 License agreement
+The licencing agreement is: 
+GNU GENERAL PUBLIC LICENSE
+Version 3, 29 June 2007
