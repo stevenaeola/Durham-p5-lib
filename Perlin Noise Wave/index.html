@@ -2,6 +2,7 @@
 <html>
 
 <head>
+<!-- p5 scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.sound.min.js"></script>
@@ -10,10 +11,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8" />
 
+  <!-- boostrap scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
+  <!-- classes -->
   <script src="Control.js"></script>
   <script src="index.js"></script>
   <script src="wave.js"></script>
@@ -28,6 +31,7 @@
         <center>Perlin Noise Wave</center>
       </h1>
     
+	<!-- hide option to change background for wave option 2 with id=hide -->
 <div id="hide">
   
       <div class="input-group mb-3">
@@ -39,6 +43,8 @@
 
       <p>Move your mouse to affect the wave's movement. Drag the sun to change the height of the wave</p>
       </div>
+	  
+	  <!-- radio button to change between 2D and 3D -->
       <form>
       <div class="custom-control custom-radio custom-control-inline">
         <input type="radio" onclick="window.location.reload()" class="custom-control-input" id="2d" name="webgl" value="1" checked >
@@ -51,7 +57,7 @@
       </div>
     </form>
 
-
+	<!-- Sliders to affect wave fluctation and colours -->
     <form>
       <label for="colour2">Wave Fluctuation</label>
       <input type="range" min="1" max="1000" value="50" class="custom-range" id="waveWidth" name="colour2">
@@ -63,6 +69,7 @@
       <input type="range" min="1" max="255" value="50" class="custom-range" id="colour2" name="colour2">
     </form>
 
+	<!-- Radio buttons to choose between Wave 1 and Wave 2 -->
     <form>
       <div class="custom-control custom-radio custom-control-inline">
         <input type="radio" class="custom-control-input" id="wave1" name="wave" value="1" checked >
@@ -77,15 +84,19 @@
 
   </div>
 
+  <!-- event Listeners that will look for clicks on radios or buttons and call the coressponding function within index.js -->
   <script>
+  <!-- shows background option for wave1 -->
     document.getElementById("wave1").addEventListener("click", function() {
       show();
     })
+  <!-- hides background option for wave2 -->
 
     document.getElementById("wave2").addEventListener("click", function() {
       hide();
       setup();
     })
+  <!-- set background colour when user inputs colour -->
 
     document.getElementById("bg").addEventListener("click", function() {
       Wave1.setColour();
