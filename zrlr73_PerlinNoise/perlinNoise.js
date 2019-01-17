@@ -142,10 +142,8 @@ class PerlinNoise {
             
             // work out the colour the particle should have based on its heading
             var particle_heading = this.particles[i].vel.heading()/PI;
+            
             // reverse particle if it's got negative heading
-
-            // TODO: MAKE THIS BEHAVE MORE NORMALLY - MIGHT BE WHY PARTICLES TEND TO TRAVEL LEFT
-
             if(particle_heading < 0){
                 particle_heading *= -1;
             }
