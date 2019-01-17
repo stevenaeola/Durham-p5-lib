@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+<script defer src=http://CDN.JSDelivr.net/npm/p5/lib/addons/p5.dom.min.js></script>
+<script  type="text/javascript" src="index.js"></script>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+p { 
+  font-family: 'Cabin Condensed'; 
+  font-size: 18px; 
+  font-style: normal; 
+  font-variant: normal; 
+  font-weight: 400; 
+  line-height: 20px; }
+
+/* Create two columns/boxes that floats next to each other */
+box1 {
+  float: left;
+  width: 30%;
+  height: 750px;
+  background: #ccc;
+  padding: 10px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 25px;
+    background: white;
+    outline: none;
+    opacity: 0.7;
+}
+      
+.slider:hover {
+    opacity: 1;
+}
+      
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #4CAF50;
+}
+</style>
+</head>
+
+<body>
+
+<box1>
+    <p>Slide to change the circle colour:</p>
+    <form method = "post" class = "slider">
+      <input type = "range" id = "colour" min = "0" max = "255" value = "127" class = "slider"/>
+      <output id = "colourSlider"></output>
+    </form>
+
+  <p>Slide to change the circle size:</p>
+    <form method = "post" class = "slider">
+      <input type = "range" id = "size" min = "0" max = "100" value = "50" class = "slider"/>
+      <output id = "sizeSlider"></output>
+    </form>
+
+  <p>Change speed of circles: (1 - 10):
+    <input type="number" id="speed" value="3" min="0" max="10">  
+    <output id = "speedNumber"></output>
+  </p>
+
+  <p>Add more circles to the screen by inputting the number of circles you would like to create:</p>
+  <input type="text" id="addnew">
+  <button onclick="addcircles()">Add circles</button>
+
+  <p>Click the circles to make them change direction and bounce around the screen!</p>
+
+  <p>Reset the movement of the circles:
+    <input type="button" id="reset" onclick = reset() value="Reset">
+  </p>
+
+</box1>
+
+<div id="sketch-holder">
+  <!--sketch-->
+</div>
+
+</body>
+</html>
+
