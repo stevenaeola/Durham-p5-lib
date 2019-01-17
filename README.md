@@ -1,12 +1,21 @@
-# Durham p5 Library
+# Class
+*  Particle（Line construction class）
 
-A library of reusable components for [p5js](https://p5js.org/). These are developed by the 1st Year Programming class at Durham University.
+## Class attribute
+* Construction parameter（x, y, level)
 
-## Instructions for adding components
+## Member function
+* draw function：Used to repaint animation
+* setup function：Used to initialize the p5.js parameter
 
-- Fork this repository
-- Create a subdirectory of the main repository named after your component containing
-   - A `.js` file containing the relevant class definition
-   - A `.html` file which uses the .js file and demonstrates its use
-   - A `README.md` file which contains the documentation for the class
-- Once everything is complete (including peer review) make a pull request from your forked repository to <https://github.com/stevenaeola/Durham-p5-lib>
+# usage
+See file demo.js
+
+```
+var particle= new Particle();
+setup = particle.setup
+draw = particle.draw
+keyPressed=particle.keyPressed
+mouseDragged = particle.mouseDragged
+```
+
