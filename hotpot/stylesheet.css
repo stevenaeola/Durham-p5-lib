@@ -1,0 +1,21 @@
+body {
+    background: #000;
+    margin: 0;
+}
+
+canvas {
+    cursor: crosshair;
+    display: block;
+}
+
+#instructions{
+	display: flex;
+	justify-content: center;
+	background-color: red;
+	width: 400px;
+}
+
+.center-content{
+	display: flex;
+	justify-content: center;
+}
