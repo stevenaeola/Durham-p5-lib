@@ -183,6 +183,11 @@ The draw function will run when it is called from the draw() function within ind
 
 ## Wave Class
 This is the first wave option that has  indistinguishable lines. 
+![Screenshot](Pictures/Wave1.PNG)
+
+3D renderer
+
+![Screenshot](Pictures/Wave13D.PNG)
 #### Constructor
 ```javascript
     constructor(yVal, noiseVal, waveSpeed, waveNum, waveH, colour1, colour2) {
@@ -255,7 +260,11 @@ The only big difference between the renderer and the canvas option is that the r
 
 ## Wave 2 Class
 This is the second wave option that has no indistinguishable lines. 
+![Screenshot](Pictures/Wave2.PNG)
 
+3D renderer
+
+![Screenshot](Pictures/Wave23D.PNG)
 #### Constructor
 
 ```javascript
