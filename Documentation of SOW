@@ -1,0 +1,46 @@
+# Documentation
+
+### **Introduction**:
+Sunset over water is the sketch that I chose from OpenProcessing. I have try my best to convert it to a reusable content by using JavaScript Classes.
+
+### **Parameters**: 
+There are several main parameters that mainly used in the sketch, they are 
+
+**canvasSize :** 
+the size of the sketch
+**halfCanvasSize :**
+ to make the x and y variables
+**sunHeight:**
+ to make the x and y variables
+**sunSize:**
+ the sun size
+**gradientSteps:**
+ the light that emits by the sun
+**noiseScale:**
+ the clearness of the sunset on water 
+ **waveMovementSpeed:**
+  the horizontal wave speed
+ **waterStrokeWeight:**
+ the verticle width of the wave
+ **waterStride:**
+ the pixel of the wave
+
+### **Function:**
+There are two functions of my sketch, they are setup() and draw(). The setup() is mainly about creating the sky background, horizon fades, the sun and setup for the water line drawing. For  draw() is use to create water and reflection coloration based on perlin noise, the colors of the sketch and it also draw the line segment.
+
+### Reference:
+Original sketch - https://www.openprocessing.org/sketch/532445
+
+dropdown list -
+https://www.w3schools.com
+
+simple example -
+https://github.com/stevenaeola/Prog18potatoes
+
+
+
+
+
+
+
+
