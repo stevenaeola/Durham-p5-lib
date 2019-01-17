@@ -374,4 +374,29 @@ The sun only requires the X and Y values of where it will be drawn. These are pa
   The **createSun** function will place a sun above the wave. It can either be rendered or drawn onto the canvas like the other classes. 
  The sun is interactable with the mouse and it can be dragged. It does this by checking where the mouse is currently located. If it is located inside the sun (by comparing the distances) then it will allow the sun to be moved to wherever the mouse moves while "mouseIsPressed"
 
+## HTML example
+The inputs (radio, sliders and submit button) are handled via boostrap. The webpage has interactable objects which are explained with some text 
+#### Scripts
+```HTML
+  <!-- event Listeners that will look for clicks on radios or buttons and call the coressponding function within index.js -->
+  <script>
+  <!-- shows background option for wave1 -->
+    document.getElementById("wave1").addEventListener("click", function() {
+      show();
+    })
+  <!-- hides background option for wave2 -->
+
+    document.getElementById("wave2").addEventListener("click", function() {
+      hide();
+      setup();
+    })
+  <!-- set background colour when user inputs colour -->
+
+    document.getElementById("bg").addEventListener("click", function() {
+      Wave1.setColour();
+    })
+  </script>
+  ```
+  The eventListeners are there to check if any inputs are changed as they will have an effect on what is show. Each one will call a function within the index.js file and from there will propagate and effect what is displayed.
+  
 
