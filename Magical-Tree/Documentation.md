@@ -466,3 +466,236 @@ The setRandomColor method takes a boolen argument and changes the randomColor at
     }
     
 ### clGround
+
+The clGround class can be called to create a dynamic mount, which in this case works well agaisnt the tree, the constrcutor sets the noise attribute, which is defult at 0.
+
+    //setter for if the trees colors are random or not
+    setRandomColor(argBool) {
+      this.randomColor = argBool;
+    }
+    
+The draw method takes theoptional p5 renderer as a parameter, if the parameter exists, it will draw everything to an offscreen renderer 'this.renderer' which will then be pushed to the g renderer upon completion of the ground.
+
+    draw(g) {
+      var i = 0;
+      var renderer = createGraphics(width, height);
+      //checks for optional renderer
+      if (g) {
+        renderer.noLoop();
+        renderer.noStroke();
+        renderer.fill(20);
+        renderer.beginShape();
+        renderer.vertex(0, height);
+        for (i; i <= width; i += 50) {
+          renderer.vertex(i, renderer.map(noise(this.n), 0, 1, height - 30, height));
+          this.n += 0.1;
+        }
+        renderer.vertex(width, height);
+        renderer.endShape();
+        g.image(renderer, 0, 0);
+      //draws ground
+      } else {
+        noLoop();
+        noStroke();
+        fill(20);
+        beginShape();
+        vertex(0, height);
+        for (i; i <= width; i += 50) {
+          vertex(i, map(noise(this.n), 0, 1, height - 30, height));
+          this.n += 0.1;
+        }
+        vertex(width, height);
+        endShape();
+      }
+    }
+    
+  ### clTreeBackground
+  
+The TreeBackground class constructs a circular shape which centers the tree, improving the aesthetic of the overall sketch. It uses an offscreen renderer to draw to, which is then displayed to the canvas or an optional p5 renderer.
+
+    constructor() {
+      //background drawn on renderer ofscreen
+      this.bg = createGraphics(width, height);
+    }
+    
+The draw method can be called and used on any p5 project to create a background.
+
+    draw(g) {
+
+      noLoop();
+      //generates background
+      this.bg.noStroke();
+      for (this.diam = 1.5 * width; this.diam > 0.5 * width; this.diam -= 20) {
+          //changed this to make the gradient more pronounced
+          this.bg.fill(map(this.diam, 0.5 * width, 1.5 * width, 255, 110));
+          this.bg.ellipse(width / 2, height / 2, this.diam, this.diam);
+      }
+      //if statement for if to draw to canvas or optional renderer
+      if (g) {
+        g.image(this.bg, 0, 0);
+      } else {
+        image(this.bg, 0, 0);
+      }
+    
+    }
+    
+## Second section:
+Explaining the index.js and index.html example page
+
+### index.html
+
+The index.html page first imports the index.js file, and the javascript MagicalTree classes, along with the p5.js scripts.
+
+    <!DOCTYPE html><html><head>
+      <!--> sources all files to be used <-->
+      <script src="p5.min.js"></script>
+      <script src="p5.dom.min.js"></script>
+      <script src="p5.sound.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <meta charset="utf-8">
+      <script src="index.js"></script>
+      <script src="clMagicalTree.js"></script>
+      <script src="clGround.js"></script>
+      <script src="clCreateTree.js"></script>
+      <script src="clDrawLeaves.js"></script>
+      <script src="clTreeBackground.js"></script>
+    
+  A css table is then set up to position the on sreen interactables in a conviniant and pleasing way
+  
+      <style>
+        table,
+        th,
+        td {
+          border-collapse: collapse;
+        }
+      </style>
+ 
+ I used CSS styling on my sliders, which is shown below:
+ 
+ 
+    <!--> css style for sliders <-->
+    <style>
+    .slidecontainer {
+      width: 100%;
+    }
+
+    .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 15px;
+      border-radius: 5px;
+      background: #d3d3d3;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+    }
+
+    .slider:hover {
+      opacity: 1;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #4CAF50;
+      cursor: pointer;
+    }
+
+    .slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: #4CAF50;
+      cursor: pointer;
+    }
+    </style>
+    
+I also used CSS styling on my tittle and modifiers, centering them
+
+
+    <!--> css style for classes <-->
+    <style>
+      div.title {
+      text-align: center;
+      }
+    
+      div.radioButton {
+      text-align: center;
+      }
+    
+      div.modifiers {
+      text-align: center;
+      }
+    </style>
+    
+I set up another table for my interactable sliders, so that the relavent text for each slider can be shown next to it
+
+    <table align="center">
+    <!--> sets up able to display buttons and sliders <-->
+          <tbody><tr>
+            <td>Leaf Colour:</td>
+            <td><input type="range" min="0" max="360" value="120" class="slider" id="colorSlider"></td>
+          </tr>
+
+          <tr>
+            <td>Tree Age:</td>
+            <td><input type="range" min="0" max="150" value="70" class="slider" id="ageSlider"></td>
+          </tr>
+
+          <tr>
+            <td>Tree Height:</td>
+            <td><input type="range" min="50" max="200" value="150" class="slider" id="heightSlider"></td>
+          </tr>
+
+          <tr>
+            <td>Tree Density:</td>
+            <td><input type="range" min="1" max="10" value="3" class="slider" id="densitySlider"></td>
+          </tr>
+
+        </tbody></table>
+        
+I also set up a radiobutton and all the click options below within a table:
+
+      <tr>
+            <!--> radio button setup <-->
+            <td><input type="radio" name="fruit" value="radioApple" id="apple"> Apple<br></td>
+            <td><input type="radio" name="fruit" value="radioOrange" id="orange"> Orange<br></td>
+            <td><input type="radio" name="fruit" value="radioLemon" id="lemon"> Lemon</td>
+            <td><input type="radio" name="fruit" value="radioPlum" id="plum"> Plum</td>
+            <td><input type="radio" name="fruit" value="radioNone" id="noFruit"> No fruit</td>
+      </tr>
+
+The redraw, reset and randomize buttons are also defined and displayed in a table shown below:
+  
+      <tr>
+          <td><button id="btnRedraw">Redraw Tree</button></td>
+          <td></td>
+          <td><button id="btnReset">Reset Tree</button></td>
+          <td></td>
+          <td><button id="btnRandom">Randomise Tree</button></td>
+      </tr>
+      
+Dom scripts:
+I have a series of event listeners in my HTML file, all calling javascript functions from the index.js file.
+
+    document.getElementById("colorSlider").addEventListener("change", changeColor);
+    document.getElementById("ageSlider").addEventListener("change", changeAge);
+    document.getElementById("heightSlider").addEventListener("change", changeHeight);
+    document.getElementById("densitySlider").addEventListener("change", changeDensity);
+
+    document.getElementById("apple").addEventListener("click", changeFruit);
+    document.getElementById("orange").addEventListener("click", changeFruit);
+    document.getElementById("lemon").addEventListener("click", changeFruit);
+    document.getElementById("plum").addEventListener("click", changeFruit);
+    document.getElementById("noFruit").addEventListener("click", changeFruit);
+
+    document.getElementById("btnRedraw").addEventListener("click", newTree);
+    document.getElementById("btnReset").addEventListener("click", reset);
+    document.getElementById("btnRandom").addEventListener("click", randomTree);
+    
+### index.js
+Below is my javascript file 'index.js' which
