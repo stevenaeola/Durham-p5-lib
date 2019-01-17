@@ -6,8 +6,9 @@ class clGround {
 
   draw(g) {
     var i = 0;
+    var renderer = createGraphics(width, height);
+    //checks for optional renderer
     if (g) {
-      var renderer = createGraphics(width, height);
       renderer.noLoop();
       renderer.noStroke();
       renderer.fill(20);
@@ -20,7 +21,7 @@ class clGround {
       renderer.vertex(width, height);
       renderer.endShape();
       g.image(renderer, 0, 0);
-      
+    //draws ground
     } else {
       noLoop();
       noStroke();
@@ -34,8 +35,9 @@ class clGround {
       vertex(width, height);
       endShape();
     }
-    
-    
+
+
   }
 
 }
+
