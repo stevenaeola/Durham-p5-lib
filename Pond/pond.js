@@ -6,7 +6,11 @@ class Pond {
       this.add(new Fish(fishColour, fishMag, fishSpeed));
     }
   }
-
+  
+  getFish(index) {
+    return this.fish[index];
+  }
+  
   draw (g = '') {
     if (g) {
       // Draw background of pond
@@ -19,7 +23,7 @@ class Pond {
       g.stroke(0, 150, 255);
       var f;
       for (var i = 0; i < this.fish.length; i++) {
-        f = this.fish[i];
+        f = this.getFish(i);
         f.draw(g);
         f.boundaries(g);
       }
@@ -33,7 +37,7 @@ class Pond {
       stroke(0, 150, 255);
 
       for (var j = 0; j < this.fish.length; j++) {
-        f = this.fish[j];
+        f = this.getFish(j);
         f.draw();
         f.boundaries();
       }
@@ -52,23 +56,23 @@ class Pond {
       this.fish.pop();
     }
   }
-
+  
   // Functions below allow user to fade properties of all fish in pond
   fadeColour (c, frames = 100) {
     for (var i = 0; i < this.fish.length; i++) {
-      this.fish[i].fadeColour(c, frames);
+      this.getFish(i).fadeColour(c, frames);
     }
   }
 
   fadeMag (m, frames = 100) {
     for (var i = 0; i < this.fish.length; i++) {
-      this.fish[i].fadeMag(m, frames);
+      this.getFish(i).fadeMag(m, frames);
     }
   }
 
   fadeSpeed (s, frames = 100) {
     for (var i = 0; i < this.fish.length; i++) {
-      this.fish[i].fadeSpeed(s, frames);
+      this.getFish(i).fadeSpeed(s, frames);
     }
   }
 }
