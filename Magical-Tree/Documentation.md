@@ -327,3 +327,142 @@ The next method used by the createTree class is branch, this is a recurrsive fun
       }
 
 ### clDrawLeaves
+
+The DrawLeaves class has a constructor shown below, which takes an array parameter for the vector coordinates where the eaves should be placed, this is defulted to empty as the object is created in the MagicalTree class before the tree has been drawn.
+
+    constructor(leafArray = []) {
+        this.leafs = leafArray;
+        this.randomColor = true;
+        this.minHue = 0;
+        this.maxHue = 0;
+    }
+The attributes of the contructor are for the random clor boolean, and the min and max colorHue which is initially defulted to 0.
+ 
+The draw method of DrawLeaves takes n optional parameter g for the optional renderer, if this is present, the eaves will be drawn to an offscreen graphic, which is then drawn to the optional renderer g through 'g.image(this.renderer, 0, 0). Otherwise the leaves are drawn onto the canvas.
+
+    draw(g) {
+      //if statement for presence of optional renderer
+      if (g) {
+        //creates ofscreen image to draw to g
+        this.renderer = createGraphics(width, height);
+        this.renderer.clear();
+        //big leaves
+        this.genLeaves(0, 90, 0, 0.03, g);
+        //small leaves
+        this.genLeaves(0, 15, 0, 0.25, g);
+        //runs leaf generater as normal
+      } else {
+        //big leaves
+        this.genLeaves(0, 90, 0, 0.03);
+        //small leaves
+        this.genLeaves(0, 15, 0, 0.25);
+      }
+      //if optional renderer exists draw to it
+      if (g) {
+        g.image(this.renderer, 0, 0);
+      }
+    }
+    
+The genLeaves method generates the leaves onto the tree, via the this.leafs array. It checks the random color boolean for if the tree will be a user set color or the defut rainbow color. The optional renderer is also checked, which if true will be drawn, the ellipse (which is the leaf shape) will be drawn to the offscreen graphic. Otherwise the ellipse is drawn to the screen.
+    
+    //generates leaves
+    genLeaves(minDiam, maxDiam, minAlpha, maxAlpha, g) {
+      var minHue;
+      var maxHue;
+      var rdn0 = random(255);
+      var rdn1 = random(255);
+      var i = 0;
+      var h;
+      var s = 255;
+      var b = 255;
+      var a;
+      var diam;
+      var jitterX;
+      var jitterY;
+      if (this.randomColor) {
+        minHue = min(rdn0, rdn1);
+        maxHue = max(rdn0, rdn1);
+      } else {
+        minHue = this.minHue;
+        maxHue = this.maxHue;
+      }
+      //draws leaf at every vector in array
+      for (i; i < this.leafs.length; i += 1) {
+
+        h = map(i, 0, this.leafs.length, minHue, maxHue);
+        a = random(minAlpha, maxAlpha);
+
+        diam = random(minDiam, maxDiam);
+        jitterX = random(-30, 30);
+        jitterY = random(-30, 30);
+
+        //if g exists
+        if (g) {
+          this.renderer.colorMode(HSB);
+          this.renderer.noStroke();
+          this.renderer.fill(h, s, b, a);
+          this.renderer.ellipse(this.leafs[i].x + jitterX, this.leafs[i].y + jitterY, diam, diam);
+
+        } else {
+          fill(h, s, b, a);
+          ellipse(this.leafs[i].x + jitterX, this.leafs[i].y + jitterY, diam, diam);
+        }
+      }
+    }
+    
+The change color method sets the attributes of minHue and maxHue to those passed in the parameter, it also sets the randomColor to false.
+
+    //sets min and max color Hue
+    changeColor(argMinHue, argMaxHue) {
+      this.minHue = argMinHue;
+      this.maxHue = argMaxHue;
+      //stops leaves being random colors
+      this.randomColor = false;
+    }
+
+The getColor getter returns the leaf color that is currently stored
+
+    //returns users chosen color
+    getColor() {
+      return this.maxHue - 5;
+    }
+    
+The set leaf array is a setter which changes the this.leaf array, this is essential as the array is orrignally created by the creaeTree class, and this setter is used when the leaves are to be drawn.
+
+    //sets array of leaf vector points
+      setLeafArray(argLeafArray) {
+        this.leafs = argLeafArray;
+
+      }
+ 
+The drawFruit method takes an optional parameter g, and draws the fruit onto the tree, this is seperate to the draw method as the fruit has a different shape and style thus must be drawn different.
+ 
+     //draw fruit function which either draws to canvas or optional renderer
+    drawFruit(g) {
+      //if statement for presence of optional renderer
+      if (g) {
+        this.genLeaves(0, 12, 0, 0.60, g);
+      } else {
+        this.genLeaves(0, 12, 0, 0.60);
+      }
+      //if g exists, draw to that
+      if (g) {
+        g.image(this.renderer, 0, 0);
+      }
+    }
+    
+deleteLeaf removes all of the vectors is the this.leaf array to stop them being shown.
+  
+    //method that deletes the leaves contained in the leaf array
+    deleteLeaf() {
+      this.leafs.splice(0, this.leafs.length);
+    }
+    
+The setRandomColor method takes a boolen argument and changes the randomColor attribute.
+  
+      //setter for if the trees colors are random or not
+    setRandomColor(argBool) {
+      this.randomColor = argBool;
+    }
+    
+### clGround
