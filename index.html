@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+ 	<head>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script> <!-- P5 Library -->
+		<!----------------------Bootstrap Library---------------->
+		<script type='text/javascript' src="stardust.js"></script>
+		<script type='text/javascript' src="index1.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+ 	</head>
+ 		<body>
+ 			<!------------------Buttons------------------------>
+ 			<div class="jumbotron">
+  			<h1 class="display-4">STARDUST</h1>
+  			<p class="lead">This is a simple JS program to play around with. Just move the mouse around to repell stardust. You can change the RGB Colour, amount of stardust, and other parameters below. Have fun (•ᴗ•) </p>
+  			<hr class="my-4">
+  			<form id = "openClose">
+				<br>
+				colourR(Original:64)<input type="number" id = "colourR" value = 64>	
+				<br>
+				colourG(Original:255)<input type="number" id = "colourG" value = 255>
+				<br>
+				colourB(Original:255)<input type="number" id = "colourB" value = 255>
+				<br>
+				quantity(Max:10000)<input type="number" id = "quantity" value = 10000>
+				<br>
+				velocityMultiply(default:0.5)<input type = "number" id = "velocityMultiply" value = 0.5>
+				<br>
+				controlRange(default:0.1)<input type="number" id = "controlRange" value = 0.1>
+				<br>
+			    <div class = "license">
+			<!--------------------License---------------------->
+			<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a></p>
+			</div>	
+			</form>
+			</div>
+				<button type="button" class="btn btn-info" id="reset">reset</button>
+
+				<button type="button" class="btn btn-light" onclick="openClose(1)">Hide</button>
+				<button type="button" class="btn btn-dark" onclick="openClose(2)">Show</button>		
+  		</body>
+</html>
