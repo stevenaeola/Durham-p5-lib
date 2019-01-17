@@ -698,4 +698,133 @@ I have a series of event listeners in my HTML file, all calling javascript funct
     document.getElementById("btnRandom").addEventListener("click", randomTree);
     
 ### index.js
-Below is my javascript file 'index.js' which
+Below is my javascript file 'index.js' which is used for the display page to showcase the reusable component:
+
+first a variable is declared named tree, which will be the instance of the magical tree file
+
+    var tree;
+
+In the setup function, a canvas is created to the height and width of the users screen.
+The radiobutton for fruit is also automatticly set to "no fruit", and an instance of clMagicalTree is created
+
+    //setup function
+    function setup() {
+      createCanvas(windowWidth, windowHeight);
+      //sets initial radio button to 'no fruit' by defult
+      document.getElementById("noFruit").checked = true;
+      //creates instance of magical tree
+      tree = new clMagicalTree();
+    }
+    
+In the draw function, the tree object has its draw method called, which displays the tree to the canvas
+
+    function draw() {
+      tree.draw();
+    }
+
+The randomTree function is caled when the user presses the "Randomise Tree" html button, it sets all of the trees attributes to random values, and adds random fruit, it then calls the functions which are called when these vaues are changed, to update the tree.
+
+    //function to run when the random tree button is called
+    function randomTree() {
+
+      //sets tree sliders to random values within range
+      document.getElementById("colorSlider").value = random(0, 360);
+      document.getElementById("ageSlider").value = random(0, 150);
+      document.getElementById("heightSlider").value = random(50, 200);
+      document.getElementById("densitySlider").value = random(1, 10);
+      //calls functions to grab slider values and update tree
+      changeAge();
+      changeHeight();
+      changeColor();
+      changeDensity();
+      randomFruit();
+    }
+    
+The randomFruit function is called by randomTree function, which selects and changes the radiobutton to one of the options.
+    
+    //function which selets random fruit when random button is pressed
+    function randomFruit() {
+      //generates random integer from 0 to 4
+      var num = Math.floor(random(0, 5));
+      //switch statement that sets random fruit radio button to be selected
+      switch (num) {
+        case 0:
+          document.getElementById("apple").checked = true;
+          tree.addFruit("apple");
+          break;
+        case 1:
+          document.getElementById("orange").checked = true;
+          tree.addFruit("orange");
+          break;
+        case 2:
+          document.getElementById("lemon").checked = true;
+          tree.addFruit("lemon");
+          break;
+        case 3:
+          document.getElementById("plum").checked = true;
+          tree.addFruit("plum");
+          break;
+        case 4:
+          document.getElementById("noFruit").checked = true;
+          tree.addFruit("no fruit");
+          break;
+      }
+    }
+
+The changeColor function is called when the colorSlider has been changed, which then sets the slideColor variable to the sliders value, and calls the setLeafColor method of the tree object
+    
+    //function to change tree leaves colour
+    function changeColor() {
+      var sliderColor = document.getElementById("colorSlider").value;
+      tree.setLeafColor(sliderColor);
+      newTree();
+    }
+
+The change age function is called when the age slider is modified
+
+    //function called to change age
+    function changeAge() {
+      var sliderAge = document.getElementById("ageSlider").value;
+      tree.setTreeAge(sliderAge);
+      newTree();
+    }
+
+The changeheight function is called when the age slider is modified
+
+    //function called to change height
+    function changeHeight() {
+      var sliderHeight = document.getElementById("heightSlider").value;
+      tree.setTreeHeight(sliderHeight);
+      newTree();
+    }
+    
+The changeDensity function is called when the age slider is modified
+
+    //function caled to change density
+    function changeDensity() {
+      var sliderDensity = document.getElementById("densitySlider").value;
+      tree.setTreeDensity(sliderDensity);
+      newTree();
+    }
+
+    //function called when radiobutton is clicked
+    function changeFruit() {
+      if (document.getElementById("apple").checked) {
+        tree.addFruit("apple");
+      }
+      if (document.getElementById("orange").checked) {
+        tree.addFruit("orange");
+      }
+      if (document.getElementById("lemon").checked) {
+        tree.addFruit("lemon");
+      }
+      if (document.getElementById("plum").checked) {
+        tree.addFruit("plum");
+      }
+      if (document.getElementById("noFruit").checked) {
+        tree.addFruit("no fruit");
+      }
+    }
+    
+ ## Third section
+ License agreement
