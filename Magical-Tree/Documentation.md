@@ -825,6 +825,13 @@ The changeDensity function is called when the age slider is modified
         tree.addFruit("no fruit");
       }
     }
+
+### Screenshots: of example page
+
+This is the sliders that can modify the tree
+![SCREENSHOT](pictures/Modifier.png)
+
+![SCREENSHOT](pictures/StandardTree.png)
     
- ## Third section
- License agreement
+## Third section
+License agreement
