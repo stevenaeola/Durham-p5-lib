@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StarField</title>
+    <script src="../p5.js"></script>
+    <script src="starfield.js"></script>
+    <script src="index.js"></script>
+  </head>
+  <body style = "font-family:Arial, garamond, serif; font-size:16px; font-style:italic;">
+    <h1>
+      Welcome to StarField.
+  </h1>
+    <p>
+      Hold left click to accelerate through the void of space, or release to have a look around.
+      Hovering over stars and planets will reveal their names (assuming object labelling is turned on).<br>
+      Using the sliders and buttons below, you can customise the StarField. Press Generate to create a new instance with your chosen parameters.<br>
+      Try resizing the window you're viewing this in, each StarField adapts dynamically to fill the screen. <br>
+      (Note that Object Labelling will not work when the StarField is drawn onto a 3D shape)
+    </p>
+    <div>
+      Star Density <input type="range" min="0" max="2000" value="400" class="slider" id="starDensity">
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      Planet Density <input type="range" min="0" max="2000" value="40" class="slider" id="planetDensity">
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      Max Speed <input type="range" min="1" max="100" value="70" class="slider" id="maxSpeed">
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      Object Labelling <input type="checkbox" id="labellingOn">
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      Draw on Cube <input type="checkbox" id="drawBox">
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      Draw on Sphere <input type="checkbox" id="drawSphere">
+    <button id="generate">Generate</button>
+  </div>
+    <script>
+      var starDensity = document.getElementById("starDensity").value;
+      var planetDensity = document.getElementById("planetDensity").value;
+      var maxSpeed = document.getElementById("maxSpeed").value;
+      var labellingOn = document.getElementById("labellingOn").checked;
+      var drawBox = document.getElementById("drawBox").checked;
+      var drawSphere = document.getElementById("drawSphere").checked;
+      var refresh = false;
+
+      function generate() {
+        starDensity = document.getElementById("starDensity").value;
+        planetDensity = document.getElementById("planetDensity").value;
+        maxSpeed = document.getElementById("maxSpeed").value;
+        labellingOn = document.getElementById("labellingOn").checked;
+        drawBox = document.getElementById("drawBox").checked;
+        drawSphere = document.getElementById("drawSphere").checked;
+
+        if (drawBox || drawSphere) {
+          refresh = true;
+        }
+        else if (refresh && !drawBox && !drawSphere) {
+          refresh = false;
+          location.reload();
+        }
+        setup(starDensity, planetDensity, maxSpeed, labellingOn, drawBox, drawSphere);
+      }
+
+      document.getElementById("generate").addEventListener("click", generate);
+    </script>
+  </body>
+</html>
