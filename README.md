@@ -1,12 +1,12 @@
-# Durham p5 Library
+# Programming-Summitive-Assignment
+----------------------------------
 
-A library of reusable components for [p5js](https://p5js.org/). These are developed by the 1st Year Programming class at Durham University.
+### CODE
+All the code needed for the program to run exisits in the code folder. It will run on start up without any edits or configuration required
 
-## Instructions for adding components
 
-- Fork this repository
-- Create a subdirectory of the main repository named after your component containing
-   - A `.js` file containing the relevant class definition
-   - A `.html` file which uses the .js file and demonstrates its use
-   - A `README.md` file which contains the documentation for the class
-- Once everything is complete (including peer review) make a pull request from your forked repository to <https://github.com/stevenaeola/Durham-p5-lib>
+### DOCUMENTATION
+Documentation can be found in the Docs folder. Each js file has it's own subfolder with documentation files
+
+### MISC
+The Misc folder contains a mixture of planning files, as well as the original code this program is based off of
