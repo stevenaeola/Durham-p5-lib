@@ -19,10 +19,10 @@ class Particles {
 
         //Creating Canvas
         if(this.cube) {
-          createCanvas(windowWidth, windowHeight, WEBGL);
-          this.g = createGraphics(windowWidth, windowHeight);
+            createCanvas(windowWidth, windowHeight, WEBGL);
+            this.g = createGraphics(windowWidth, windowHeight);
         } else {
-          createCanvas(windowWidth, windowHeight);
+            createCanvas(windowWidth, windowHeight);
         }
 
         //Creating new stars/smoke/ashes when required
@@ -72,16 +72,16 @@ class Particles {
     //Draw function
     draw(g) {
 
-      if (this.g) {
-          g = this.g;
-          background(0);
-      }
-      if (g) {
-          g.background(this.bgcol);
-      } else {
-        fill(this.bgcol,10);
-        rect(0,0,windowWidth,windowHeight);
-      }
+        if (this.g) {
+            g = this.g;
+            background(0);
+        }
+        if (g) {
+            g.background(this.bgcol);
+        } else {
+            fill(this.bgcol,10);
+            rect(0,0,windowWidth,windowHeight);
+        }
 
         //Getting RBG Values from HTML Sliders with Getters
         this.rval = document.getElementById('rslide').value;
@@ -127,7 +127,7 @@ class Particles {
             if (this.bgcol < 220) {
                 this.bgcol += 0.2;
             } else {
-              //Displaying HTML On-screen instructions
+                //Displaying HTML On-screen instructions
                 document.getElementById('boldh2').innerHTML = 'Hit restart to go again!';
             }
 
@@ -153,12 +153,12 @@ class Particles {
         }
 
         if(this.g) {
-          rotateX(frameCount * 0.005); 
-          rotateY(frameCount * 0.005);
-          texture(this.g);
-          if (this.cube) {
-            box(windowWidth/3)
-          }
+            rotateX(frameCount * 0.005); 
+            rotateY(frameCount * 0.005);
+            texture(this.g);
+            if (this.cube) {
+                box(windowWidth/3);
+            }
         }
 
         //Event listener to reset the smoke colour
@@ -227,7 +227,7 @@ class Particles {
 //Class for the everything to do with star particles
 class Star {
 
-  //Creation of Particles
+    //Creation of Particles
     constructor() {
         this.col = color(random(255),random(255),random(255));
         this.pos = new p5.Vector(mouseX,mouseY);
@@ -269,15 +269,15 @@ class Star {
     }
     //Displaying star particles
     show(g) {
-      if (g) {
-        g.noStroke();
-        g.fill(this.col);
-        g.ellipse(this.pos.x,this.pos.y,this.size,this.size);
-      } else {
-        noStroke();
-        fill(this.col);
-        ellipse(this.pos.x,this.pos.y,this.size,this.size);
-      }
+        if (g) {
+            g.noStroke();
+            g.fill(this.col);
+            g.ellipse(this.pos.x,this.pos.y,this.size,this.size);
+        } else {
+            noStroke();
+            fill(this.col);
+            ellipse(this.pos.x,this.pos.y,this.size,this.size);
+        }
     }
 
     //Getters and Setters
@@ -336,15 +336,15 @@ class Smoke {
     }
     //Displaying the particles
     show(g) {
-      if (g) {
-        g.noStroke();
-        g.fill(this.col);
-        g.ellipse(this.pos.x,this.pos.y,this.size,this.size);
-      } else {
-        noStroke();
-        fill(this.col);
-        ellipse(this.pos.x,this.pos.y,this.size,this.size);
-      }
+        if (g) {
+            g.noStroke();
+            g.fill(this.col);
+            g.ellipse(this.pos.x,this.pos.y,this.size,this.size);
+        } else {
+            noStroke();
+            fill(this.col);
+            ellipse(this.pos.x,this.pos.y,this.size,this.size);
+        }
     }
 }
 
@@ -368,15 +368,15 @@ class Ash {
         //Allowing particles to travel to random and not uniform heights on the canvas
         var ranint = random(50, 100);
         if (this.pos.y > (windowHeight - ranint)) {
-          if (g) {
-            g.noStroke();
-            g.fill(this.col);
-            g.ellipse(this.pos.x, this.pos.y, this.size, this.size);
-          } else {
-            noStroke();
-            fill(this.col);
-            ellipse(this.pos.x, this.pos.y, this.size, this.size);
-          }
+            if (g) {
+                g.noStroke();
+                g.fill(this.col);
+                g.ellipse(this.pos.x, this.pos.y, this.size, this.size);
+            } else {
+                noStroke();
+                fill(this.col);
+                ellipse(this.pos.x, this.pos.y, this.size, this.size);
+            }
         }
     }
 }
