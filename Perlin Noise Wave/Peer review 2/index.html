@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Spirograph Example</title>
+	<script src="Spirograph.js"></script>
+    <script src="index.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+</head>
+<body>
+<form id="getvalues">
+<p>
+	<label>Size of static circle</label><br>
+	<input type="text" name="sizeR">
+</p>
+<p>
+	<label>Size of moving circle</label><br>
+	<input type="text" name="sizer">
+</p>
+<p>
+	<label>Position of pen</label><br>
+	<input type="text" name="sizerho">
+</p>
+<p>
+	<label>Brush Size</label>
+	<input type="text" name="weight">
+</p>
+<p>
+	<label>Red (0-255)</label>
+	<input type="text" name="Red">
+	<label>Green (0-255)</label>
+	<input type="text" name="Green">
+	<label>Blue (0-255)</label>
+	<input type="text" name="Blue">
+</p>
+<p>
+	<button onclick="javascript:getvalue()" type="button">Update</button>
+</p>
+</form>
+</body>
+</html>
