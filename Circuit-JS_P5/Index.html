@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Circuit Demo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="css.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="index.js"></script>
+    <script src="Circuit.js"></script>
+</head>
+<body class="bg-dark">
+<nav class="navbar navbar-dark bg-dark fixed-top flex-nowrap">
+    <span class="w-100">Circuit Demo</span>
+    <div class="w-100 d-flex justify-content-center">
+        <button class="selector" id="DemoDefault">1</button>
+        <button class="selector" id="DemoSplit">2</button>
+        <button class="selector" id="DemoSplitAlt">3</button>
+        <button class="selector" id="DemoCube">4</button>
+    </div>
+    <span class="w-100"></span>
+</nav>
+<div class="container-fluid content">
+    <div class="d-flex bg-secondary test">
+        <div class="d-flex item" id="sketch-holder"></div>
+    </div>
+    <div class="row">
+        <div class="col bg-dark">
+            <button class="btn" id="OneHit">One Hit</button>
+        </div>
+        <div class="col bg-dark">
+            <button class="btn" id="Orbit">Orbit</button>
+        </div>
+        <div class="col bg-dark">
+            <button class="btn" id="Reflection">Reflection</button>
+        </div>
+        <div class="col bg-dark">
+            <button class="btn" id="AddPhoton">Add Photon</button>
+        </div>
+        <div class="col bg-dark">
+            <button class="btn" id="RemovePhoton">Remove Photon</button>
+        </div>
+        <div class="col controlBB entryBB">
+            <label for="MinTurn">Minimum turn time</label>
+            <input class="text" id="MinTurn" value="5">
+        </div>
+        <div class="col-xl-6 controlBB">
+            PhotonSpeed
+            <input type="range" min="1" max="100" value="8" class="slider" id="PhotonSpeed">
+            FadeSpeed
+            <input type="range" min="0" max="255" value="15" class="slider" id="FadeSpeed">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col controlBB">
+            Photon RGB
+            <input type="range" min="0" max="255" value="0" class="slider sliderR" id="PhotonR">
+            <input type="range" min="0" max="255" value="255" class="slider sliderG" id="PhotonG">
+            <input type="range" min="0" max="255" value="255" class="slider sliderB" id="PhotonB">
+        </div>
+        <div class="col controlBB">
+            Background RGB
+            <input type="range" min="0" max="255" value="0" class="slider sliderR" id="BackgroundR">
+            <input type="range" min="0" max="255" value="0" class="slider sliderG" id="BackgroundG">
+            <input type="range" min="0" max="255" value="0" class="slider sliderB" id="BackgroundB">
+        </div>
+    </div>
+</div>
+</body>
+</html>
