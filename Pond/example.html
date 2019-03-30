@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Pond Example</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+        <script src="fish.js"></script>
+        <script src="pond.js"></script>
+        <script src="example.js"></script>
+        <meta charset="utf-8">
+    </head>
+    
+    <body>
+        <div id="canvas"></div>
+        <div id="controls" class="carousel slide" data-ride="carousel" data-interval="false">
+            <ol class="carousel-indicators">
+                <li data-target="#controls" data-slide-to="0" class="active"></li>
+                <li data-target="#controls" data-slide-to="1"></li>
+                <li data-target="#controls" data-slide-to="2"></li>
+                <li data-target="#controls" data-slide-to="2"></li>
+                <li data-target="#controls" data-slide-to="2"></li>
+                <li data-target="#controls" data-slide-to="2"></li>            
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="inner">
+                        <h1>Look at all these fish!</h1>
+                        <h2>Aren't they beautiful? Click the arrow to see what we can do with them.</h2>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="inner">
+                        <h1>You can change their colour</h1>
+                        <h2>Try it using the controls below</h2>
+                        <br>
+                        <label for="fishColour">Colour </label>
+                        <input type="color" value="#0000FF" id="fishColour">
+                        <label for="fishAlpha">Opacity </label>
+                        <input type="range" value="20" min="0" max="255" id="fishAlpha">
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="inner">
+                        <h1>You can make them bigger or smaller</h1>
+                        <h2>Try it using the slider</h2>
+                        <br>
+                        <label for="fishMag">Size </label>
+                        <input type="range" value="1" min="-2" max="2" step="0.1" id="fishMag">
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="inner">
+                        <h1>You can change their speed</h1>
+                        <h2>Try it using the slider (you can even make them go backwards).</h2>
+                        <label for="fishSpeed">Speed </label>
+                        <input type="range" value="1" min="-8" max="8" step="0.5" id="fishSpeed">
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="inner">
+                        <h1>You can get rid of fish</h1>
+                        <h2>Click the button below a couple of times to get rid of a few.</h2>
+                        <input type="button" value="Trawl" id="fishTrawl">
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="inner">
+                        <h1>And you can add more!</h1>
+                        <h2>Use the controls below to add a few custom fish to the pond.</h2>
+                        <label for="newFishColour">Colour </label>
+                        <input type="color" value="#0000FF" id="newFishColour">
+                        <label for="newFishAlpha">Opacity </label>
+                        <input type="range" value="20" min="0" max="255" id="newFishAlpha">
+                        <label for="newFishMag">Size </label>
+                        <input type="range" value="1" min="-2" max="2" step="0.1" id="newFishMag">
+                        <label for="newFishSpeed">Speed </label>
+                        <input type="range" value="1" min="-8" max="8" step="0.5" id="newFishSpeed">
+                        <input type="button" value="Add" id="fishAdd">
+                    </div>
+                </div>
+                
+            </div>
+            <a class="carousel-control-prev" href="#controls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#controls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+            </div>
+        
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    </body>
+</html>
