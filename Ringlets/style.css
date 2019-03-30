@@ -1,0 +1,60 @@
+html, body {
+  height: 100%;
+  font-family: Helvetica;
+}
+
+head{
+  position: absolute;
+  left: 0px;
+  border-top:10px;
+}
+
+body{
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  position:absolute;
+  left: 250px;
+}
+
+h3{
+  margin-top: 15px;
+  margin-bottom: 0px;
+}
+
+
+.instruction{
+  font-size: 15px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+/* splits the screen in half */
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* controls the left side */
+.left {
+  left: 0;
+  background-color: #1194c4;
+}
+
+/* controls the right side */
+.right {
+  right: 0;
+}
+
+/* centers content on each side */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
