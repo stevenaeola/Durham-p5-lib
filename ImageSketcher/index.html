@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+
+    <link href="lib/prism.css" rel="stylesheet"/>
+    <script src="lib/prism.js"></script>
+
+    <script src="Particle.js"></script>
+    <script src="ParticleBehaviour.js"></script>
+    <script src="ParticleGenerator.js"></script>
+    <script src="P5Component.js"></script>
+
+    <script src="ImageSketcher.js"></script>
+
+    <title>My Project</title>
+    <script>
+
+        /**
+         * This class is used to encapsulate the setting up of all elements of the form
+         */
+        class FormElement {
+            /**
+             * Fetches the DOM object
+             * @param DOMId {String} the ID of the element
+             */
+            constructor(DOMId) {
+                this._DOMElement = $("#" + DOMId);
+            }
+
+            /**
+             * This method is called to update the text in the field with the current state of the sketcher
+             */
+            updateForm() {
+            }
+
+            /**
+             * This method adds any listeners to the form and is only called once.
+             */
+            initForm() {
+            }
+        }
+
+        /**
+         * This class is used to represent all the toggle buttons on the form
+         */
+        class ToggleButton extends FormElement {
+            /**
+             * @param DOMId {String} The id of the button
+             * @param trueLabel {String} The label on the button when the property is true
+             * @param falseLabel {String} The label on the button when the property is false
+             * @param getter {Function} Function which returns the field that the button is supposed to toggle
+             * @param setter {Function} Function which sets the field that the button is supposed to toggle
+             */
+            constructor(DOMId, trueLabel, falseLabel, getter, setter) {
+                super(DOMId);
+                this._trueLabel = trueLabel;
+                this._falseLabel = falseLabel;
+                this._getter = getter;
+                this._setter = setter;
+            }
+
+            /**
+             * This method is called to update the text in the field with the current state of the sketcher
+             */
+            updateForm() {
+                this._DOMElement.text(this._getter() ? this._trueLabel : this._falseLabel);
+            }
+
+            /**
+             * This method adds any listeners to the form and is only called once.
+             */
+            initForm() {
+                const field = this;
+                this._DOMElement.click(function () {
+                    field._setter(!field._getter());
+                    field._DOMElement.text(field._getter() ? field._trueLabel : field._falseLabel);
+                });
+            }
+
+            // I didn't add getters and setters for these classes because they're not really made to be used by anything
+            // outside of this file, so it doesn't need to be safe.
+
+        }
+
+        /**
+         * This class is used to represent all the simple numeric fields
+         */
+        class NumericField extends FormElement {
+
+            /**
+             * @param DOMId {String} The id of the button
+             * @param minValue {Number} the maximum value that will be set
+             * @param maxValue {Number} the minimum value that will be set
+             * @param roundDown {Boolean} Weather the value will be rounded down
+             * @param emptyString {Number}  The number that will be set if the field is set to an empty string
+             * @param getter {Function} Function which returns the field that the button is supposed to toggle
+             * @param setter {Function} Function which sets the field that the button is supposed to toggle
+             */
+            constructor(DOMId, minValue, maxValue, roundDown, emptyString, getter, setter) {
+                super(DOMId);
+                this._maxValue = maxValue;
+                this._minValue = minValue;
+                this._roundDown = roundDown;
+                this._emptyString = emptyString;
+                this._getter = getter;
+                this._setter = setter;
+            }
+
+            /**
+             * This method is called to update the text in the field with the current state of the sketcher
+             */
+            updateForm() {
+                this._DOMElement.val(this._getter());
+            }
+
+            /**
+             * This method adds any listeners to the form and is only called once.
+             */
+            initForm() {
+                const field = this;
+                this._DOMElement.change(function () {
+                    let value = field._DOMElement.val();
+                    let next;
+                    if (value === "") {
+                        next = field._emptyString;
+                    } else if (Number.isFinite(Number(value))) {
+                        next = Number(value);
+                        if (field._maxValue !== undefined) {
+                            next = Math.min(next, field._maxValue);
+                        }
+                        if (field._minValue !== undefined) {
+                            next = Math.max(next, field._minValue);
+                        }
+                        if (field._roundDown) {
+                            next = Math.floor(next);
+                        }
+                    } else {
+                        next = undefined;
+                    }
+
+                    if (next !== undefined) {
+                        field._DOMElement.val(next);
+                        field._setter(next);
+                    } else {
+                        field._DOMElement.val(field._getter());
+                    }
+                });
+            }
+        }
+
+        /**
+         * This class is used to represent all the text fields that take multiple inputs
+         */
+        class VectorField extends FormElement {
+            /**
+             * @param DOMId {String} The id of the button
+             * @param minValue {Number} the maximum value that will be set
+             * @param maxValue {Number} the minimum value that will be set
+             * @param roundDown {Boolean} Weather the value will be rounded down
+             * @param emptyString {String}  The string that will be processed if an empty string is entered
+             * @param dimensions {Number}  The integer number of numbers that the field will accept
+             * @param numberToValue {Function} If a single number is entered into the field, this function will map it
+             * the vector, if left undefined this the case where a number is given is erroneous
+             * @param arrayToValue {Function} Maps the array of entered numbers to the vector in the format needed
+             * @param makeString {Function} The toString function for the vector
+             * @param getter {Function} Function which returns the field that the button is supposed to toggle
+             * @param setter {Function} Function which sets the field that the button is supposed to toggle
+             */
+            constructor(DOMId, minValue, maxValue, roundDown, emptyString, dimensions, numberToValue, arrayToValue, makeString, getter, setter) {
+                super(DOMId);
+                this.maxValue = maxValue;
+                this.minValue = minValue;
+                this.roundDown = roundDown;
+                this.emptyString = emptyString;
+                this.dimensions = dimensions;
+                this.numberToValue = numberToValue;
+                this.arrayToValue = arrayToValue;
+                this.makeString = makeString;
+                this.getter = getter;
+                this.setter = setter;
+            }
+
+            /**
+             * This method is called to update the text in the field with the current state of the sketcher
+             */
+            updateForm() {
+                this._DOMElement.val(this.makeString(this.getter()));
+            }
+
+            /**
+             * This method adds any listeners to the form and is only called once.
+             */
+            initForm() {
+                const field = this;
+                this._DOMElement.change(function () {
+                    let value = field._DOMElement.val();
+                    let next;
+
+                    if (value === "") {
+                        next = field._DOMElement.emptyString;
+                    }
+                    const sections = value.split(",");
+                    if (sections.length === field.dimensions ||
+                        field.numberToValue !== undefined &&
+                        sections.length === 1 &&
+                        Number.isFinite(Number(sections[0]))) {
+                        for (let i = 0; i < sections.length; i++) {
+                            if (!Number.isFinite(Number(sections[i]))) {
+                                next = undefined;
+                                break;
+                            } else {
+                                sections[i] = Number(sections[i]);
+                                if (field.maxValue !== undefined) {
+                                    sections[i] = Math.min(sections[i], field.maxValue);
+                                }
+                                if (field.minValue !== undefined) {
+                                    sections[i] = Math.max(sections[i], field.minValue);
+                                }
+                                if (field.roundDown) {
+                                    sections[i] = Math.floor(sections[i]);
+                                }
+                            }
+                        }
+                        if (sections.length === 1) {
+                            next = field.numberToValue(sections[0]);
+                        } else {
+                            next = field.arrayToValue(sections);
+                        }
+                    } else {
+                        next = undefined;
+                    }
+
+                    if (next !== undefined) {
+                        field._DOMElement.val(field.makeString(next));
+                        field.setter(next);
+                    } else {
+                        field._DOMElement.val(field.makeString(field.getter()));
+                    }
+
+                });
+            }
+        }
+
+        let fields;
+        let sketcher;
+        let behaviours;
+
+        $(function () { // on dom ready
+
+            behaviours = {
+                attraction: new SimpleAttractiveForceBehaviour(),
+                noise: new NoiseForceBehaviour(),
+                limitDeath: new UpdateLimitDeathBehaviour(),
+                boundsForce: new LinearOutOfBoundsForceBehaviour(),
+                distanceDeath: new MaxDistanceTraveledDeath(),
+                evolve: new EvolveColorBehaviour(),
+                boundsDeath: new OutOfBoundsDeathBehaviour()
+            };
+
+            // This is a list of all the fields, this data is used to create their listeners
+            fields = [
+                new ToggleButton("pause", "Resume", "Pause",
+                    () => sketcher.isStopped,
+                    (value) => sketcher.isStopped = value),
+                new ToggleButton("attractionSwitch", "On", "Off",
+                    () => behaviours.attraction.isActive,
+                    (value) => behaviours.attraction.isActive = value),
+                new ToggleButton("attractionAverage", "On", "Off",
+                    () => behaviours.attraction.willAverage,
+                    (value) => behaviours.attraction.willAverage = value),
+                new ToggleButton("noiseSwitch", "On", "Off",
+                    () => behaviours.noise.isActive,
+                    (value) => behaviours.noise.isActive = value),
+                new ToggleButton("limitDeathSwitch", "On", "Off",
+                    () => behaviours.limitDeath.isActive,
+                    (value) => behaviours.limitDeath.isActive = value),
+                new ToggleButton("boundsForceSwitch", "On", "Off",
+                    () => behaviours.boundsForce.isActive,
+                    (value) => behaviours.boundsForce.isActive = value),
+                new ToggleButton("distanceDeathSwitch", "On", "Off",
+                    () => behaviours.distanceDeath.isActive,
+                    (value) => behaviours.distanceDeath.isActive = value),
+                new ToggleButton("evolveSwitch", "On", "Off",
+                    () => behaviours.evolve.isActive,
+                    (value) => behaviours.evolve.isActive = value),
+                new ToggleButton("boundsDeathSwitch", "On", "Off",
+                    () => behaviours.boundsDeath.isActive,
+                    (value) => behaviours.boundsDeath.isActive = value),
+
+                new NumericField("particleCount", 0, undefined, true, 0,
+                    () => sketcher.particleCount,
+                    (value) => sketcher.particleCount = value),
+                new NumericField("stepsPerFrame", 0, undefined, true, 0,
+                    () => sketcher.stepsPerFrame,
+                    (value) => sketcher.stepsPerFrame = value),
+                new NumericField("dampeningFactor", 0, undefined, false, 0,
+                    () => sketcher.dampeningFactor,
+                    (value) => sketcher.dampeningFactor = value),
+                new NumericField("maxSpeed", 0, undefined, false, 0,
+                    () => sketcher.maxSpeed,
+                    (value) => sketcher.maxSpeed = value),
+                new NumericField("dropRate", 0, 1, false, 0,
+                    () => sketcher.dropRate,
+                    (value) => sketcher.dropRate = value),
+                new NumericField("dropAlpha", 0, 255, true, 0,
+                    () => sketcher.dropAlpha,
+                    (value) => sketcher.dropAlpha = value),
+                new NumericField("dropMaxSize", 0, undefined, false, 0,
+                    () => sketcher.dropMaxSize,
+                    (value) => sketcher.dropMaxSize = value),
+                new NumericField("drawAlpha", 0, 255, true, 0,
+                    () => sketcher.drawAlpha,
+                    (value) => sketcher.drawAlpha = value),
+                new NumericField("drawWeight", 0, undefined, false, 0,
+                    () => sketcher.drawWeight,
+                    (value) => sketcher.drawWeight = value),
+                new NumericField("attractionForceFactor", undefined, undefined, false, 0,
+                    () => behaviours.attraction.forceFactor,
+                    (value) => behaviours.attraction.forceFactor = value),
+                new NumericField("noiseScale", undefined, undefined, false, 0,
+                    () => behaviours.noise.noiseScale,
+                    (value) => behaviours.noise.noiseScale = value),
+                new NumericField("noiseInfluence", undefined, undefined, false, 0,
+                    () => behaviours.noise.noiseInfluence,
+                    (value) => behaviours.noise.noiseInfluence = value),
+                new NumericField("noiseTimeFactor", 0, undefined, false, 0,
+                    () => behaviours.noise.timeFactor,
+                    (value) => behaviours.noise.timeFactor = value),
+                new NumericField("boundsForceFactor", undefined, undefined, false, 0,
+                    () => behaviours.boundsForce.forceFactor,
+                    (value) => behaviours.boundsForce.forceFactor = value),
+                new NumericField("evolveChangeRate", undefined, undefined, false, 0,
+                    () => behaviours.evolve.changeRate,
+                    (value) => behaviours.evolve.changeRate = value),
+
+                new VectorField("defaultVel", undefined, undefined, false, "0, 0", 2,
+                    undefined,
+                    (array) => sketcher.createVector(array[0], array[1]),
+                    (vector) => vector.x + ", " + vector.y,
+                    () => sketcher.defaultVel,
+                    (value) => sketcher.defaulVel = value),
+                new VectorField("attractionKernelSize", 0, 10, true, "5, 5", 2,
+                    (number) => [number, number],
+                    (array) => array,
+                    (array) => array.join(", "),
+                    () => behaviours.attraction.kernelSize,
+                    (value) => behaviours.attraction.kernelSize = value),
+                new VectorField("evolveKernelSize", 0, 10, true, "3, 3", 2,
+                    (number) => [number, number],
+                    (array) => array,
+                    (array) => array.join(", "),
+                    () => behaviours.evolve.kernelSize,
+                    (value) => behaviours.evolve.kernelSize = value),
+                new VectorField("boundsForceBounds", 0, undefined, false, "0", 4,
+                    (number) => {
+                        return {
+                            top: number,
+                            right: number,
+                            bottom: number,
+                            left: number
+                        };
+                    },
+                    (array) => {
+                        return {
+                            top: array[0],
+                            right: array[1],
+                            bottom: array[2],
+                            left: array[3]
+                        };
+                    },
+                    (object) => object.top + ", " + object.right + ", " + object.bottom + ", " + object.left,
+                    () => behaviours.boundsForce.bounds,
+                    (value) => behaviours.boundsForce.bounds = value),
+                new VectorField("limitDeathMaxLife", 0, undefined, false, "0", 2,
+                    (number) => number,
+                    (array) => {
+                        const func = particle => particle.sketcher.random(array[0], array[1]);
+                        func.string = array.join(", ");
+                        return func;
+                    },
+                    (object) => {
+                        if (typeof object === "function") {
+                            return object.string;
+                        } else {
+                            return object;
+                        }
+                    },
+                    () => behaviours.limitDeath.maxLife,
+                    (value) => behaviours.limitDeath.maxLife = value),
+                new VectorField("distanceDeathDistance", 0, undefined, false, "100", 2,
+                    (number) => number,
+                    (array) => {
+                        const func = particle => particle.sketcher.random(array[0], array[1]);
+                        func.string = array.join(", ");
+                        return func;
+                    },
+                    (object) => {
+                        if (typeof object === "function") {
+                            return object.string;
+                        } else {
+                            return object;
+                        }
+                    },
+                    () => behaviours.distanceDeath.maxDistance,
+                    (value) => behaviours.distanceDeath.maxDistance = value)
+            ];
+
+            sketcher = new ImageSketcher("images/test6.png", 700, undefined, {
+                particleBehaviours: Object.values(behaviours)
+            });
+
+            new p5(sketcher.generateSeed(), document.getElementById("sketch"), true);
+
+            // init for the html
+            initForm(sketcher);
+            updateFormToSketcher(sketcher);
+        });
+
+        /**
+         * This function adds all the listeners to the form elements
+         */
+        function initForm(sketcher) {
+
+            fields.forEach(function (field) {
+                field.initForm();
+            });
+
+            $("#clear").click(sketcher.forceClear.bind(sketcher));
+            $("#reset").click(sketcher.reset.bind(sketcher));
+
+            $("#setImage").click(function () {
+                sketcher.targetImageURL = $("#imageURL").val();
+                sketcher.forceClear();
+            });
+
+            $("#width").change(function () {
+                const {width, height} = getSize();
+                sketcher.setSize(width, height);
+                sketcher.reset();
+            });
+            $("#height").change(function () {
+                const {width, height} = getSize();
+                sketcher.setSize(width, height);
+                sketcher.reset();
+            });
+
+            $("#defaultVel").change(function () {
+                const $defaultVel = $("#defaultVel");
+                const value = $defaultVel.val();
+
+                let next;
+                const sections = value.split(",");
+                if (sections.length !== 2) {
+                    next = undefined;
+                } else {
+                    const [x, y] = sections;
+                    if (Number.isFinite(Number(x)) && Number.isFinite(Number(y))) {
+                        next = sketcher.createVector(Number(x), Number(y));
+                    } else {
+                        next = undefined;
+                    }
+                }
+                if (next !== undefined) {
+                    $defaultVel.val(next.x + "," + next.y);
+                    sketcher.defaultVel = next;
+                } else {
+                    $defaultVel.val(sketcher.defaultVel.x + "," + sketcher.defaultVel.y);
+                }
+
+            });
+
+        }
+
+        /**
+         * Sets all the values in the form to reflect the properties of the sketcher
+         */
+        function updateFormToSketcher() {
+
+            fields.forEach(function (field) {
+                field.updateForm();
+            });
+
+            $("#imageURL").val(sketcher.targetImageURL);
+
+            $("#width").val(sketcher.targetWidth || "");
+            $("#height").val(sketcher.targetHeight || "");
+
+        }
+
+        /**
+         * This function returns the width and height from the form fields
+         * @return {{width: (Number), height: (Number)}}
+         */
+        function getSize() {
+            const $width = $("#width");
+            const $height = $("#height");
+
+            let width = $width.val().trim();
+            let height = $height.val().trim();
+
+            width = width === "" || isNaN(Number(width)) ? undefined : Math.floor(Math.max(Number(width), 1));
+            height = height === "" || isNaN(Number(height)) ? undefined : Math.floor(Math.max(Number(height), 1));
+
+            $width.val(width); // to snap negative values back into range
+            $height.val(height);
+
+            return {width: width, height: height};
+
+        }
+
+    </script>
+
+</head>
+<body>
+<div class="container">
+    <h1>Controls</h1>
+
+    <div class="row">
+        <div class="col">
+            <h2>Commands</h2>
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <button id="pause" type="button" class="btn btn-primary btn-block">Pause</button>
+                </div>
+                <div class="col">
+                    <button id="clear" type="button" class="btn btn-danger btn-block">Clear</button>
+                </div>
+                <div class="col ">
+                    <button id="reset" type="button" class="btn btn-danger btn-block">Reset</button>
+                </div>
+            </div>
+
+            <h2>Image, Dimensions and Simulation Speed</h2>
+            <hr>
+            <label for="imageURL"><b>Image URL</b></label>
+            <div class="input-group mb-3">
+                <input id="imageURL" type="text" class="form-control" placeholder="Image URL" aria-label="Image URL">
+                <div class="input-group-append">
+                    <button id="setImage" class="btn btn-outline-danger" type="button">Set</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="width"><b>Width</b></label>
+                    <div class="input-group mb-3">
+                        <input id="width" type="number" class="form-control" placeholder="Auto" aria-label="width">
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="height"><b>Height</b></label>
+                    <div class="input-group mb-3">
+                        <input id="height" type="number" class="form-control" placeholder="Auto" aria-label="height">
+                    </div>
+                </div>
+            </div>
+            <small>
+                If one of width or height is left empty then it will be extrapolated from the aspect ratio of the
+                image, if both are then the size will be copied from the image
+            </small>
+
+            <div class="row">
+                <div class="col">
+                    <label for="particleCount"><b>Number of Particles</b></label>
+                    <div class="input-group mb-3">
+                        <input id="particleCount" type="number" class="form-control" placeholder=""
+                               aria-label="Number of Particles">
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="stepsPerFrame"><b>Updates per frame</b></label>
+                    <div class="input-group mb-3">
+                        <input id="stepsPerFrame" type="number" class="form-control" placeholder=""
+                               aria-label="Updates per frame">
+                    </div>
+                </div>
+            </div>
+            <small>
+                The product of the number of particles and updates per frame is proportional to the how
+                computationally intensive the task is, if the frame rate drops then reduce this product
+            </small>
+        </div>
+        <div class="col-md-auto shadow p-3 mb-5 bg-white rounded" id="sketch">
+        </div>
+    </div>
+    <div>
+        <h2>Physics and Drawing Settings</h2>
+        <hr>
+
+        <div class="row">
+            <div class="col">
+                <label for="defaultVel"><b>Starting Velocity</b></label>
+                <div class="input-group mb-3">
+                    <input id="defaultVel" type="text" class="form-control" placeholder="e.g '5,5'"
+                           aria-label="Starting Velocity">
+                </div>
+            </div>
+            <div class="col">
+                <label for="dampeningFactor"><b>Speed Dampening</b></label>
+                <div class="input-group mb-3">
+                    <input id="dampeningFactor" type="number" class="form-control" placeholder="e.g 0.99"
+                           aria-label="Speed Dampening">
+                </div>
+            </div>
+            <div class="col">
+                <label for="maxSpeed"><b>Max Speed</b></label>
+                <div class="input-group mb-3">
+                    <input id="maxSpeed" type="number" class="form-control" placeholder="e.g 3"
+                           aria-label="Max Speed">
+                </div>
+            </div>
+        </div>
+        <small>
+            Starting Velocity is obviously the velocity that the particle will start with. It can be invividually
+            assigned by a generator which would override this default. e.g '5,5' meaning 5 pixels per update in each
+            axis. Speed dampening is a factor that is applied to each particles speed at each update, creating an
+            exponential drag force. e.g 0.99. Max speed is the maximum speed that a particle can travel at, if a
+            particle exceeds this speed then the speed will be reduced to the max speed e.g. 3. Max speed must be
+            positive.
+        </small>
+
+        <div class="row">
+            <div class="col">
+                <label for="dropRate"><b>Drop Chance</b></label>
+                <div class="input-group mb-3">
+                    <input id="dropRate" type="number" class="form-control" placeholder="e.g 0.0008"
+                           aria-label="Drop Chance">
+                </div>
+            </div>
+            <div class="col">
+                <label for="dropAlpha"><b>Drop Opacity /255</b></label>
+                <div class="input-group mb-3">
+                    <input id="dropAlpha" type="number" class="form-control" placeholder="e.g 150"
+                           aria-label="Drop Opacity">
+                </div>
+            </div>
+            <div class="col">
+                <label for="dropMaxSize"><b>Max Drop Size</b></label>
+                <div class="input-group mb-3">
+                    <input id="dropMaxSize" type="number" class="form-control" placeholder="e.g 5"
+                           aria-label="Max Drop Size">
+                </div>
+            </div>
+        </div>
+        <small>
+            These parameters are relating to the ink drops that particles can draw. Drop chance is the probability that
+            an ink drop is drawn during any given update e.g 0.0008. Drop chance must be between 0 and 1 (inclusively)
+            Draw opacity is the opacity of the drop e.g. 150. Opacity must be between 0 and 255 (inclusively). Max drop
+            size is the maximum diameter of the drop (in pixels) e.g 5. Max size must be more than 0.
+        </small>
+
+        <div class="row">
+            <div class="col">
+                <label for="drawAlpha"><b>Trace Opacity /255</b></label>
+                <div class="input-group mb-3">
+                    <input id="drawAlpha" type="number" class="form-control" placeholder="e.g 50"
+                           aria-label="Trace Opacity /255">
+                </div>
+            </div>
+            <div class="col">
+                <label for="drawWeight"><b>Trace Width</b></label>
+                <div class="input-group mb-3">
+                    <input id="drawWeight" type="number" class="form-control" placeholder="e.g 1"
+                           aria-label="Trace Width">
+                </div>
+            </div>
+        </div>
+        <small>These properties relate to the trace that the particle leaves behind as it moves e.g '50' and '1' The
+            opacity must be between 0 and 255 (inclusively), the width must be positive
+        </small>
+
+
+        <h2>Artsy Settings (Particle Behaviours)</h2>
+        <p><a href="reference.html#behaviours">Click here</a> to be taken to the implementation example of a custom
+            behaviour</p>
+        <hr>
+
+        <h3>Simple Attractive Force</h3>
+        <small>
+            This behaviour attracts each particle to the surrounding pixels which have the same color as it. Kernel
+            size is the size of the rectangle(in pixels) which the particle is attracted to. e.g '5' (5x5 pixels) or
+            '4,3' (4x3 pixels). The dimensions must be positive integers. Force Factor is simply a multiplier on the
+            force that is felt by the object. Average attraction means that the particle will experience the average
+            force from all the pixels, this is different to a factor because behaviour changes when a particle is close
+            to the edges of the image.
+        </small>
+        <div class="row">
+            <div class="col">
+                <label for="attractionSwitch"><b>Turn On/Off</b></label>
+                <div class="input-group mb-3">
+                    <button id="attractionSwitch" class="btn btn-primary btn-block">On</button>
+                </div>
+            </div>
+            <div class="col">
+                <div class="col">
+                    <label for="attractionKernelSize"><b>Kernel Size</b></label>
+                    <div class="input-group mb-3">
+                        <input id="attractionKernelSize" type="text" class="form-control" placeholder="e.g '5' or '4,3'"
+                               aria-label="Kernel Size">
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="col">
+                    <label for="attractionForceFactor"><b>Force Factor</b></label>
+                    <div class="input-group mb-3">
+                        <input id="attractionForceFactor" type="text" class="form-control" placeholder="e.g 1"
+                               aria-label="Force Factor">
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <label for="attractionAverage"><b>Average Attraction</b></label>
+                <div class="input-group mb-3">
+                    <button id="attractionAverage" class="btn btn-primary btn-block">Off</button>
+                </div>
+            </div>
+        </div>
+
+        <h3>Noise Force</h3>
+        <small>
+            This behaviour adds random forces to the particles. Noise scale is a factor for the location in noise space
+            (<a href="https://p5js.org/reference/#/p5/noise">see the p5 Perlin noise function</a>). Noise Influence is
+            just a factor on the size of the force that the particle feels. Time factor is how fast noise evolves
+            through time (such that the same force isn't felt in the same place all the time).
+        </small>
+        <div class="row">
+            <div class="col">
+                <label for="noiseSwitch"><b>Turn On/Off</b></label>
+                <div class="input-group mb-3">
+                    <button id="noiseSwitch" class="btn btn-primary btn-block">On</button>
+                </div>
+            </div>
+            <div class="col">
+                <label for="noiseScale"><b>Noise Scale</b></label>
+                <div class="input-group mb-3">
+                    <input id="noiseScale" type="number" class="form-control" placeholder="e.g 0.001"
+                           aria-label="Force Factor">
+                </div>
+            </div>
+            <div class="col">
+                <label for="noiseInfluence"><b>Noise Influence</b></label>
+                <div class="input-group mb-3">
+                    <input id="noiseInfluence" type="number" class="form-control" placeholder="e.g 0.1"
+                           aria-label="Time Factor">
+                </div>
+            </div>
+            <div class="col">
+                <label for="noiseTimeFactor"><b>Time Factor</b></label>
+                <div class="input-group mb-3">
+                    <input id="noiseTimeFactor" type="number" class="form-control" placeholder="e.g 0.02"
+                           aria-label="Time Factor">
+                </div>
+            </div>
+        </div>
+
+        <h3>Update Limit Death</h3>
+        <small>
+            This behaviour makes it so that a particle is replaced after a certain amount of updates (not frames).
+            Maximum updates is the number of updates after which the particle will die, it can be a particular value
+            e.g '100' or can be given as a range which will be sampled from a uniform distribution for each particle
+            e.g '75, 125'.
+        </small>
+        <div class="row">
+            <div class="col">
+                <label for="limitDeathSwitch"><b>Turn On/Off</b></label>
+                <div class="input-group mb-3">
+                    <button id="limitDeathSwitch" class="btn btn-primary btn-block">On</button>
+                </div>
+            </div>
+            <div class="col-9">
+                <label for="limitDeathMaxLife"><b>Maximum Updates</b></label>
+                <div class="input-group mb-3">
+                    <input id="limitDeathMaxLife" type="text" class="form-control" placeholder="e.g '100' or '75,125'"
+                           aria-label="Maximum Updates">
+                </div>
+            </div>
+        </div>
+
+        <h3>Linear Out Of Bounds Force</h3>
+        <small>
+            This behaviour adds a force to the particle when it gets close to the edge of the image. The Bounds
+            parameter is the distance from the edges at which the force will start to be felt. It can be passed as a
+            single number e.g '20' or as 4 numbers which signify the 4 edges, in the order: top, right, bottom, left.
+            e.g '0,20,40,20' The force is interpolated from nothing at the boundary to whatever the value of Force
+            Factor is at the edge.
+        </small>
+        <div class="row">
+            <div class="col">
+                <label for="boundsForceSwitch"><b>Turn On/Off</b></label>
+                <div class="input-group mb-3">
+                    <button id="boundsForceSwitch" class="btn btn-primary btn-block">On</button>
+                </div>
+            </div>
+            <div class="col-6">
+                <label for="boundsForceBounds"><b>Bounds</b></label>
+                <div class="input-group mb-3">
+                    <input id="boundsForceBounds" type="text" class="form-control"
+                           placeholder="e.g '20' or '0,20,40,20'" aria-label="Bounds">
+                </div>
+            </div>
+
+            <div class="col">
+                <label for="boundsForceFactor"><b>Force Factor</b></label>
+                <div class="input-group mb-3">
+                    <input id="boundsForceFactor" type="number" class="form-control" placeholder="e.g 0.25"
+                           aria-label="Force Factor">
+                </div>
+            </div>
+        </div>
+
+        <h3>Max Distance Traveled Death</h3>
+        <small>
+            This behaviour makes it so that a particle dies after a certain distance that it has traveled. Since this
+            check is only applied once per update, it is possible that a fast moving particle will move a substantial
+            distance between updates and move further than the max distance. Max distance (in pixels) can be passed as
+            a single value e.g '20' or can be given as a range which will be sampled from a uniform distribution for
+            each particle e.g '0, 20'
+        </small>
+        <div class="row">
+            <div class="col">
+                <label for="distanceDeathSwitch"><b>Turn On/Off</b></label>
+                <div class="input-group mb-3">
+                    <button id="distanceDeathSwitch" class="btn btn-primary btn-block">On</button>
+                </div>
+            </div>
+            <div class="col-9">
+                <label for="distanceDeathDistance"><b>Max Distance</b></label>
+                <div class="input-group mb-3">
+                    <input id="distanceDeathDistance" type="text" class="form-control"
+                           placeholder="e.g '20' or '0,20'" aria-label="Max Distance">
+                </div>
+            </div>
+        </div>
+
+        <h3>Evolve Color</h3>
+        <small>
+            This behaviour makes it so that a particle changes color to the color of the surrounding pixels. Assuming
+            that the particle doesn't move, it would do so in an exponential manner. Change rate how to weight the
+            average between the existing color and the new color, for example '0.2' means each update will make the
+            color become 20% of the surrounding average color and %80 of the previous color. Kernel size is the size of
+            the rectangle(in pixels) which the particle's color will change to. e.g '5' (5x5 pixels) or '4,3'
+            (4x3 pixels).
+        </small>
+        <div class="row">
+            <div class="col-3">
+                <label for="evolveSwitch"><b>Turn On/Off</b></label>
+                <div class="input-group mb-3">
+                    <button id="evolveSwitch" class="btn btn-primary btn-block">On</button>
+                </div>
+            </div>
+            <div class="col">
+                <label for="evolveChangeRate"><b>Change Rate</b></label>
+                <div class="input-group mb-3">
+                    <input id="evolveChangeRate" type="number" class="form-control"
+                           placeholder="e.g 0.05" aria-label="Change Rate">
+                </div>
+            </div>
+
+            <div class="col ">
+                <label for="evolveKernelSize"><b>Kernel Size</b></label>
+                <div class="input-group mb-3">
+                    <input id="evolveKernelSize" type="text" class="form-control" placeholder="e.g '3' or '4,3'"
+                           aria-label="Force Factor">
+                </div>
+            </div>
+        </div>
+
+        <h3>Out Of Bounds Death</h3>
+        <small>
+            This behaviour makes it so that when a particle dies when it is outside of the canvas.
+        </small>
+        <div class="row">
+            <div class="col">
+                <label for="boundsDeathSwitch"><b>Turn On/Off</b></label>
+                <div class="input-group mb-3">
+                    <button id="boundsDeathSwitch" class="btn btn-primary btn-block">On</button>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	<hr>
+	<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+	
+</div>
+</body>
+</html>
