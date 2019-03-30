@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>P5 Object</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+    <script src = "fdmw97_trees.js"></script>
+    <script src="main.js"></script>
+</head>
+<body>
+<div class="ui slider checkbox">
+<input type="checkbox" value="freeTree" id="free">
+<label for="free">Free tree mode</label>
+</div>
+<div class="ui slider checkbox">
+<input type="checkbox" value="3d" id="3d">
+<label for="3d">3D texture example</label>
+</div>
+<input type="range" value="8" max="10" min="0" id="nh">
+<label for="nh">Number of columns</label>
+<input type="range" value="3" max="10" min="0" id="nv">
+<label for="nv">Number of rows</label>
+<input type="range" value="15" max="30" min="1" id="life">
+<label for="life">Maximum lifespan of branch</label>
+<input type="button" class="ui button" value="submit" id="submit">
+<br>
+<div class="ui slider checkbox">
+    <input type="checkbox" value="Random Layout" id="ran">
+    <label for="free">Random tree mode</label>
+</div>
+<input type="range" value="10" max="50" min="0" id="nRanTrees">
+<label for="nRanTrees">Number of trees for random mode</label>
+<input type="button" class="ui button" value="Tutorial" id="tut">
+<input type="button" class="ui button" value="Sketch" id="ske">
+<div class="ui container" style="padding-top:25px" id="screen">
+    <div id="main" class="ui piled segment" hidden>
+
+    </div>
+    <div id="tutorial" class="ui piled segment">
+        <p>This sketch draws an image of 2D trees that are coloured in such a way that they look 3D. At the top of the page
+            you will find controls to change various properties of the sketch, they are as such:
+            <ul>
+                <li>Free tree mode: Enabling this means that when the left mouse button is clicked a new tree will
+                    be grown at the current cursor position on the sketch. This cannot be enabled at the same time
+                    as the 3D texture example.
+                </li>
+                <li>3D texture example: Enabling this renders the sketch on each face of a spinning 3D cube. 
+                    This cannot be enabled with Free tree mode.
+                </li>
+                <li>Number of columns: This slider allows you to choose the number of columns of trees to be 
+                    displayed. The range is between 0 and 10.
+                </li>
+                <li>Number of rows: This slider allows you to choose the number of rows of trees to be 
+                        displayed. The range is between 0 and 10.
+                </li>
+                <li>Maximum lifespan of branch: This slider allows you to choose the time it takes for 
+                    a branch to split.
+                </li>
+                <li>Random tree mode: Enabling this means that the sketch renders a number of trees at random 
+                    locations on the screen.
+                </li>
+                <li>Number of trees for random mode: This slider allows you to choose the number of trees to be randomly 
+                    rendered when Random tree mode is enabled.
+                </li>
+                <li>submit: Pressing this button refreshes the sketch with the variables selected by 
+                    the user.
+                </li>
+                <li>Tutorial: Pressing this button displays this screen.</li>
+                <li>Sketch: Pressing this button displays the sketch instead of this page.</li>
+            </ul>
+        </p>
+    </div>
+</div>
+</body>
+</html>
