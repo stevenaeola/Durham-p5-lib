@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p5.js example</title>
+    <style> body {padding: 0; margin: 0;} 
+    .slidecontainer {width: 100%}
+    .slider{width: 100%;
+    height: 100%;
+    outline: none;
+    opacity: 0.5;
+    transition: opacity .2s;}
+    .slider:hover{
+      opacity: 1;
+    }
+    #pos{
+      position: static;
+      left:1000px;
+      top:0;
+    }
+    #sdbr{
+
+    }
+    #btn{
+      
+    }
+    
+    
+    
+    </style>
+    <script src="../p5.min.js"></script>
+    <script src="../addons/p5.dom.min.js"></script>
+    <script src="../addons/p5.sound.min.js"></script>
+    <script src="../addons/p5.dom.js"></script>
+    <div id="sketch">
+      <script src="Shapeandsounds.js"></script>
+      <script>
+        var q
+        var g
+
+
+
+
+      function setup()
+      {
+         q = new Shape();
+         //g = createGraphics(400,400);
+         
+         
+    
+    
+
+      }
+      function draw()
+      {
+        if(typeof(g) != 'object')
+        {
+          q.draw();
+          
+        }
+        else
+        {
+          q.draw(g);
+        }
+        
+        
+        
+        
+    
+      }
+      </script>
+    </div>
+      
+    
+    <div id="pos">
+      <div class = "slidecontainer">
+        <input type="range" min="0" max="255" class="slider" id="Hue">
+        <p>Hue: <span id="hueVal"></span></p>
+      </div>
+      <script>
+        var hueSlider = document.getElementById("Hue");
+        var hueValue = document.getElementById("hueVal");
+        hueValue.innerHTML = hueSlider.value;
+  
+        hueSlider.oninput = function(){
+          hueValue.innerHTML = this.value;
+          
+        }
+      </script>
+    </div>
+    <div class = "slidecontainer">
+        <input type="range" min="0" max="255" class="slider" id="Saturation">
+        <p>Saturation: <span id="satVal"></span></p>
+      </div>
+      <script>
+        var satSlider = document.getElementById("Saturation");
+        var satValue = document.getElementById("satVal");
+        satValue.innerHTML = satSlider.value;
+  
+        satSlider.oninput = function(){
+          satValue.innerHTML = this.value;
+        }
+      </script>
+    </div>
+    <div class = "slidecontainer">
+        <input type="range" min="0" max="255" class="slider" id="Brightness">
+        <p>Brightness: <span id="bVal"></span></p>
+      </div>
+      <script>
+        var bSlider = document.getElementById("Brightness");
+        var bValue = document.getElementById("bVal");
+        bValue.innerHTML = bSlider.value;
+  
+        bSlider.oninput = function(){
+          bValue.innerHTML = this.value;
+          
+          
+        }
+      </script>
+    
+    
+    </div>
+    
+    <div id="sdbr" class="sidebar">
+
+    </div>
+    <div id="pos">
+        <button type="button" id ="btnCubes" onclick='setcube()'>Cubes</button>
+      <button type="button" id ="btnCircles" onclick="setcircle()">Circles</button>
+      <button type="button" id ="btnBalls" onclick="setballs()">Spheres</button>
+      <button type="button" id ="btnSetColour" onclick="setcolour()">Set colour</button>
+      <button type="button" id ="btnFreeze" onclick="freeze(false)">Freeze</button>
+      <button type="button" id ="btnResume" onclick="freeze(true)">Resume</button>
+      <button type="button" id ="btnFall" onclick="fall()">Fall</button>
+      <button type="button" id ="btnReset" onclick="resetcanvas()">Reset canvas</button>
+      
+      <button type="button" id ="btn2D" onclick="twoD()">2D</button>
+      <button type="button" id ="btn3D" onclick="threeD()">3D</button>
+      
+      
+      <button type="button" id ="btnDisable2D" onclick="enable3D()">Disable 2D click</button>
+      
+      
+        <button type="button" id ="btnEnable2D" onclick="enable2D()">Enable 2D click</button>
+        <script>
+           function enable2D()
+           {
+            
+             q.enable2D(true);
+             
+           }
+        </script>
+        <script>
+            function enable3D()
+            {
+              
+              q.enable2D(false);
+            }
+         </script>
+        <script>
+            function setcube()
+            {
+             
+              q.setshape("Cubes");
+              
+            }
+         </script>
+         <script>
+            function setcircle()
+            {
+             
+              q.setshape("Circles");
+              
+            }
+         </script>
+         <script>
+            function setballs()
+            {
+             
+              q.setshape("Balls");
+              
+            }
+         </script>
+         <script>
+            function setcolour()
+            {
+             
+              q.setcolour(hueSlider.value,satSlider.value,bSlider.value)
+              
+            }
+         </script>
+         <script>
+            function freeze(x)
+            {
+             
+              q.freeze(x);
+              
+            }
+         </script>
+         
+         <script>
+            function fall()
+            {
+             
+              q.fall(true)
+              
+            }
+         </script>
+         <script>
+            function resetcanvas()
+            {
+             
+              q.resetcanvas()
+              
+            }
+         </script>
+         <script>
+            function twoD()
+            {
+             
+              q.changeD(2);
+              
+            }
+         </script>
+          <script>
+              function threeD()
+              {
+               
+                q.changeD(3);
+                
+              }
+           </script>
+      
+      
+      
+
+      
+    </div>
+    
+  
+ 
+  </body>
+</html>
