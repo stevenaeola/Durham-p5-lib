@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title> Testing P5 </title>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"> </script>
+  <script type="text/javascript" src="particles.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+
+</head>
+
+<body>
+  <center>
+    <h1> EXAMPLE PAGE</h1>
+    <h2> <i> (not using CSS...cause pretty things are overrated??) </i> </h2>
+  </center>
+  <form id="txtinput">
+    <table>
+      <tr>
+        <td> Please enter your First Name: </td>
+        <td><input type="text" id="firstName"> </td>
+      </tr>
+      <tr>
+        <td> Please enter your Surname: </td>
+        <td><input type="text" id="surname"></td>
+      </tr>
+    </table>
+    <b> <i> <p id="warning"> </p> </i> </b>
+
+  </form>
+
+  <p> Drag the mouse across the canvas to make little particle smoke bombs, keep making smoke bombs to fill the screen with enough smoke to reveal your name! </p>
+  <p> <i> When you have too many particles just hit reset!</i> </p>
+  <button value="refresh" onClick="window.location.reload()"> Restart </button>
+  <button id="resetcol"> Reset Smoke Colour </button>
+  <center> <h2 id="boldh2"> Change the colour of the smoke below! </h2>
+  </center>
+
+  <form id="sliderinput">
+    <table class="slidertable" style="width:100%">
+      <tbody>
+        <tr>
+          <th> Red </th>
+          <th> Green </th>
+          <th> Blue </th>
+        </tr>
+        <tr>
+          <td> <center> <input oninput="draw()" onchange="draw()" type="range" id="rslide" name="rslide" min="0" max="255" step ="1" value="220"> </center></td>
+          <td> <center> <input oninput="draw()" onchange="draw()" type="range" id="gslide" name="gslide" min="0" max="255" step="1" value="220"> </center> </td>
+          <td> <center> <input oninput="draw()" onchange="draw()" type="range" id="bslide" name="bslide" min="0" max="255" step="1" value="220"> </center> </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+
+  <p id="settxt"></p>
+
+</body>
+
+</html>
