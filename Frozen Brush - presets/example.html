@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Frozen Brush example implementation</title>
+    <style>
+        body {
+            max-width: 1280px;
+            margin: auto;
+        }
+        
+        p, td {
+            margin: 2px;
+            text-align: center;
+            font-family: Verdana;
+            font-size: 14px;
+        }
+        
+        table {
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <hr>
+    <p>
+        Adapted from <a href="https://www.openprocessing.org/sketch/413567">Frozen Brush</a> by Jason Labbe. To use, click and drag the mouse in the space below. Properties of the brush can be adjusted using the form, or you can select one of the presets. Use the fade checkbox to set whether your drawings remain on the canvas or fade away. If you are using Chrome or Firefox, you can right click your image to save it. This work, as well as the original sketch, is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+    </p>
+    <p>
+        <strong>Colour</strong>:
+        <input type="color" id="brushColour" value="#00ffbf" onchange="updateBrush()">
+    </p>
+    <p>
+        <strong>Maximum connection distance</strong>:
+        <input type="number" id="distThresh" value="75" onchange="updateBrush()" min="0">
+        <br>
+    </p>
+    <table>
+        <tr>
+            <td>
+                <strong>Fill</strong>:
+                <input type="checkbox" id="useFill" checked onchange="updateBrush()">
+            </td>
+            <td>
+                <strong>Thick</strong>:
+                <input type="checkbox" id="propagation" checked onchange="updateBrush()">
+            </td>
+            <td>
+                <strong>Fade</strong>:
+                <input type="checkbox" id="fade" checked onchange="updateBrush()">
+            </td>
+        </tr>
+    </table>
+    <hr>
+    <p>
+        <strong>Presets</strong>
+        <br>
+        <input type="button" id="defaultFrozen" value="Default frozen brush">
+        <input type="button" id="theMatrix" value="The Matrix">
+        <input type="button" id="smallFlame" value="Small flame">
+        <input type="button" id="suspensionBridge" value="Rollercoaster">
+        <input type="button" id="chalkboard" value="Chalkboard">
+        <input type="button" id="potatoes" value="Quantum potato">
+    </p>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script> <!-- The p5 library. -->
+    <script src="https://cdn.rawgit.com/ironwallaby/delaunay/master/delaunay.js"></script> <!-- The Delaunay library used by the component. -->
+    <script src="frozenbrush.js"></script> <!-- The component. -->
+    <script src="example.js"></script> <!-- The implementation. -->
+    <noscript>
+        <p>You need to enable JavaScript for this to work.</p>
+    </noscript>
+</body>
+
+</html>
