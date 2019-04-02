@@ -1,0 +1,71 @@
+<!doctype html>
+
+<head>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+
+<script src="architect.js"></script>
+<script src="master.js"></script>
+
+
+
+</head>
+
+
+<body>
+<u>Description of the sketch</u></br>
+  This sketch draws a line on a canvas that changes direction at a random point. The interation with the user comes with the ability to change certain attributes of the sketch. The first two involve changing the colours of both the background canvas and the line in the foreground. There are various colours that can be selected. The next select menu is the thickness at which the line is draw, with options being from 1 (very thin) to 10 (very thick). Next is the speed at which the line is draw, with it being either slow, medium or fast. Finally is the amount of sides to the drawing. This can be any number from 3 to 10. 3 being triangular shapes and thus the angle that the line changes direction is 60 degrees, for 4 sides, it would be 90 degrees create rectangular shapes and so on. </br> </br>
+  Foreground Colour:
+  <select id="FGColourSelect">
+    <option class="colourOption" data-red="255" data-green="255" data-blue="255">White</option>
+    <option class="colourOption" data-red="255" data-green="0" data-blue="0">Red</option>
+    <option class="colourOption" data-red="0" data-green="0" data-blue="255">Blue</option>
+    <option class="colourOption" data-red="0" data-green="0" data-blue="0">Black</option>
+    <option class="colourOption" data-red="127" data-green="255" data-blue="0">Lime green</option>
+     <option class="colourOption" data-red="128" data-green="0" data-blue="128">Purple</option>
+  </select>
+  Background Colour:
+  <select id="BGColourSelect">
+    <option class="colourOption" data-red="255" data-green="0" data-blue="0">Red</option>
+    <option class="colourOption" data-red="255" data-green="255" data-blue="255">White</option>
+    <option class="colourOption" data-red="0" data-green="0" data-blue="255">Blue</option>
+    <option class="colourOption" data-red="0" data-green="0" data-blue="0">Black</option>
+    <option class="colourOption" data-red="127" data-green="255" data-blue="0">Lime green</option>
+     <option class="colourOption" data-red="128" data-green="0" data-blue="128">Purple</option>
+  </select>
+  Line Thickness:
+  <select id="LineThickness">
+    <option data-thickness="1">1</option>
+    <option data-thickness="2">2</option>
+    <option data-thickness="3">3</option>
+    <option data-thickness="4">4</option>
+    <option data-thickness="5" selected>5</option>
+    <option data-thickness="6">6</option>
+    <option data-thickness="7">7</option>
+    <option data-thickness="8">8</option>
+    <option data-thickness="9">9</option>
+    <option data-thickness="10">10</option>
+  </select>
+  Drawing Speed:
+  <select id="DrawingSpeed">
+    <option data-speed="200">Slow</option>
+    <option data-speed="50" selected>Medium</option>
+    <option data-speed="10">Fast</option>
+  </select>
+  Number of Sides:
+  <select id="NumberOfSides">
+    <option data-edges="3">3</option>
+    <option data-edges="4">4</option>
+    <option data-edges="5">5</option>
+    <option data-edges="6">6</option>
+    <option data-edges="7">7</option>
+    <option data-edges="8">8</option>
+    <option data-edges="9">9</option>
+    <option data-edges="10">10</option>
+  <br />
+</body>
