@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+        <title>Box Example | Programming Summative - Spinner</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+        <script src="sketch.js"></script>
+        <script src="demo_box.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <!--Minimal styling has been applied to these pages as a conscious choice. I personally find the bare-bones look very appealing.-->
+    <body>
+        <div id="form-holder" style="text-align: center">
+            <h1>welcome to my spinner!</h1>
+            <h3>click <a href="index_flat.html">here</a> for a 2D canvas</h3>
+            <h3>visit <a href="README.html">here</a> for a detailed explanation of this sketch</h3>
+            <form id = "set_params">
+                number of line segments (>0, default 10):<br>
+                <input type="number" id="n"/>
+                <br>
+                radius (>0, default 70):<br>
+                <input type="number" id="r"/>
+                <br>
+                speed (>0, default 2):<br>
+                <input type="number" id="spd"/>
+                <br>
+                rotation angle (steps of 90 work best, default 90):<br>
+                <input type="number" step="90" id="rot"/>
+                <br>
+                line thickness (>0, default 10):<br>
+                <input type="number" id="thk"/>
+                <br>
+                width-shift (0-1, default 0.5):<br>
+                <input type="range" min="0" max="1" value="0.5" step="0.01" id="ws"/>
+                <br>
+                height-shift (0-1, default 0.5):<br>
+                <input type="range" min="0" max="1" value="0.5" step="0.01" id="hs"/>
+                <br>
+                red value (0-255, default 0):<br>
+                <input type="range" min="0" max="255" value="0" id="red"/>
+                <br>
+                green value (0-255, default 150):<br>
+                <input type="range" min="0" max="255" value="150" id="grn"/>
+                <br>
+                blue value (0-255, default 255):<br>
+                <input type="range" min="0" max="255" value="255" id="blu"/>
+                <br>
+            </form>
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png"/></a>
+        </div>
+    </body>
+</html>
