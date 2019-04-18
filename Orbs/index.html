@@ -1,0 +1,45 @@
+<!DOCTYPE html><html><head>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.js"></script>
+	<script type="text/javascript" src="orbs.js"></script>
+	<script type="text/javascript" src="index.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8">
+  </head>
+  <body>
+  	<div id="sketch-holder"> </div> 
+	<div class="slidecontainer">
+		<p> <strong>Speed: </strong> <br/>
+		Control the rate at which the wave travels across the canvas.</p>
+		<input type="range" min="4" max="20" value="12" class="slider" id="slSpeed">
+		<p> <strong>Number: </strong> <br/> 
+		Control the number of particles present in the wave.</p>
+		<input type="range" min="10" max="100" value="20" class="slider" id="slNum">
+		<p> <strong>Size: </strong> <br/> 
+		Control the size of each particle within the wave.</p>
+		<input type="range" min="2" max="25" value="10" class="slider" id="slSize">
+		<p> <strong>Frequency: </strong> <br/> 
+		Control the rate at which the wave oscillates</p>
+		<input type="range" min="10" max="38" value="10" class="slider" id="slFreq">
+		<p><strong>Amplitude:</strong></p>
+		<p> <strong>Top: </strong> <br/> 
+		Control the position of the upper limit of the wave</p>
+		<input type="range" min="50" max="250" value="100" class="slider" id="slTop">
+		<p> <strong>Bottom: </strong> <br/> 
+		Control the position of the lower limit of the wave</p>
+		<input type="range" min="250" max="450" value="400" class="slider" id="slBot">
+	</div>
+
+	<div>
+		<p><strong>Colour:</strong> <br/>
+		Edit the colour of each particle strand individually or randomise all colours.</p>
+		<input type="color" value="#A0ECD0" id="colour3">
+		<input type="color" value="#ECD893" id="colour2">
+		<input type="color" value="#E7AF7E" id="colour1">
+		<input type="color" value="#B78376" id="colour0">
+	</div>
+	
+	<div>
+		<button type="button" id="randomC">Randomise Colours</button>
+	</div>
+	<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+</body></html>
