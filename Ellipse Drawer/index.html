@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Ellipse Drawer</title>
+    <script src="ellipseSketch.js"></script>
+    <script src="index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="float-left"><div class="container">
+      <h1>Ellipse Drawer</h1>
+      <h2>Instructions</h2>
+      <p>Move the mouse on the canvas to draw ellipses.</p>
+      <p>Press <kbd>w</kbd> and <kbd>s</kbd> to control the colour of ellipses drawn.</p>
+      <p>Press <kbd>→</kbd> (right arrow) to increase the ellipse size and <kbd>←</kbd> (left arrow) to decrease the ellipse size.</p>
+      <p>Press <kbd>SPACE</kbd> to clear the canvas.</p>
+      <h2>Options</h2>
+      <div class="row">
+        <div class="col-md-4"><h5>Brightness</h5><input type="range" min="0" max="255" value="100" id="brightnessSlider"></div>
+        <div class="col-md-4"><h5>Saturation</h5><input type="range" min="0" max="255" value="100" id="saturationSlider"></div>
+        <div class="col-md-4"><h5>Alpha</h5><input type="range" min="0" max="1" step="0.01" value="0.2" id="alphaSlider"><br/>Smaller values are more transparent</div>
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-md-4"><h5>Pen size</h5><input type="range" min="0" max="100" value="50" id="pSize"></div>
+        <div class="col-md-4"><h5>Velocity</h5><input type="range" min="0" max="30" value="2" id="vFactor"></div>
+        <div class="col-md-4"><h5>Always draw</h5><input type="checkbox" id="alwaysDraw"> Draw ellipses when not moving the mouse</div>
+      </div><br/>
+      <p><a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-ShareAlike 3.0</a>. Derivative work of <a href="https://www.openprocessing.org/sketch/616194" target="_blank">this sketch</a> by <a href="https://www.openprocessing.org/user/127960" target="_blank">sans</a>.</p>
+    </div></div>
+  </body>
+</html>
