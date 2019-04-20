@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reference</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+
+    <link href="lib/prism.css" rel="stylesheet"/>
+    <script src="lib/prism.js"></script>
+
+    <script src="Particle.js"></script>
+    <script src="ParticleBehaviour.js"></script>
+    <script src="ParticleGenerator.js"></script>
+    <script src="P5Component.js"></script>
+
+    <script src="ImageSketcher.js"></script>
+
+    <style>
+        canvas { /* Give all canvases a shadow so that they can be seen */
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+    </style>
+
+    <script id="code">
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            class ExampleComponent extends P5Component {
+                constructor(color = "#fff", isClockwise = true) {
+                    super();
+                    this.color = color;
+                    this.isClockwise = isClockwise;
+                }
+
+                setup(parent) {
+                    if (parent === undefined) {
+                        const canvas = this.createCanvas(200, 200);
+                        canvas.mousePressed(this.mousePressed.bind(this));
+                    }
+                }
+
+                draw(canvas) {
+                    canvas.push();
+                    canvas.stroke("#fff");
+                    canvas.fill(255, 255, 255, 10);
+                    canvas.rect(0, 0, 200, 200);
+                    canvas.pop();
+
+                    const x = 75 + 50 * Math.sin((this.isClockwise ? -1 : 1) * this.millis() / 1000);
+                    const y = 75 + 50 * Math.cos((this.isClockwise ? -1 : 1) * this.millis() / 1000);
+                    canvas.fill(this.color);
+                    canvas.rect(x, y, 50, 50, 10, 10, 10, 10);
+                }
+
+                preload() {
+                }
+
+                mousePressed() {
+                    this.color = "#0f0";
+                }
+            }
+
+            const component = new ExampleComponent("#f00"); // Create the instance of the component
+            new p5(component.generateSeed(), document.getElementById("example_0")); // Makes an instance of the canvas
+
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const imageSketcher = new ImageSketcher("images/test1.png", 400, undefined, {
+                startStopped: true,
+                onClickListener: (sketcher) => sketcher.isStopped = !sketcher.isStopped,
+                particleCount: 50
+            });
+            new p5(imageSketcher.generateSeed(), document.getElementById("example_1"));
+
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            class NestedExampleComponent extends P5Component {
+                constructor(children) {
+                    super();
+                    this.children = children;
+                }
+
+                setup(parent) {
+                    if (parent === undefined) {
+                        const numberOfTiles = Math.ceil(this.children.length ** .5);
+                        const canvas = this.createCanvas(numberOfTiles * 200, numberOfTiles * 200);
+
+                        const children = this.children;
+                        canvas.mouseClicked(function () {
+                            children.forEach(child => child.isStopped = !child.isStopped);
+                        });
+                    }
+                    for (let i = 0; i < this.children.length; i++) {
+                        this.children[i].setup(this);
+                        this.children[i].position = {
+                            x: (i % 2) * 200, y: Math.floor(i / 2) * 200
+                        };
+                    }
+                }
+
+                draw(canvas) {
+                    this.children.forEach(child => {
+                        canvas.push();
+
+                        canvas.translate(child.position.x, child.position.y);
+                        child.draw(canvas);
+
+                        canvas.pop();
+                    });
+                }
+
+                preload() { // unlike the other methods, this is not an override (❤ js)
+                    for (let i = 0; i < this.children.length; i++) {
+                        this.initChildPrototype(this.children[i]);
+                        this.children[i].preload();
+                    }
+                }
+
+            }
+
+            const imageSketchers = [];
+            for (let i = 0; i < 4; i++) { // this loop creates 4 instances of imageSketcher
+                imageSketchers[i] = new ImageSketcher("images/test" + (i + 1) + ".png", 200, 200, {
+                    startStopped: true,
+                    particleCount: 25,
+                });
+            }
+
+
+            new p5(new NestedExampleComponent(imageSketchers).generateSeed(), document.getElementById("example_2"));
+
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const imageSketcher = new ImageSketcher("images/test1.png", 400, undefined, {
+                startStopped: true,
+                onClickListener: (sketcher) => sketcher.isStopped = !sketcher.isStopped,
+                particleCount: 50,
+                particleBehaviours: [
+                    new SimpleAttractiveForceBehaviour(),
+                    new NoiseForceBehaviour(0.001, 0.25),
+                    new MaxDistanceTraveledDeath(50)
+                ]
+            });
+            new p5(imageSketcher.generateSeed(), document.getElementById("example_3"));
+
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            class CustomBehaviour extends ParticleBehaviour {
+                constructor(forceFactor = 1.5, stripeResolution = 10) {
+                    super(true);
+                    this.forceFactor = forceFactor;
+                    this.stripeResolution = stripeResolution;
+                }
+
+                update(sketcher) {
+                }
+
+                updateParticle(particle) {
+                    const isUp = Math.floor(particle.pos.y / this.stripeResolution) % 2 === 0;
+                    particle.force.add(particle.sketcher.createVector(0, (isUp ? 1 : -1) * this.forceFactor));
+                }
+            }
+
+            const imageSketcher = new ImageSketcher("images/test1.png", 400, undefined, {
+                startStopped: true,
+                onClickListener: (sketcher) => sketcher.isStopped = !sketcher.isStopped,
+                particleCount: 50,
+                particleBehaviours: [
+                    new EvolveColorBehaviour(),
+                    new UpdateLimitDeathBehaviour(particle => particle.p5.random(75, 100)),
+                    new OutOfBoundsDeathBehaviour(),
+                    new LinearOutOfBoundsForceBehaviour(),
+                    new NoiseForceBehaviour(),
+                    new SimpleAttractiveForceBehaviour(), // these are the default behaviours.
+                    new CustomBehaviour() // except our custom one
+                ]
+            });
+            new p5(imageSketcher.generateSeed(), document.getElementById("example_4"));
+
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            class CustomParticleGenerator extends ParticleGenerator {
+                constructor(noise = 7) {
+                    super();
+                    this.count = 0;
+                    this.noise = noise;
+                }
+
+                update(sketcher) {
+
+                }
+
+                spawnParticle(sketcher) {
+
+                    const width = sketcher.targetImage.width;
+                    const height = sketcher.targetImage.height;
+                    const smallest = Math.min(width, height) * .5;
+
+                    const pos = sketcher.createVector(
+                        width / 2 + smallest * Math.sin(this.count),
+                        height / 2 + smallest * Math.sin(this.count) * Math.cos(this.count)
+                    );
+                    this.count += .01;
+
+                    pos.x += sketcher.random(-this.noise, this.noise);
+                    pos.y += sketcher.random(-this.noise, this.noise);
+
+                    const color = sketcher.getColor(sketcher.targetImage, Math.floor(pos.x), Math.floor(pos.y));
+
+                    return {pos: pos, color: color};
+                }
+            }
+
+            const imageSketcher = new ImageSketcher("images/test6.png", 400, undefined, {
+                startStopped: true,
+                onClickListener: (sketcher) => sketcher.isStopped = !sketcher.isStopped,
+                particleCount: 50,
+                startPointGenerator: new CustomParticleGenerator(),
+            });
+            new p5(imageSketcher.generateSeed(), document.getElementById("example_5"));
+
+        });
+
+        $(function () {
+            // this code just puts the code above into the code boxes
+            const lines = document.getElementById("code").innerText.split("\n");
+
+            const removeLeadingWhiteSpace = function (lines) {
+                let minSpaces = 10000; // certainly large enough
+                lines.forEach(function (line) {
+                    let spaces = 0;
+                    while (line[0] === " ") {
+                        spaces += 1;
+                        line = line.slice(1);
+                    }
+                    if (spaces !== 0) {
+                        minSpaces = Math.min(minSpaces, spaces);
+                    }
+                });
+
+                return lines.map(function (line) {
+                    return line.slice(minSpaces, line.length);
+                });
+
+            };
+
+            const ranges = [
+                [39, 80],
+                [81, 91],
+                [92, 151],
+                [151, 166],
+                [167, 202],
+                [203, 246]
+            ];
+            const firstLineOffset = 37;
+
+            for (let i = 0; i < ranges.length; i++) {
+                let code = removeLeadingWhiteSpace(lines.slice(ranges[i][0] - firstLineOffset, ranges[i][1] - firstLineOffset)).join("\n");
+                $("#example_" + i + "_code").html("<code class='language-js'>" + code + "</code>");
+            }
+            Prism.highlightAll();
+
+        });
+
+    </script>
+
+</head>
+<body>
+<div class="container">
+    <h1>References</h1>
+    <h2>Index</h2>
+	<a href="#p5">Example usage of P5Component</a><br>
+	<a href="#usage">Example usage of Image Sketcher</a><br>
+	<a href="#nested">Example of ImageSketcher nested within another component</a><br>
+	<a href="#behaviours">Behaviours</a><br>
+	<a href="#generator">Generators</a><br>
+    <a></a>
+
+    <h2 id="p5">Example usage of P5Component</h2>
+    <div id="example_0" class="canvas"></div>
+    <p>
+        This example shows how P5Component can be inherited from to make a custom component. It is notable in this
+        example that the canvas isn't created if the component is setup inside another component. The class show
+        has access to the 3 primary p5 methods. This example also shows how to implement a mouse listener. Any instance
+        of the class below will have access to the p5 sketch that it is attached to. It is notable that each instance
+        of P5Element can only be attached to one sketch.
+    </p>
+    <pre id="example_0_code"></pre>
+
+    <h2 id="usage">Example usage of Image Sketcher</h2>
+    <div id="example_1"></div>
+    <sub>Click the canvas to play/pause the simulation</sub>
+    <p>
+        This is an example of how an Image Sketcher is instantiated and how it's canvas is created. The example also
+        shows how some of the basic parameters are passed. If you want to customise all the parameters seen in the
+        <a href="index.html">demo page</a> check out the documentation in the <a href="ImageSketcher.js">ImageSketcher
+        class</a>. A lot of the parameters are parameters of the particle behaviours and have to be passed indirectly
+        through the various particle behaviours. To see an implementation of custom particle behaviours
+        <a href="#behaviours">look here</a>.
+
+    </p>
+    <pre id="example_1_code"></pre>
+
+    <h2 id="nested">Example of ImageSketcher nested within another component</h2>
+    <div id="example_2"></div>
+    <sub>Click the canvas to play/pause the simulation</sub>
+    <p>
+        This example shows how you the ImageSketcher can be used as a child of a different component. The 4
+        ImageSketchers in the example above only differ by the number of particles that they use. In this example each
+        child is passed the canvas to draw on, but alternatively you could pass an image(created by createGraphics)
+        and have each component draw to the image. Something important that is demonstrated by this example is that the
+        parent must ensure that initChild, preload, setup and then draw are called only in that order (it would error
+        out). Otherwise an illegal state could be reached.
+
+    <pre id="example_2_code"></pre>
+
+    <h2 id="behaviours">Behaviours</h2>
+    <p>
+        The goal of particle behaviours is to abstract away everything the particle does (sans the simulation). All of
+        the behaviours that are on by default on the <a href="index.html">demo page</a> were part of the original
+        particle simulation. When creating a new instance of ImageSketcher you can override all the default behaviours,
+        which is shown in the example below.
+    </p>
+    <div id="example_3"></div>
+    <sub>Click the canvas to play/pause the simulation</sub>
+    <pre id="example_3_code"></pre>
+
+    <p>
+        Of course the component is designed so that it can be used with custom behaviours. To create a custom behaviour
+        you need to inherit from the ParticleBehaviour class. The example below shows a custom behaviour which places
+        a force on the particle based on a pattern.
+    </p>
+
+    <div id="example_4"></div>
+    <sub>Click the canvas to play/pause the simulation</sub>
+    <pre id="example_4_code"></pre>
+
+    <h2 id="generator">Generators</h2>
+    <p>
+        Generators are the abstraction of the code which creates new particles. A generator object can be passed as an
+        argument (or set otherwise) to the ImageSketcher, and can allow for complex starting behaviours. The example
+        below shows a simple Generator which places the particles in a figure 8 shape.
+
+    </p>
+    <div id="example_5"></div>
+    <sub>Click the canvas to play/pause the simulation</sub>
+    <pre id="example_5_code"></pre>
+	
+	<hr>
+	<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+	
+</div>
+</body>
+</html>

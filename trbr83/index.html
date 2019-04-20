@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+	<title>GAME: Bouncing Ball</title>
+    <!--set the font-->
+	<link href="https://fonts.googleapis.com/css?family=Architects+Daughter" rel="stylesheet"> 
+	<style>
+	h1{
+	margin-left:100px;
+	height:100px;
+	margin-bottom:-130px;
+	}
+	body{
+	font-family:"Architects Daughter";
+	psdding:0;
+	}
+	</style>
+	<!--set the layout-->
+	<style type="text/css">
+	ul.none {
+	list-style-type: none;
+	}
+	.left{
+	margin-left:130px;
+	margin-top:130px;
+	color:white;
+	height:200px;
+	float:left;
+	}
+	.right{
+	margin-left:730px;
+	margin-top:130px;
+	width:140px;
+	height:200px;
+	float:left;
+	}
+	.center {
+	margin-left:100px;
+	width:1000px;
+    color:white;
+    text-align:center;
+	line-height:-160px;
+	}
+	#gameover{
+	font-size:40px;
+	}
+	#yourscore{
+	font-size:40px;
+	}
+	#click{
+	font-size:20px;
+	}
+	<!--include js files-->
+	</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.sound.js"></script>	
+	<script type="text/javascript" src="myclass.js"></script>
+	<script type="text/javascript" src="index.js"></script>	 
+  </head>
+  <body bgcolor="#FFFFF0">
+	<h1>Bouncing Ball</h1>
+    <!--used for DOM-->
+	<div class="left">
+		<ul class="none">
+		<li>life</li>
+		<li id="life">5</li>
+		<li>combo</li>
+		<li id="combo">0</li>
+		<li>score</li>
+		<li id="score">0</li>
+		<li>volume</li>
+		</ul>
+	</div>
+	<div class="right">
+		<p><font color="red">avoid</font></p>
+		<p><font color="yellow">combo bonus</font></p>
+		<p><font color="cyan">double height</font></p>
+		<p><font color="pink">half height</font></p>
+	</div>
+	<div class="center">
+		<p id="gameover"></p>
+		<p id="yourscore"></p>
+		<p id="click"></p>
+	</div>
+  </body>
+</html>

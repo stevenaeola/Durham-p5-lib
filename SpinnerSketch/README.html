@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <title>Documentation | Programming Summative - Spinner</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css" integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
+        <style>
+/*--------------------------------------------------------------------------------------------- * Copyright (c) Microsoft Corporation. All rights reserved. * Licensed under the MIT License. See License.txt in the project root for license information. *--------------------------------------------------------------------------------------------*/ body { font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback"; font-size: 14px; padding: 0 26px; line-height: 22px; word-wrap: break-word; } #code-csp-warning { position: fixed; top: 0; right: 0; color: white; margin: 16px; text-align: center; font-size: 12px; font-family: sans-serif; background-color:#444444; cursor: pointer; padding: 6px; box-shadow: 1px 1px 1px rgba(0,0,0,.25); } #code-csp-warning:hover { text-decoration: none; background-color:#007acc; box-shadow: 2px 2px 2px rgba(0,0,0,.25); } body.scrollBeyondLastLine { margin-bottom: calc(100vh - 22px); } body.showEditorSelection .code-line { position: relative; } body.showEditorSelection .code-active-line:before, body.showEditorSelection .code-line:hover:before { content: ""; display: block; position: absolute; top: 0; left: -12px; height: 100%; } body.showEditorSelection li.code-active-line:before, body.showEditorSelection li.code-line:hover:before { left: -30px; } .vscode-light.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(0, 0, 0, 0.15); } .vscode-light.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(0, 0, 0, 0.40); } .vscode-light.showEditorSelection .code-line .code-line:hover:before { border-left: none; } .vscode-dark.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 255, 255, 0.4); } .vscode-dark.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 255, 255, 0.60); } .vscode-dark.showEditorSelection .code-line .code-line:hover:before { border-left: none; } .vscode-high-contrast.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 160, 0, 0.7); } .vscode-high-contrast.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 160, 0, 1); } .vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before { border-left: none; } img { max-width: 100%; max-height: 100%; } a { text-decoration: none; } a:hover { text-decoration: underline; } a:focus, input:focus, select:focus, textarea:focus { outline: 1px solid -webkit-focus-ring-color; outline-offset: -1px; } hr { border: 0; height: 2px; border-bottom: 2px solid; } h1 { padding-bottom: 0.3em; line-height: 1.2; border-bottom-width: 1px; border-bottom-style: solid; } h1, h2, h3 { font-weight: normal; } h1 code, h2 code, h3 code, h4 code, h5 code, h6 code { font-size: inherit; line-height: auto; } table { border-collapse: collapse; } table > thead > tr > th { text-align: left; border-bottom: 1px solid; } table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table > tbody > tr > td { padding: 5px 10px; } table > tbody > tr + tr > td { border-top: 1px solid; } blockquote { margin: 0 7px 0 5px; padding: 0 16px 0 10px; border-left-width: 5px; border-left-style: solid; } code { font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback"; font-size: 14px; line-height: 19px; } body.wordWrap pre { white-space: pre-wrap; } .mac code { font-size: 12px; line-height: 18px; } pre:not(.hljs), pre.hljs code > div { padding: 16px; border-radius: 3px; overflow: auto; } /** Theming */ pre code { color: var(--vscode-editor-foreground); } .vscode-light pre { background-color: rgba(220, 220, 220, 0.4); } .vscode-dark pre { background-color: rgba(10, 10, 10, 0.4); } .vscode-high-contrast pre { background-color: rgb(0, 0, 0); } .vscode-high-contrast h1 { border-color: rgb(0, 0, 0); } .vscode-light table > thead > tr > th { border-color: rgba(0, 0, 0, 0.69); } .vscode-dark table > thead > tr > th { border-color: rgba(255, 255, 255, 0.69); } .vscode-light h1, .vscode-light hr, .vscode-light table > tbody > tr + tr > td { border-color: rgba(0, 0, 0, 0.18); } .vscode-dark h1, .vscode-dark hr, .vscode-dark table > tbody > tr + tr > td { border-color: rgba(255, 255, 255, 0.18); } 
+</style>
+<style>
+/* https://raw.githubusercontent.com/isagalaev/highlight.js/master/src/styles/vs2015.css */ /* * Visual Studio 2015 dark style * Author: Nicolas LLOBERA <nllobera@gmail.com> */ .hljs-keyword, .hljs-literal, .hljs-symbol, .hljs-name { color: #569CD6; } .hljs-link { color: #569CD6; text-decoration: underline; } .hljs-built_in, .hljs-type { color: #4EC9B0; } .hljs-number, .hljs-class { color: #B8D7A3; } .hljs-string, .hljs-meta-string { color: #D69D85; } .hljs-regexp, .hljs-template-tag { color: #9A5334; } .hljs-subst, .hljs-function, .hljs-title, .hljs-params, .hljs-formula { color: #DCDCDC; } .hljs-comment, .hljs-quote { color: #57A64A; font-style: italic; } .hljs-doctag { color: #608B4E; } .hljs-meta, .hljs-meta-keyword, .hljs-tag { color: #9B9B9B; } .hljs-variable, .hljs-template-variable { color: #BD63C5; } .hljs-attr, .hljs-attribute, .hljs-builtin-name { color: #9CDCFE; } .hljs-section { color: gold; } .hljs-emphasis { font-style: italic; } .hljs-strong { font-weight: bold; } /*.hljs-code { font-family:'Monospace'; }*/ .hljs-bullet, .hljs-selector-tag, .hljs-selector-id, .hljs-selector-class, .hljs-selector-attr, .hljs-selector-pseudo { color: #D7BA7D; } .hljs-addition { background-color: #144212; display: inline-block; width: 100%; } .hljs-deletion { background-color: #600; display: inline-block; width: 100%; } /* From https://raw.githubusercontent.com/isagalaev/highlight.js/master/src/styles/vs.css */ /* Visual Studio-like style based on original C# coloring by Jason Diamond <jason@diamond.name> */ .vscode-light .hljs-function, .vscode-light .hljs-params { color: inherit; } .vscode-light .hljs-comment, .vscode-light .hljs-quote, .vscode-light .hljs-variable { color: #008000; } .vscode-light .hljs-keyword, .vscode-light .hljs-selector-tag, .vscode-light .hljs-built_in, .vscode-light .hljs-name, .vscode-light .hljs-tag { color: #00f; } .vscode-light .hljs-string, .vscode-light .hljs-title, .vscode-light .hljs-section, .vscode-light .hljs-attribute, .vscode-light .hljs-literal, .vscode-light .hljs-template-tag, .vscode-light .hljs-template-variable, .vscode-light .hljs-type, .vscode-light .hljs-addition { color: #a31515; } .vscode-light .hljs-deletion, .vscode-light .hljs-selector-attr, .vscode-light .hljs-selector-pseudo, .vscode-light .hljs-meta { color: #2b91af; } .vscode-light .hljs-doctag { color: #808080; } .vscode-light .hljs-attr { color: #f00; } .vscode-light .hljs-symbol, .vscode-light .hljs-bullet, .vscode-light .hljs-link { color: #00b0e8; } .vscode-light .hljs-emphasis { font-style: italic; } .vscode-light .hljs-strong { font-weight: bold; }
+</style>
+<style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <h1 id="programming-summative---an-extension-of-%22random-loader%22-by-user-%22%CE%BB-b-h-i-n-%CE%BB-v--k-r%22">Programming Summative - An extension of &quot;Random Loader&quot; by user &quot;Λ B H I N Λ V . K R&quot;</h1>
+<h2 id="overview">Overview</h2>
+<p>The original Random Loader is a very simple octagonal spinner, the sides of which rotate 180 degrees clockwise every set time interval. Enamoured by its simplicity and enticed by the potential for its development, I chose this sketch to adapt, and enabled the dynamic changing of the main visual elements of the spinner.</p>
+<h3 id="constructor--parameters">Constructor &amp; Parameters</h3>
+<p>When creating a new instance of the spinner, the constructor can be provided with at most 11 parameter arguments to affect its appearance. Defaults for each parameter exist, such that no arguments are strictly necessary, if one desires a default look.</p>
+<pre><code class="language-javascript"><div>s = <span class="hljs-keyword">new</span> spinner(n,r,spd,rot,thk,ws,hs,red,grn,blu)
+</div></code></pre>
+<table>
+<thead>
+<tr>
+<th>Parameter Name</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>Amount of line segments in shape</td>
+</tr>
+<tr>
+<td>r</td>
+<td>Radius of shape</td>
+</tr>
+<tr>
+<td>spd</td>
+<td>Speed at which line rotation happens</td>
+</tr>
+<tr>
+<td>rot</td>
+<td>Angle through which every rotation occurs</td>
+</tr>
+<tr>
+<td>thk</td>
+<td>Thickness of line segments</td>
+</tr>
+<tr>
+<td>ws</td>
+<td>Width-shift - how far across the canvas the spinner lies, as a proportion of the canvas (0-1)</td>
+</tr>
+<tr>
+<td>hs</td>
+<td>Height-shift - how far down the canvas the spinner lies, as a proportion of the canvas (0-1)</td>
+</tr>
+<tr>
+<td>red</td>
+<td>Red value of lines (0-255)</td>
+</tr>
+<tr>
+<td>grn</td>
+<td>Green value of lines (0-255)</td>
+</tr>
+<tr>
+<td>blu</td>
+<td>Blue value of lines (0-255)</td>
+</tr>
+<tr>
+<td>rend*</td>
+<td>Boolean value that determines whether createCanvas() includes a WEBGL parameter, to enable 3D rendering</td>
+</tr>
+</tbody>
+</table>
+<p>*when rend is truthy, it should really be used in the context of a 3D element (likely combined with passing an optional argument to draw()), as WEBGL rendering makes a standard 2D canvas look rather bad.</p>
+<h3 id="methods">Methods</h3>
+<p>To maintain the elegant simplicity of the sketch, the amount of methods has been limited to the necessities. The constructor is necessary to create new instances, appropriate set and get functions for each parameter exist, and the draw method is the main event, where all the magic happens.</p>
+<h4 id="constructor">constructor()</h4>
+<p>Called when a new instance of the class is defined. Can be supplied with parameters to change appearance of spinner.</p>
+<h4 id="setparam-and-getparam">setParam() and getParam()</h4>
+<p>Pairs of functions that set and return one of the parameters of a specific instance, respectively.</p>
+<h4 id="draw">draw()</h4>
+<p>The drawing of the sketch works by, for each line, first determining the interior angle of the shape, defined by dividing 360 by n, the amount of lines/sides.  It then trigonometrically decides the midpoint coordinates and length of a line. Next, it translates to the correct position, rotates the canvas by the required amount for tht frame, and draws a line. Once it has finished doing this for all the lines, it moves on to updating the rotation angle of all lines for use in the next draw() frame, and starts the process again. The rotation itself is slower at the beginning and end of the rotation, getting faster around the middle, giving the motion an aesthetically pleasing sense of acceleration and momentum.</p>
+<p>When draw() receives an optional parameter in the form of a createGraphics() variable, it enables using this new graphical environment as a texture in other elements, such as 3D shapes. The methods used when this parameter is received draw onto the environment, as opposed to the canvas, and require the environment's use in another element to be displayed.</p>
+<h3 id="html-example-pages">HTML Example Pages</h3>
+<p>An example of the spinner and its changeable attributes has been embedded into two HTML pages, with DOM-interacting form controls to enable the dynamic changing of the spinner within the page. The parameters can be interacted with through a set of sliders and entry fields. One page contains a flat canvas, whereas the other contains a rotating cube with the spinner pasted as a texture, to demonstrate the use of WEBGL rendering and the optional draw() parameter/p5.Renderer functionality.</p>
+<p>The demo_flat.js file, for use with the canvas demonstration example page, has 3 additional, non-controlled, spinners available to render, to showcase multiple instances rendered on the same canvas. To enable these, uncomment the relevant lines from the setup() and draw() functions.</p>
+<p>Strict type or value controls are not included in the forms - any value will attempt to be cast as Number(). From my testing, incorrect types do not &quot;break&quot; the sketch so much as temporarily affect it, until correct types are submitted, and values outside of &quot;sensible&quot; ranges (eg. negative speeds, non-integer line amounts) introduce interesting and slightly unintended, but otherwise harmless, behaviour that can be freely explored.</p>
+<h3 id="setting-up-your-own-instance-of-the-spinner">Setting Up Your Own Instance of the Spinner</h3>
+<p>The following code blocks illustrate a minimal code template to set up a working instance of the spinner.</p>
+<p>index.html:</p>
+<pre><code class="language-html"><div><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Your Webpage<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"sketch.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"index.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</div></code></pre>
+<p>index.js:</p>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">var</span> s;
+<span class="hljs-comment">//Optionally:</span>
+<span class="hljs-comment">//var spin;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setup</span>(<span class="hljs-params"></span>) </span>{
+    s = <span class="hljs-keyword">new</span> spinner(<span class="hljs-number">10</span>,<span class="hljs-number">70</span>,<span class="hljs-number">2</span>,<span class="hljs-number">90</span>,<span class="hljs-number">10</span>,<span class="hljs-number">0.5</span>,<span class="hljs-number">0.5</span>,<span class="hljs-number">0</span>,<span class="hljs-number">150</span>,<span class="hljs-number">255</span>,<span class="hljs-number">0</span>); <span class="hljs-comment">//Last parameter being truthy enables WEBGL renderer</span>
+    <span class="hljs-comment">//Optionally:</span>
+    <span class="hljs-comment">//spin = createGraphics(w,h);</span>
+  }
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">draw</span>(<span class="hljs-params"></span>) </span>{
+    background(<span class="hljs-number">20</span>,<span class="hljs-number">255</span>);
+    s.draw(); <span class="hljs-comment">//Optionally: call with the createGraphics() variable (eg s.draw(spin);)</span>
+}
+</div></code></pre>
+<h2 id="original-code--licensing">Original Code &amp; Licensing</h2>
+<p>For the original OpenProcessing sketch, visit: <a href="https://www.openprocessing.org/sketch/319458">https://www.openprocessing.org/sketch/319458</a></p>
+<p>The original sketch was provided under a Creative Commons Attribution-ShareAlike 3.0 Unported License. As per the terms of CC BY-SA 3.0, this modified sketch is also provided under the same license.</p>
+<p>For more details, visit: <a href="https://creativecommons.org/licenses/by-sa/3.0/">https://creativecommons.org/licenses/by-sa/3.0/</a></p>
+<p>For the full legal code of the license, visit: <a href="https://creativecommons.org/licenses/by-sa/3.0/legalcode">https://creativecommons.org/licenses/by-sa/3.0/legalcode</a></p>
+
+    </body>
+    </html>

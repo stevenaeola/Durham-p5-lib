@@ -1,0 +1,169 @@
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+    <script src="wavesphere.js"></script>
+    <script src="index.js"></script>
+
+    <title>WaveSphere - Showcase</title>
+
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  
+
+    <style>
+     
+    .in_val {
+      float: right;
+      color: blue;
+    }
+
+    iframe{
+      width:700px;
+      height:90%;
+      border: none;
+    }
+    
+    .body{
+      padding-top: 1em;
+     
+      overflow: hidden;
+    }
+
+    .controls{
+      overflow-y: scroll;
+      height: 90%;
+    }
+
+    body{
+      overflow: hidden;
+    }
+    
+    </style>
+  </head>
+  <body onload="pageLoaded()">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Wave Sphere</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Showcase<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Demo/demo.html">Demo</a>
+          </li>
+          
+        </ul>
+      </div>
+    </nav>
+
+      <div class="container body">
+        <div class = "row">
+        <div class = "col-lg">
+        
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Preview</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Documentation</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"><div id="sketch-container"></div></div>
+          <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"><iframe src = "DOCUMENTATION.html"></iframe></div>
+          
+        </div>
+      </div>
+      <div class="col-sm controls">
+          <form>
+            <h5>General</h5>
+              <div class="form-group">
+                <label for="formControlRange">Number of points</label><span class="in_val" id="val-out-1"> words</span>
+                <input type="range" class="form-control-range"  step="100" min= "100" max="1000" id ="val-1">
+              </div>
+              <div class="form-group">
+                  <label for="formControlRange">Radius</label><span class="in_val" id="val-out-2"> words</span>
+                  <input type="range" class="form-control-range" min="50" max ="500" id ="val-2">
+                </div>
+                <div class="form-group">
+                    <label for="formControlRange">Output Scale</label><span class="in_val" id="val-out-3"> words</span>
+                    <input type="range" class="form-control-range" min="0.5" max="1.5" step="0.1" id ="val-3">
+                  </div>
+                  Position
+                  <div class="row">
+                      <div class="col">
+                        <input type="text" class="form-control" placeholder="X" id="val-8">
+                      </div>
+                      <div class="col">
+                          <input type="text" class="form-control" placeholder="Y" id="val-9">
+                        </div>
+                    </div>
+                  <hr/>
+                  <h5>Physics</h5>
+                  <div class="form-group">
+                    <label for="formControlRange">Surface Reactivity</label><span class="in_val" id="val-out-4"> words</span>
+                    <input type="range" class="form-control-range" min="20" max="100" id ="val-4">
+                  </div>
+                  <div class="form-group">
+                    <label for="formControlRange">Surface Tension</label><span class="in_val" id="val-out-5"> words</span>
+                    <input type="range" class="form-control-range" min="0.95" max="1.0" step="0.0025" id ="val-5">
+                  </div>
+                  <div class="form-group">
+                    <label for="formControlRange">Viscosity</label><span class="in_val" id="val-out-6"> words</span>
+                    <input type="range" class="form-control-range" min="0.0" max="0.2" step="0.01" id ="val-6">
+                  </div>
+                  <hr/>
+                  <h5>Colour</h5>
+                  Near Colour
+                  <div class="row">
+                    
+                      <div class="col">
+                        <input type="text" class="form-control" placeholder="R" id="val-10">
+                      </div>
+                      <div class="col">
+                        <input type="text" class="form-control" placeholder="G" id="val-11">
+                      </div>
+                      <div class="col">
+                          <input type="text" class="form-control" placeholder="B"  id="val-12">
+                        </div>
+                    </div>
+                    Far Colour
+                    <div class="row">
+                      
+                        <div class="col">
+                          <input type="text" class="form-control" placeholder="R"  id="val-13">
+                        </div>
+                        <div class="col">
+                          <input type="text" class="form-control" placeholder="G"  id="val-14">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="B"  id="val-15">
+                          </div>
+                      </div>
+                      <hr/>
+                      <h5>Mouse</h5>
+                      <div class="form-group">
+                          <label for="formControlRange">Click Magnitude</label><span class="in_val" id="val-out-7"> words</span>
+                          <input type="range" class="form-control-range" min="0.0" max="2" step="0.2" id ="val-7" >
+                        </div>
+            </form>
+      </div>
+    </div>
+      </div>
+
+      
+  </body>
+
+   <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</html>

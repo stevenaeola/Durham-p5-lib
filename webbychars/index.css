@@ -1,0 +1,17 @@
+* {
+	font-family:Helvetica, Calibri, sans-serif;
+}
+
+body {
+	margin:0;
+	width:100%;
+}
+
+h1, #settings-container {
+	margin:1em;
+}
+
+div.wt {
+	border-bottom:1px solid black;
+	padding:1em;
+}

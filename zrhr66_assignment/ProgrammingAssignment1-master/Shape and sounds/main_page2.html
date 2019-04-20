@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main_page</title>
+
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style> body {padding: 0; margin: 0;} 
+    #main_bg{
+        background-image: url("background.png");
+        color:white;
+        
+        
+    }
+    #tp_box{
+        background-color:lightgrey;
+        opacity: 0.9;
+        color:black
+    }
+    #trans{
+        opacity:0.6;
+        
+        transition: transform 0.1s;
+        
+    }
+    #trans:hover{
+        opacity:1;
+        transform: scale(1.1);
+    }
+    
+    
+    
+    
+    
+    
+    </style>
+    
+  </head>
+  <body>
+      
+          <div id="main_bg"class = "jumbotron text-center">
+                <h1 id="tp_box">Cubes and sound</h1>
+                <p>Programming Assignment<p>
+
+          </div>
+          
+          <div class="container">
+              <div class="row">
+                  <div class ="col-sm-12">
+                      <h2>
+                          Description
+                      </h2>
+                      <p>
+                          <div class="well">
+                                Cubes and sound is a  program that draws objects if the user clicks on the screen.
+                                If the microphone is enbaled, the objects will be enlarged if there is a lound noise.
+                                There are multiple functionalities that are available that can be looked up in the 
+                                'examples' section. <br> The original code can be found <a href ="https://www.openprocessing.org/sketch/569405" target="_blank">here</a>.
+                          </div>
+                          
+                      </p>
+
+                      
+                    </div>
+              </div>
+          </div>
+          <div class="container">
+                <div class="row">
+                        <div class ="col-sm-12">
+                                <h2>
+                                        Examples
+                                    </h2>
+                                    <p>
+                                        Below are some examples of the functionalities of the program.
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="thumbnail">
+                                                <a href="circles.png">
+                                                    <img id ="trans" src ="circles.png" alt="Image of circles" style="width:100%">
+                                                    <div class="caption"><p>An image of circles drawn on the canvas when the circles option is clicked.</p></div>
+                                                </a>
+                                                
+                                                  
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                        <div class="col-md-4">
+                                              <div class="thumbnail">
+                                                    <a href="cubes.png">
+                                                            <img id = "trans"src ="cubes.png" alt="Image of cubes" style="width:100%">
+                                                            <div class="caption"><p>An image of cubes drawn on the canvas when the cubes option is clicked.</p></div>
+                                                        </a>
+                                              </div>
+                                          </div>
+                                          
+                                    </div>
+                            </div>
+                    </div>
+          </div>
+          <div class="container">
+                <div class="row">
+                    <div class ="col-sm-12">
+                        <h2>
+                            Tutorial
+                        </h2>
+                        <p>
+                            <div class="well">
+                                    There are buttons that will be present on the actual canvas. Click on the button to have the desired effect.
+                                    <br> There are options such as changing the shape (2D or 3D), changing the colour, freeze effect, waterfall effect,
+                                    resume and so on. The buttons are categorized to it is easier to use.
+                            </div>
+                            
+                        </p>
+  
+                        
+                      </div>
+                </div>
+            </div>
+            <div class="container">
+                    <div class="row">
+                        <div class ="col-sm-12 text-center">
+                            <h2>
+                                    <a id="trans" href="index.html" class="btn btn-primary" role="button" alt="Link to the canvas">View Canvas</a>
+                                    
+                            </h2>
+                            
+      
+                            
+                          </div>
+                    </div>
+                </div>
+                
+                    
+          
+      
+      
+  </body>
+</html>

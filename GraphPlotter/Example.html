@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Graph Plotter Example</title>
+
+		<!-- Bootstrap CSS CDN -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+		
+		<!-- Custom CSS -->
+		<link rel="stylesheet" href="Example.css">
+
+		<!-- jQuery JS CDN - Slim version (=without AJAX) -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+		<!-- p5 JS CDN -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+
+		<!-- Usage of GraphPlotter.js -->
+		<script src="GraphPlotter.js"></script>
+		<script src="Example.js"></script>
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<!-- Sidebar  -->
+			<nav id="sidebar">
+				<div class="sidebar-header">
+					<h3><u>Plot Equation</u></h3>
+				</div>
+
+				<div class="list-unstyled components text-center">
+					<div class="form-inline spacer">
+					    <label>y =</label>
+						<input class="form-control" id="equation_input" placeholder="6x + 2">
+					</div>
+
+					<br>
+
+					<div class="form-inline">
+						<label><u>Scroll to zoom</u></label>
+						<button id="reset_btn" type="button" class="btn btn-primary">Reset</button>
+					</div>
+
+					<div class="form-inline">
+						<label>Zoom:</label>
+  						<label id="zoom-value">1</label>
+					</div>
+
+					<br>
+
+					<div class="text-left">
+						<label><u>Precision</u></label>
+						<label>Lower precision is higher accuracy but slower</label>
+					</div>
+
+					<div class="form-inline">
+						<div>
+							<input type="range" min="10" max="200" value="50" class="slider" id="precision_slider">
+						</div>
+
+						<label id="slider_value">1</label>
+					</div>
+
+					<br>
+					<div class="text-left">
+						<label><u>Available Functions</u></label>
+					</div>
+
+					<label>exp(f(x))</label>
+					<label>log(f(x))</label>
+					<label>max(f(x), a)</label>
+					<label>min(f(x), a)</label>
+					<label>pow(base, power)</label>
+					<label>base ^ power</label>
+					<br>
+					<label>sqrt(f(x))</label>
+					<label>random()</label>
+					<br>
+					<label>Most trig functions</label>
+				</div>
+			</nav>
+
+			<!-- Page Content  -->
+			<div id="content" class="bg-dark canvas_parent">
+				<div id="canvas_parent" class="container-fluid canvas_parent"></div>
+			</div>
+		</div>
+
+		<!-- Popper.JS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+
+		<!-- Bootstrap JS -->
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+		<script>
+			$("#equation_input").on("keyup", function(event) {
+				const equation_string = $("#equation_input").val();
+				if (equation_string !== undefined) {
+					graph_plotter.equation = equation_string;
+				}
+			});
+
+			$("#reset_btn").on("click", function(event) {
+				graph_plotter.zoom = 50;
+			});
+
+			const slider = document.getElementById("precision_slider");
+			const output = document.getElementById("slider_value");
+			output.innerHTML = slider.value;
+
+			slider.oninput = function() {
+				output.innerHTML = this.value;
+				graph_plotter.precision = this.value;
+			}
+		</script>
+	</body>
+</html>

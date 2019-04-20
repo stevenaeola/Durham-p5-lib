@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>In and Out test page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+    <script src="renderer_wrapper.js"></script>
+    <script src="InAndOut.js"></script>
+    <script src="sketch.js"></script>
+    <style>
+    #left
+    {
+      padding-top: 10px;
+      margin-left: 2%;
+      float: left;
+      width: 20%;
+    }
+
+    #right
+    {
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: 10px;
+      float: right;
+      width: 18%;
+    }
+    input {
+      width: 200px;
+      height: 20px;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="col-md-9" id="canvas">
+
+    </div>
+
+    <form id="form">
+      <div class="col-md-1">X Position</div><div class="col-md-2"><input type = "number" id = "x" value = "40"/><br></div>
+      <div class="col-md-1">Y Position</div><div class="col-md-2"><input type = "number" id = "y" value = "460"/><br></div>
+      <div class="col-md-1">Side Length</div><div class="col-md-2"><input type = "number" id = "length" value = "460"/><br></div>
+      <div class="col-md-1">Recursion Depth</div><div class="col-md-2"><input type = "number" id = "level" value="100"/><br></div>
+      <div class="col-md-1">Colour</div><div class="col-md-2"><input type = "text" id = "colour" value="0, 0, 0"/><br></div>
+      <div class="col-md-1">Colour Fade</div><div class="col-md-2"><input type = "text" id = "colour_fade" value="0, 0, 0"/><br></div>
+      <div class="col-md-1">Line Weight</div><div class="col-md-2"><input type = "number" id = "line_weight" value="1"/><br></div>
+      <div class="col-md-1">Animation Time</div><div class="col-md-2"><input type = "number" id = "animation_time" value="6000"/><br></div>
+      <div class="col-md-1">Master Time</div><div class="col-md-2"><input type = "number" id = "master_time" value="0"/><br></div>
+    </form>
+
+    <div class="col-md-3">
+      <p><br>X and Y position simply adjusts the position of the lower left corner of the triangle.</p>
+      <p>Side Length adjusts length of all sides</p>
+      <p>Recursion Depth adjusts the amount of subtriangles contained within the master triangle</p>
+      <p>Colour is a comma delimited field to adjust RGB values of master triangle. Colour fade adjusts amount the RGB values change by each recursive call.</p>
+      <p>Line weight adjusts thickness of the drawn lines.</p>
+      <p>Animation Time adjusts the time in milliseconds for the "In and Out" animation complete. Master Time adjusts time in milliseconds for one full rotation.</p>
+    </div>
+    </body>
+</html>

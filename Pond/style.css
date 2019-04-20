@@ -1,0 +1,28 @@
+body
+{
+    background-color: black;
+}
+
+.inner {
+    height: 200px;
+    text-align: center;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+}
+
+h2 {
+    color: white;
+    text-align: center;
+    font-size: 16pt;
+}
+
+p {
+    color: white;  
+}
+
+label {
+    color: white;
+}

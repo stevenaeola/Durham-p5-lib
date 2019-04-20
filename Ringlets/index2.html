@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<!-- html page for changing different attributes of the sketch -->
+<html>
+<head>
+
+<link rel="stylesheet" href="style.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+<script type ="text/javascript" src="Ringlet.js"></script>
+<script type ="text/javascript" src="index2.js"></script>
+</form>
+</head>
+<body>
+  <div class="split left">
+    <div class="centered">
+      <h3>Number of Rings</h3>
+      <p class = "instruction">Enter an Integer [default = 5]</p>
+      <form id = "number_of_rings_form" class = "form">
+        <input id = "number_of_rings"/>
+      </form>
+
+      <h3>Diameter of Rings</h3>
+      <p class = "instruction">Enter an Integer [default = 30]</p>
+      <form id = "diameter_form" class = "form">
+        <input id = "diameter_of_rings"/>
+      </form>
+
+      <h3>Tilt of Rings</h3>
+      <p class = "instruction">Enter an Integer [default = 10]</p>
+      <form id = "tilt_form" class = "form">
+        <input id = "tilt_of_rings"/>
+      </form>
+
+      <h3>Number of Sets</h3>
+      <p class = "instruction"> Choose an Integer [default = 1]</p>
+      <select id = "number_of_sets">
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+      </select>
+
+      <h3>Speed of Rings</h3>
+      <p class = "instruction">Enter an Decimal [default = 0.2]</p>
+      <form id = "speed_of_rings_form" class = "form">
+        <input id = "speed_of_rings"/>
+      </form>
+
+      <h3>Background Colour</h3>
+      <p class = "instruction"> Enter a 6 digit Hex number to represent rgb values [default = 111122]</p>
+      <form id = "bkg_colour_form" class = "form">
+        <input id = "bkg_colour"/>
+      </form>
+
+      <h3>Colour of Inner Ring</h3>
+      <p class = "instruction"> Enter a 6 digit Hex number to represent rgb values [default = 663333]</p>
+      <form id = "colour_inner_form" class = "form">
+        <input id = "colour_inner"/>
+      </form>
+
+      <h3>Colour of Outer Ring</h3>
+      <p class = "instruction"> Enter a 6 digit Hex number to represent rgb values [default = 448888]</p>
+      <form id = "colour_outer_form" class = "form">
+        <input id = "colour_outer"/>
+      </form>
+
+      <form action = "index.html">
+      <button>Change to 2D
+      </button>
+    </form>
+    </div>
+  </div>
+
+  <div class="split right">
+    <div class="centered">
+      <div id= 'holder'>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

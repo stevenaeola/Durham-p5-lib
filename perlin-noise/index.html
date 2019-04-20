@@ -1,0 +1,58 @@
+<!-- "perlin noise" by yasai
+http://www.openprocessing.org/sketch/494102
+Licensed under Creative Commons Attribution ShareAlike
+https://creativecommons.org/licenses/by-sa/3.0
+https://creativecommons.org/licenses/GPL/2.0/ -->
+
+<!DOCTYPE html>
+
+    <html lang="en">
+		<head>
+			<title>Open Processing Adaptation</title>
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.js"></script>
+			
+		</head>
+		
+		<body>
+			<div id="top">
+				<form id="form">
+					Particle Group A Colour (RGB)
+					<input type="range" min="0" max="255" value="69" class="slider" id="R1">
+					<input type="range" min="0" max="255" value="33" class="slider" id="G1">
+					<input type="range" min="0" max="255" value="124" class="slider" id="B1">
+					<span id="a" class="color-box" style="background-color: rgb(69, 33, 124); border-width: thin; border-style: solid">&nbsp&nbsp&nbsp; </span><br>
+					
+					Particle Group B Colour (RGB)
+					<input type="range" min="0" max="255" value="7" class="slider" id="R2">
+					<input type="range" min="0" max="255" value="153" class="slider" id="G2">
+					<input type="range" min="0" max="255" value="242" class="slider" id="B2">
+					<span id="b" class="color-box" style="background-color: rgb(7, 153, 242); border-width: thin; border-style: solid">&nbsp&nbsp&nbsp; </span><br>
+					
+					Particle Group C Colour (RGB)
+					<input type="range" min="0" max="255" value="255" class="slider" id="R3">
+					<input type="range" min="0" max="255" value="255" class="slider" id="G3">
+					<input type="range" min="0" max="255" value="255" class="slider" id="B3">
+					<span id="c" class="color-box" style="background-color: rgb(255, 255, 255); border-width: thin; border-style: solid">&nbsp&nbsp&nbsp; </span><br>
+					
+					<button type="button" onClick="reload()">Reload</button>
+					# of particles
+					<input type="range" min="10" max="1000" value="200" step = "10" class="slider" id="N">
+					<span id = "n">200</span>
+					| speed of particles
+					<input type="range" min="0.1" max="3" value="0.4" step = "0.1" class="slider" id="S">
+					<span id = "s">0.4</span>
+				</form>
+			</div>
+			</div id="bottom">
+				<div id="canvas">
+				
+				</div>
+			</div>
+			
+			<script src="./adapted.js"></script>
+		</body>
+		
+	</html>
