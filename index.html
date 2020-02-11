@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SBTRC</title>
+
+    <script src="p5.min.js"></script>
+    <script src="addons/p5.dom.min.js"></script>
+    <script src="addons/p5.sound.min.js"></script>
+
+    <script src = "SketchFolder/PointTextLibrary.js"></script>
+    <script src="SketchFolder/sketch.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div id = "title">
+      <h1>Steering Behaviour Text Reusable Component</h1>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    <h2>Description</h2>
+
+    <p>
+    The <b>Steering Behaviour Text Reusable Component</b> is a library created
+    for P5.js that facilitates the creation of text made up of points that react
+    to your mouse (awfully specific, but still rather cool)! The code was adapted
+    from <a href = "https://www.openprocessing.org/sketch/593221">Martine Hage</a>'s
+    work, although that code was a modification of <a href = "http://codingtra.in">
+    Daniel Shiffman</a>'s code! The idea is that I modified the code originally
+    created by these two people, developped it, and then created a JavaScript
+    reusable component out of it. You can create really interesting pieces of
+    text by simply typing out something like:
+    </p>
+
+    <pre>
+<a style = "color: #feae34">function</a> <a style="color: #0099db;">setup</a>()
+{
+  hello = <a style = "color: #feae34"> new </a><a style="color: #0099db;">PointText</a>(width/<a style="color: #ff0044;">2</a>, height/<a style="color: #ff0044;">2</a>, <a style = "color: #63c74d">'Edit Me!'</a>, <a style="color: #ff0044;">80</a>, <a style="color: #ff0044;">0.2</a>, <a style="color: #ff0044;">3</a>, <a style = "color: #63c74d">'point'</a>, <a style = "color: #63c74d">'#FE5F55'</a>);
+}
+
+<a style = "color: #feae34">function</a> <a style="color: #0099db;">draw</a>()
+{
+  hello.<a style="color: #0099db;">draw</a>();
+}
+    </pre>
+    <p>
+    The text you see above is what created the default settings for the sketch
+    you see in the "Try it yourself!" section! You can also check out more
+    examples <a onClick = "window.open('example.html', 'Example', width = 700, height = 300)"href = "#">here</a>!.
+    </p>
+
+    <h2>Try it yourself!</h2>
+    <div id="sketch-holder">
+      <!-- sketch goes here-->
+    </div>
+
+    <div id = "inputs">
+
+      <label>Particle Type</label>
+      <input placeholder="Particle Type" id = "particleType" type="text" value="square"><br>
+
+      <label>Text</label>
+      <input placeholder="Text" id = "text" type="text" value="Hello World!"><br>
+
+      <label>Color</label>
+      <input placeholder="Color" id = "color" type="text" value="#ff0000"><br>
+
+      <label>Font Size</label>
+      <input id = "fontSize" type="range" min="1" max="100" value="30" class = "slider">
+
+      <label>Particle Size</label>
+      <input id = "particleSize" type="range" min="1" max="100" value="70" class = "slider">
+
+      <label>Particle Density</label>
+      <input id = "particleDensity" type="range" min="1" max="100" value="20" class = "slider">
+
+    </div>
+
+    <br>
+
+    <button type="button" onclick="changeAll()">Change</button>
+
+  </body>
+
+
+  <style>
+  #title
+  {
+    margin: 0;
+    padding: 0px 0px 0px 10px;
+    right: 0;
+    overflow: hidden;
+    background-color: #262b44;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    color: #ffffff;
+    font-family: 'Titillium Web', sans-serif;
+  }
+
+  h1
+  {
+    padding: 0px 0px 0px 10px;
+  }
+
+  h2
+  {
+    font-family: 'Titillium Web', sans-serif;
+  }
+  p
+  {
+    font-family: 'Titillium Web', sans-serif;
+  }
+  body
+  {
+    padding: 10px;
+    margin: 10px;
+  }
+
+  /*based on styling from https://www.bestcssbuttongenerator.com/#/0*/
+  button
+  {
+  	background-color:#feae34;
+  	-moz-border-radius:5px;
+  	-webkit-border-radius:5px;
+  	border-radius:5px;
+  	border:1px solid #f77622;
+  	display:inline-block;
+  	cursor:pointer;
+  	color:#ffffff;
+  	font-family:Trebuchet MS;
+  	font-size:14px;
+  	font-weight:bold;
+  	padding:12px 12px;
+  	text-decoration:none;
+  	text-shadow:0px 1px 0px #000000;
+  }
+  button:hover
+  {
+  	background-color:#f77622;
+  }
+  button:active
+  {
+  	position:relative;
+  	top:1px;
+  }
+
+
+  /*based on styling from
+  https://www.w3schools.com/css/tryit.asp?filename=trycss_forms*/
+  input[type=text], select
+  {
+    display: inline-block;
+    width: 100%;
+    height: 15px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Titillium Web', sans-serif;
+  }
+
+
+  .slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 10px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+  }
+
+  .slider:hover {
+    opacity: 1;
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 8px;
+    height: 12px;
+    background: #f77622;
+    cursor: pointer;
+  }
+
+
+  div {
+      display: inline-block;
+  }
+  div label {
+      display: block;
+  }
+
+  /*https://stackoverflow.com/questions/4000792/how-can-i-style-code-listings-using-css*/
+  pre
+  {
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    color: #666;
+    page-break-inside: avoid;
+    font-family: monospace;
+    font-size: 15px;
+    line-height: 1.1;
+    max-width: 100%;
+    overflow: auto;
+    padding: 1em 1.5em;
+    display: block;
+  }
+
+
+  </style>
+</html>
