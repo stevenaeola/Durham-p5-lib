@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>My Code</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.js">></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.js">></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.sound.js">></script>
+    <script src="particle.js"></script>
+    <script src="index.js"></script>
+
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div class="dropdown">
+        <button class="dropbtn">Menu</button>
+        <div class="dropdown-content">
+            <form id="form">
+                Size
+                <div class="container">
+                    <input type="range" class="slider" style="position: relative;" id="size" min="1" max="50" value=20>
+                </div>
+
+                Angle
+                <div>
+                    <label class="switch clr" style="width: 50%!important;">
+                        <input type="checkbox" id="randomm" style="position: relative" checked>
+                        <span class="slider rr"></span>
+                    </label>
+
+                    <input type="range" class="slider" style="position: relative; width: 50%!important;" id="theta" min="1" max="63" value=20>
+                </div>
+
+                Force
+                <div class="container">
+                    <input type="range" class="slider" style="position: relative;" id="force" min="80" max="100" value=90>
+                </div>
+
+                Drag
+                <div class="container">
+                    <input type="range" class="slider" style="position: relative;" id="drag" min="1" max="30" value=15>
+                </div>
+
+                Size Scalar
+                <div class="container">
+                    <input type="range" class="slider" style="position: relative;" id="sizescalar" min="95" max="100" value=97>
+                </div>
+
+                <select id="mySelect" style="border: 0; margin-bottom: -2px;">
+                    <option selected>Circle</option>
+                    <option>Triangle</option>
+                    <option>Square</option>
+                    <option>VerticalLine</option>
+                    <option>HorizontalLine</option>
+                    <option>Potato</option>
+                </select>
+
+                <label class="switch clr">
+                    <input type="checkbox" id="myred" checked>
+                    <span class="slider r"></span>
+                </label>
+                <label class="switch clr">
+                    <input type="checkbox" id="mygreen" checked>
+                    <span class="slider g"></span>
+                </label>
+                <label class="switch clr">
+                    <input type="checkbox" id="myblue" checked>
+                    <span class="slider b"></span>
+                </label>
+            </form>
+        </div>
+
+    </div>
+</body>
